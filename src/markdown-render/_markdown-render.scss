@@ -1,0 +1,101 @@
+.markdown-render {
+    position: relative;
+    word-wrap: break-word;
+    transition: all 0.2s;
+    img {
+        margin: auto;
+        max-width: 100%;
+    }
+    .gg-slides-container {
+        position: relative;
+        width: 100%;
+        .full-screen {
+            z-index: 3;
+            display: inline-block;
+            //margin: 0.5em auto;
+            position: absolute;
+            color: #424242;  
+            top: -2em;
+            left: -8em;
+            width: 3em;
+            height: 3em;
+            border-radius: 1em;
+            min-width: 0;
+            text-align: center;
+            padding: 0.5em;
+            font: {
+                size: 0.6em;
+            }      
+        }
+        .gg-slides {
+            display: block;
+            margin: 3em 0 5em;
+            position: relative;
+            width: 100%;
+            padding-top: 60.25%;
+            overflow: hidden;
+            border: none;
+            background: transparent;
+            text-align: middle;
+            transform: scale(1.1);
+            iframe {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: none;
+                top: 0;
+                left: 0;
+                transform: scale(1.01);
+            }   
+        }
+    }
+    
+    h2 {
+        display: inline-block;
+        border-bottom: 1px solid lightgrey;
+    }
+    .to-download {
+        position: relative;
+        display: block;
+        margin: 0.5em 3em 0.5em 4em;
+        box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+        background: white;
+        line-height: 1;
+        text-align: center;
+        border: none;
+        border-radius: 0;
+        box-sizing: border-box;
+        padding: 0.8em 1em;
+        font: {
+            family: 'Baloo Chettan 2', sans-serif;
+            size: 1em;
+            weight: 600;
+        }
+        span {
+            text-overflow: ellipsis;
+            overflow: hidden; 
+            white-space: nowrap;
+            i {
+                background: -webkit-linear-gradient(#5c6bc0, #283593);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        a {
+            position: absolute;
+            left: -1em;
+            bottom: 50%;
+            margin-bottom: -1em;
+            z-index: 3;
+            border-radius: 1em;
+            width: 2em;
+            height: 2em;
+            padding: 0;
+            min-width: 0;
+            vertical-align: middle;
+            background: linear-gradient(to bottom, white 0%, whitesmoke 100%);
+            border: none;
+            box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+        }
+    }
+}

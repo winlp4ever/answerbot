@@ -1,0 +1,110 @@
+.bob {
+    .history-bookmarks {
+        height: calc(600px - 3.6em);
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.5em 1em;
+        .bob-bookmarks {
+            position: relative;
+            
+            overflow-y: scroll;
+            word-wrap: break-word;
+            height: 40%;
+            margin-bottom: 1em;
+            line-height: 1.2;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            h4 {
+                display: block;
+                overflow-wrap: break-word;
+                margin: 0.25em 0;
+                img {
+                    height: 1.2em;
+                    vertical-align: middle;
+                }
+            }
+            .old-bookmark {
+                max-height: 200px;
+                max-width: 100%;
+                overflow-y: scroll;
+                box-sizing: border-box;
+                padding: 0.25em 0.5em;
+                border-radius: 0.25em;
+                background: #fffde7;
+                line-height: 1.2;
+                margin-bottom: 0.5em;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                span {
+                    font-size: 0.8em;
+                }
+                .q_ {
+                    font-weight: 600;
+                }
+            }
+        }
+        .bob-history {
+            position: relative;
+            
+            overflow-y: scroll;
+            word-wrap: break-word;
+            max-height: 60%;
+            box-sizing: border-box;
+            padding: 0 0.2em;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            h4 {
+                display: block;
+                overflow-wrap: break-word;
+                margin: 0.25em 0;
+                img {
+                    height: 1.2em;
+                    vertical-align: middle;
+                }
+            }
+            .old-question {
+                line-height: 1.2;
+                span {
+                    display: inline-block;
+                    font-size: 0.8em;
+                    line-height: 1.2;
+                    box-sizing: border-box;
+                    padding: 0.2em 0.25em;
+                    border-radius: 0.5em;
+                    margin: 0.1em;
+                    overflow-wrap: break-word;
+                    &.time {
+                        color: grey;
+                        font-weight: 700;
+                        font-size: 0.65em;
+                    }
+                    &.old-q {
+                        font-weight: 600;
+                    }
+                }
+                .ans {
+                    box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+                    overflow-y: scroll;
+                    overflow-wrap: break-word;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    padding: 0.1em 0;
+                    border-radius: 0.25em;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .title {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

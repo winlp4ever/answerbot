@@ -1,0 +1,70 @@
+.auth {
+    width: 20%;
+    top: 0.5em;
+    right: 3%;
+    z-index: 100;
+    position: fixed;
+    box-sizing: border-box;
+    .auth-line {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        i {
+            display: inline-block;
+            font-size: 1.2em;
+            padding: 0.8em 0.8em 0.2em;
+        }
+        .MuiFormControl-root {
+            label, span, input {
+                font-size: 0.8em;
+            }
+            .focused {
+                color: black;
+            }
+        }
+    }
+    button {
+        position: relative;
+        border-radius: unset;
+        font-size: 0.6em;
+        letter-spacing: 0px;
+        margin: 0.5em auto;
+        min-width: 100px;
+        left: 50%;
+        margin-left: -50px;
+    }
+}
+
+.user-panel {
+    z-index: 10;
+    position: fixed;
+    right: 5%;
+    top: 0.2em;
+    span {
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 0.9em;
+        font-family: 'Baloo Chettan 2';
+        font-weight: 600;
+        margin: 0.2em 0.5em;
+        color: #424242;
+    }
+    .ava {
+        height: 1.8em;
+        width: 1.8em;
+        text-align: center;
+        vertical-align: middle;
+        line-height: normal;
+        border-radius: 50%;
+        color: whitesmoke;
+        font-size: 1em;
+        font-weight: 400;
+        padding: 0.3em 0 0;
+    }
+    button {
+        i {
+            font-size: 1.2em;
+        }
+    }
+    
+}

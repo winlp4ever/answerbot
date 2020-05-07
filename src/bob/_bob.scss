@@ -1,0 +1,246 @@
+@keyframes msg-appear {
+    0% {opacity: 0; transform: scale(1.2)}
+    100% {opacity: 1; transform: scale(1)}
+}
+
+@keyframes msg-disappear {
+    0% {opacity: 1}
+    100% {opacity: 0}
+}
+
+.bob-container {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    padding-right: 4em;
+    box-sizing: border-box;
+    .bob-ava {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        box-sizing: border-box;
+        padding: 0.5em;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
+        img {
+            display: block;
+            height: 2em;
+        }
+        .notif-res {
+            position: absolute;
+            top: -0.2em;
+            display: block;
+            left: 0;
+            width:1em;
+            height: 1em;
+            border-radius: 0.5em;
+            background: #f44336;
+            
+        }
+    }
+    .bob {
+        position: relative;
+        margin-bottom: 0.25em;
+        width: 400px;
+        height: 600px;
+        box-shadow: 0 12px 28px 0 rgba(0,0,0,.2),0 2px 4px 0 rgba(0,0,0,.1);
+        box-sizing: border-box;
+        padding: 3.6em 0.25em 0 0.25em;
+        border-radius: 0.8em;
+        background: white;
+        font-family: 'Baloo Bhaina 2', sans-serif;
+        font-size: 1.1em;
+        .instant-answer {
+            position: absolute;
+            bottom: 4em;
+            right: -2em;
+            line-height: 1.25;
+            text-align: right;
+            font-size: 0.85em;
+            span {
+                display: block;
+                box-sizing: border-box;
+                padding: 0.5em 1em;
+                border-radius: 0.8em;
+                width: 400px;
+            }
+            .msg {
+                color: #424242;
+                font-weight: 600;
+                background: white;
+                width: 300px;
+                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                animation: 0.25s msg-appear 0s 1,
+                    1s msg-disappear 7s 1;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -0.5em;
+                    right: 1em;
+                    border-right: 0.2em solid transparent;
+                    border-left: 1.2em solid transparent;
+                    border-top: 0.5em solid white;
+                }
+            }
+        }
+        .minimize-window {
+            min-width: 0;
+            position: absolute;
+            top: 0em;
+            right: 0.8em;
+            background: white;
+            opacity: 0.5;
+            transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+            z-index: 10;
+            svg {
+                color: #424242;
+                font-size: 1em;
+            }
+            &:hover {
+                opacity: 1;
+                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+            }
+        }
+        &:not(.minimal) {
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 1.5em;
+                right: -0.6em;
+                border-top: 1.2em solid transparent;
+                border-bottom: 0.3em solid transparent;
+                border-left: 0.6em solid white;
+            }
+        }
+        &.minimal {
+            width: auto;
+            height:auto;
+            box-sizing: border-box;
+            padding: 0.1em;
+            border-radius: 1.5em;
+            .new-chat {
+                position: relative;
+                right: 0;
+                display: flex;
+                flex-direction: row;
+                box-sizing: border-box;
+                padding: 0em 0 0;
+                
+                margin: auto;
+    
+                textarea {
+                    position: relative;
+                    margin: 0 0.3em;
+                    display: block;
+                    width: 125px;
+                    box-sizing: border-box;
+                    padding: 0.5em 0.25em;
+                    outline: none;
+                    font: {
+                        family: 'Baloo Bhaina 2', sans-serif;
+                        size: 0.8em;
+                    }
+                    border-radius: 1.5em;
+                    resize: unset;
+                    border: none;
+                    background: white;
+                    transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+                    line-height: 1.6;
+                    &.textin {
+                        width: 250px;
+                    }
+                    &:focus {
+                        width: 250px;
+                    }
+                }
+                button {
+                    position: relative;
+                    bottom: 0;
+                    min-width: 0;
+                    border-radius: 50%;
+                    
+                    display: block;
+                    margin: auto 0;
+                    padding: 0.5em;
+                    span {
+                        display: block;
+                    }
+                    img {
+                        display: block;
+                        margin: auto;
+                        height: 1.5em;
+                        filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                    }
+                    &.show-hints {
+                        //background: #bbdefb;
+                        position: relative;
+                        transition: 0.35s all cubic-bezier(0, 0, 0.2, 1);
+        
+                        &.not-show {
+                            background: white;
+                            img {
+                                filter: grayscale(100%);
+                            }
+                        }
+                        &.hinting {
+                            //background: linear-gradient()
+                            background: #bbdefb
+                            
+                        }
+                    }
+                }
+                .question-hints {
+                    position: absolute;
+                    z-index: 10;
+                    bottom: 3.6em;
+                    width: 300px;
+                    left: 0.75em;
+                    background: white;
+                    box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
+                    box-sizing: border-box;
+                    padding: 0.5em 0.5em;
+                    border-radius: 1em;
+                    animation: hints-appear 0.35s cubic-bezier(0, 0, 0.2, 1);
+                    transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+                    .hint {
+                        font-size: 0.8em;
+                        line-height: 1.5;
+                        box-sizing: border-box;
+                        padding: 0.2em 0.5em;
+                        border-radius: 0.5em;
+                        border:1px solid transparent;
+                        transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+                        span {
+                            //display: inline-block;
+                            //box-sizing: border-box;
+                            padding: 0.2em;
+                            &.similarity-score {
+                                color: #00c853;
+                            }
+                        }
+                        &.focus {
+                            background: #e3f2fd;
+                            color: #2962ff;
+                        }
+                        &.auto-complete {
+                            border:1px solid lightgrey;
+                        }
+                    }
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        left: 1em;
+                        width: 0;
+                        height: 0;
+                        bottom: -0.6em;
+                        border-left: solid 0.25em transparent;
+                        border-right: solid 1.5em transparent;
+                        border-top: solid 0.6em white;
+                        //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                    }
+                }
+            }
+        }
+    }
+}
