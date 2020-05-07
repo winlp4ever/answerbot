@@ -1,9 +1,11 @@
 body, html, #main {
+    position: relative;
     margin: 0;
     padding: 0;
-    width: 400px;
-    height: 600px;
+    width: 500px;
+    height: 650px;
     background: transparent;
+    border: 1px solid lightgrey;
     font: {
         size: 19px;
         family: 'Baloo Chettan 2', sans-serif;
