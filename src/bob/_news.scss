@@ -2,7 +2,7 @@
     .bob {
         .bob-news {
             position: relative;
-            height: calc(600px - 4.5em);
+            height: calc(500px - 4.5em);
             overflow-y: scroll;
             
             box-sizing: border-box;
@@ -39,7 +39,6 @@
                 font-size: 0.7em;
                 line-height: 1.2;
                 text-transform: unset;
-                font-family: 'Vollkorn', serif;
                 letter-spacing: unset;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                 &.with-img {

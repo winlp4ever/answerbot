@@ -6,3 +6,4 @@ aws-credentials/*
 db-credentials
 nlp/**/*.ipynb
 azure-credentials/*
+.vscode/*
