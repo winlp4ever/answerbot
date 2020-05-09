@@ -39,11 +39,11 @@ const Options = [
         cl: 'view-ask'
     },
     {
-        icon: <img src={require('../../imgs/bob/bookmark.svg')}/>,
+        icon: <img src={require('../../imgs/bob/clock.svg')}/>,
         cl: 'view-bookmarks'
     },
     {
-        icon: <img src={require('../../imgs/bob/compass.svg')}/>,
+        icon: <img src={require('../../imgs/bob/feed.svg')}/>,
         cl: 'view-explore'
     },
     {
