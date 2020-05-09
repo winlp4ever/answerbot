@@ -29,6 +29,7 @@ import BobMenu from './menu';
 import Ask, {NewChat} from './ask';
 import HistoryBookmarks from './history-bookmarks';
 import News from './news';
+import Auth from '../user-auth/user-auth';
 
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 

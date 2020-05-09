@@ -156,13 +156,5 @@ app.post('/post-news', (req, res) => {
 // on terminating the process
 process.on('SIGINT', _ => {
     console.log('now you quit!');
-
-    for (const id in posts) {
-        let name = posts[id].fn;
-        delete posts[id].fn;
-        delete posts[id].article;
-        fs.writeFileSync(path.join(postsPath, 'postinfo', name + '.json'), JSON.stringify(posts[id], undefined, 4));
-        console.log(path.join(postsPath, 'postinfo', name + '.json'));
-    }
     process.exit();
 })
