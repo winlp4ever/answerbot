@@ -39,7 +39,7 @@ const Options = [
         cl: 'view-ask'
     },
     {
-        icon: <img src={require('../../imgs/bob/clock.svg')}/>,
+        icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
         cl: 'view-bookmarks'
     },
     {

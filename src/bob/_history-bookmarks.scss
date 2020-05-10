@@ -6,7 +6,7 @@
         justify-content: end;
         width: 100%;
         box-sizing: border-box;
-        padding: 0.5em 1em;
+        padding: 0.25em 0.5em;
         .bob-bookmarks {
             position: relative;
             
@@ -22,9 +22,13 @@
                 display: block;
                 overflow-wrap: break-word;
                 margin: 0.25em 0;
+                font-size: 0.8em;
+                font-weight: 600;
+                color: #424242;
                 img {
-                    height: 1.2em;
+                    height: 1em;
                     vertical-align: middle;
+                    margin-right: 0.25em;
                 }
             }
             .old-bookmark {
@@ -55,7 +59,6 @@
             word-wrap: break-word;
             max-height: 60%;
             box-sizing: border-box;
-            padding: 0 0.2em;
             
             &::-webkit-scrollbar {
                 display: none;
@@ -64,9 +67,13 @@
                 display: block;
                 overflow-wrap: break-word;
                 margin: 0.25em 0;
+                font-size: 0.8em;
+                font-weight: 600;
+                color: #424242;
                 img {
-                    height: 1.2em;
+                    height: 1em;
                     vertical-align: middle;
+                    margin-right: 0.25em;
                 }
             }
             .old-question {
