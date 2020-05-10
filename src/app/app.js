@@ -63,13 +63,7 @@ export default class App extends Component {
 
         return (
             <userContext.Provider value={value}>
-                {
-                    (this.state.user.username != '') ? <div>
-                        <Bob />
-                    </div>: null
-                }
-                <Auth />
-                
+                <Bob />
             </userContext.Provider>
         )
     }

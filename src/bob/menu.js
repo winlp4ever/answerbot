@@ -9,9 +9,19 @@ import Auth from '../user-auth/user-auth';
 import { userContext } from '../user-context/user-context';
 
 const BobMenu = ({options, activeTab, changeTab}) => {
+    const [viewUserInfo, setViewUserInfo] = useState(false);
+
+    const toggleViewUserInfo = () => {
+        setViewUserInfo(!viewUserInfo);
+    }
+
     const Us = useContext(userContext);
     return <div className='bob-menu'>
-        <Button className='user' startIcon={<AccountCircleIcon />}>
+        <Button 
+            className='user' 
+            startIcon={<AccountCircleIcon />}
+            onClick={toggleViewUserInfo}
+        >
             {Us.user.username}
         </Button>
         {options.map((o, id) => <Button 
@@ -21,6 +31,9 @@ const BobMenu = ({options, activeTab, changeTab}) => {
         >
             {o.icon}
         </Button>)}
+        {viewUserInfo? <div className='user-info'>
+            <Auth />
+        </div>: null}
     </div>
 }
 

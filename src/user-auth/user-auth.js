@@ -66,14 +66,12 @@ const Auth = () => {
     return (   
         <div className={cl} onKeyPress={handleEnter}>
             <div className='auth-line'>
-                <Icon iconName='FollowUser'/>
                 <TextField label={err != ''? '*'+err: 'username'} onChange={handleUsername}/>
             </div>
             <div className='auth-line'>
-                <Icon iconName='PasswordField' />
                 <TextField label='password' onChange={handlePass} type='password'/>
             </div>
-            <Button variant='outlined' startIcon={<Icon iconName='Signin'/>} onClick={handleSubmit}>Log In</Button>
+            <Button variant='outlined' onClick={handleSubmit}>Log In</Button>
         </div>
     )
 }
