@@ -26,63 +26,7 @@
             flex-direction: column;
             justify-content: end;
             width: 100%;
-            .answer-insights {
-                z-index: 100;
-                position: absolute;
-                box-sizing: border-box;
-                padding: 0.5em 1em;
-                border-radius: 1em;
-                bottom: 13em;
-                left: -580px;
-                width: 600px;
-                background: white;
-                box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
-                font-size: 0.8em;
-                line-height: 1.4;
-                color: #424242;
-                animation: hints-appear 0.35s cubic-bezier(0, 0, 0.2, 1);
-                
-                .full-answer, .orientation {
-                    box-sizing: border-box;
-                    padding: 0.5em;
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-                    max-height: 400px;
-                    overflow-y: scroll;
-                    overflow-wrap: break-word;
-                    h4 {
-                        display: block;
-                        line-height: 1.6;
-                        box-sizing: border-box;
-                        padding: 0.2em 0em;
-                        margin: 0;
-                        img {
-                            height: 1.6em;
-                            vertical-align: middle;
-                        }
-                    }
-                    span {
-                        display: inline-block;
-                        box-sizing: border-box;
-                        padding: 0.2em 0.5em;
-                        border: 1px solid lightgrey;
-                        border-radius: 0.8em;
-                    }
-                }
-                &:before {
-                    content: '';
-                    position: absolute;
-                    right: -0.6em;
-                    width: 0;
-                    height: 0;
-                    bottom: 1.5em;
-                    border-top: solid 1em transparent;
-                    border-bottom: solid 0.6em transparent;
-                    border-left: solid 0.6em white;
-                    //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-                }
-            }
+            
             .new-chat {
                 position: relative;
                 right: 0;

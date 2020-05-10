@@ -1,14 +1,26 @@
-body, html, #main {
+html {
+    display: block;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: row;
     position: relative;
-    margin: 0;
     padding: 0;
-    width: 500px;
-    height: 550px;
+    margin: 0;
+    width: auto;
+    height: auto;
     background: transparent;
+    border: 1px solid lightgrey;
     font: {
         size: 17px;
         family: 'Nunito', sans-serif;
     }
+}
+
+#main {
+    margin-left: auto;
+    padding: 1em;
 }
 
 a {

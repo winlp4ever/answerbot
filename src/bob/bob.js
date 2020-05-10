@@ -52,6 +52,19 @@ const Options = [
     },
 ]
 
+const AnswerInsights = ({content}) => {
+    return <div className='answer-insights'>
+        <div className='full-answer'>
+            <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
+            {content.text}
+        </div>
+        <div className='orientation'>
+            <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore more:</h4>
+            {content.answer[12]? <span>{content.answer[12]}</span>: null}
+        </div>
+    </div>
+}
+
 
 export default class Bob extends Component {
     static contextType = userContext;
@@ -64,7 +77,13 @@ export default class Bob extends Component {
         minimal: true,
         newResponseComing: false,
         instantAnswer: '',
-        instantAnswerMsgEnable: false 
+        instantAnswerMsgEnable: false, 
+        insight: null
+    }
+
+    _setInsight = (cnt) => {
+        this.setState({insight: cnt});
+        console.log(this.state.insight);
     }
 
     componentDidMount () {
@@ -141,6 +160,8 @@ export default class Bob extends Component {
                 socket={this.state.socket}
                 chats={this.state.chats}
                 hints={this.state.hints}
+                setInsight={this._setInsight}
+                insight={this.state.insight}
             />
         } else if (this.state.tab == 1) {
             main = <HistoryBookmarks/>
@@ -149,6 +170,7 @@ export default class Bob extends Component {
         }
 
         return <div className='bob-container'>
+            {this.state.insight? <AnswerInsights content={this.state.insight} setContent={this._setInsight}/>: null}
             <div className='bob-ava' onClick={this.toggleMode}>
                 {this.state.newResponseComing? <span className='notif-res'>
                 </span>: null}

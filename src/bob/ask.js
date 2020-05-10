@@ -85,26 +85,12 @@ const RelatedQuestions = ({qs, socket}) => {
     </div>
 }
 
-const AnswerInsights = ({content}) => {
-    return <div className='answer-insights'>
-        <div className='full-answer'>
-            <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
-            {content.text}
-        </div>
-        <div className='orientation'>
-            <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore more:</h4>
-            {content.answer[12]? <span>{content.answer[12]}</span>: null}
-        </div>
-    </div>
-}
-
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext);
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u);
     const [mini, setMini] = useState(false);
-
     const togglePin = () => {
         if (pin) {
             let dct = Us.user;
@@ -315,12 +301,6 @@ const Welcome = () => {
 }
 
 const Ask = (props) => {
-    const [ins, setIns] = useState(null);
-    
-    const setIns_ = (cnt) => {
-        setIns(cnt);
-    }
-
     let chatSegments = [];
     let segment = [];
     let currentUser = '';
@@ -338,11 +318,11 @@ const Ask = (props) => {
     if (segment) chatSegments.push(segment);
 
     return <div className='ask'>
-        {ins? <AnswerInsights content={ins} setContent={setIns}/>: null}
+        
         <div className='old-chats'>
             {props.chats.length == 0? <Welcome />: null}
             {chatSegments.map((p, id) => {
-                return <ChatSegment key={id} chats={p} socket={props.socket} setIns={setIns_}/>
+                return <ChatSegment key={id} chats={p} socket={props.socket} setIns={props.setInsight}/>
             })}
         </div>
         <NewChat socket={props.socket} hints={props.hints}/>
@@ -350,4 +330,4 @@ const Ask = (props) => {
 }
 
 export default Ask;
-export { NewChat, AnswerInsights };
+export { NewChat };
