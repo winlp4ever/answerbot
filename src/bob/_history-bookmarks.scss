@@ -15,6 +15,7 @@
             height: 40%;
             margin-bottom: 1em;
             line-height: 1.2;
+            border-bottom: 1px solid lightgrey;
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -78,20 +79,30 @@
                 }
             }
             .old-question {
+                position: relative;
                 line-height: 1.2;
+                margin-top: 0.25em;
                 span {
+                    position: relative;
                     display: inline-block;
                     font-size: 0.8em;
                     line-height: 1.2;
                     box-sizing: border-box;
-                    padding: 0.2em 0.25em;
-                    border-radius: 0.5em;
+                    padding: 0.2em 0.5em;
+                    border-radius: 1em;
                     margin: 0.1em;
                     overflow-wrap: break-word;
+                    background: whitesmoke;
                     &.time {
+                        position: absolute;
+                        top: -2em;
+                        right: 50%;
+                        transform: translateX(50%);
                         color: grey;
                         font-weight: 700;
                         font-size: 0.65em;
+                        border-radius: 0;
+                        background: white;
                     }
                     &.old-q {
                         font-weight: 600;
