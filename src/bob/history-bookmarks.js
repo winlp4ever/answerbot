@@ -4,20 +4,26 @@ import './_history-bookmarks.scss';
 
 import {AnswerInsights} from './ask';
 
-const History = ({history}) => {
+const History = (props) => {
     const user = useContext(userContext).user;
     return <div className='bob-history'>
         <h4><img src={require('../../imgs/bob/clock.svg')}/> History:</h4>
         {user.history.map((q, id) => {
             return <div key={id} className='old-question'>
                 <span className='time'>At {q.datetime}, you have asked:</span>
-                <span className='old-q'>{q.original_question}</span>
+                <span 
+                    onMouseEnter={_ => props.setInsight(q)} 
+                    onMouseLeave={_ => props.setInsight(null)}
+                    className='old-q'
+                >
+                    {q.original_question}
+                </span>
             </div>
         })}
     </div>
 }
 
-const Bookmarks = ({bookmarks}) => {
+const Bookmarks = (props) => {
     const user = useContext(userContext).user;
 
     let bms = [];
@@ -29,7 +35,12 @@ const Bookmarks = ({bookmarks}) => {
         <h4><img src={require('../../imgs/bob/bmk.svg')}/> Bookmarks:</h4>
         {bms.map((b, id) => {
             return <div key={id} className='old-bookmark'>
-                <span className='q_'>{b.original_question}</span>
+                <span 
+                    onMouseEnter={_ => props.setInsight(b)} 
+                    onMouseLeave={_ => props.setInsight(null)}
+                    className='q_'>
+                    {b.original_question}
+                </span>
             </div>
         })}
     </div>
@@ -37,8 +48,15 @@ const Bookmarks = ({bookmarks}) => {
 
 const HistoryBookmarks = (props) => {
     return <div className='history-bookmarks'>
-        <Bookmarks bookmarks={props.bookmarks}/>
-        <History history={props.history}/>
+        <Bookmarks 
+            bookmarks={props.bookmarks}
+            setInsight={props.setInsight}
+            insight={props.insight}
+        />
+        <History history={props.history}
+            setInsight={props.setInsight}
+            insight={props.insight}
+        />
     </div>
 }
 

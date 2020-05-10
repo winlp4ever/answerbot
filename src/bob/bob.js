@@ -164,7 +164,10 @@ export default class Bob extends Component {
                 insight={this.state.insight}
             />
         } else if (this.state.tab == 1) {
-            main = <HistoryBookmarks/>
+            main = <HistoryBookmarks
+                setInsight={this._setInsight}
+                insight={this.state.insight}
+            />
         } else if (this.state.tab == 2) {
             main = <News />
         }
