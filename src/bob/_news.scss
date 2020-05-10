@@ -2,7 +2,7 @@
     .bob {
         .bob-news {
             position: relative;
-            height: calc(500px - 4.5em);
+            height: calc(500px - 3.6em);
             overflow-y: scroll;
             
             box-sizing: border-box;
@@ -32,18 +32,15 @@
             .new {
                 position: relative;
                 box-sizing: border-box;
-                padding: 1em 1em 1em 1.5em;
+                padding: 0.25em 0.5em;
                 margin: 0.5em 0;
                 display: block;
-                border-radius: 0;
                 font-size: 0.7em;
                 line-height: 1.2;
                 text-transform: unset;
                 letter-spacing: unset;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                &.with-img {
-                    padding: 1em 0.5em;
-                }
+                border-bottom: 1px dashed lightgrey;
                 h3 {
                     display: block;
                     text-transform: uppercase;
@@ -79,17 +76,6 @@
                     right: 1em;
                     bottom: 10%;
                     border-radius: 0.5em;
-                }
-                
-                &:after {
-                    width: 250px;
-                    height: 1px;
-                    content: '';
-                    left: 50%;
-                    margin-left: -125px;
-                    background: lightgrey;
-                    position: absolute;
-                    bottom: 0;
                 }
             }
         }
