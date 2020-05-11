@@ -42,11 +42,13 @@ const Bookmarks = (props) => {
     return <div className='bob-bookmarks'>
         <h4><img src={require('../../imgs/bob/bmk.svg')}/> Bookmarks:</h4>
         {bms.map((b, id) => {
-            return <div key={id} className='old-bookmark'>
-                <span 
-                    onMouseEnter={_ => props.setInsight(b)} 
-                    onMouseLeave={_ => props.setInsight(null)}
-                    className='q_'>
+            return <div 
+                key={id} 
+                className='old-bookmark'
+                onMouseEnter={_ => props.setInsight(b)} 
+                onMouseLeave={_ => props.setInsight(null)}
+            >
+                <span className='q_'>
                     {b.original_question}
                 </span>
             </div>

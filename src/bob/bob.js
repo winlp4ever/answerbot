@@ -53,7 +53,6 @@ const Options = [
 ]
 
 const AnswerInsights = ({content}) => {
-    console.log(content);
     return <div className='answer-insights'>
         <div className='full-answer'>
             <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
@@ -83,7 +82,9 @@ export default class Bob extends Component {
     }
 
     _setInsight = (cnt) => {
-        this.setState({insight: cnt});
+        if (cnt == null) this.setState({insight: null});
+        else if (cnt.answer == null) this.setState({insight: null});
+        else this.setState({insight: cnt});
         console.log(this.state.insight);
     }
 
