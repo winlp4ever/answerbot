@@ -2,8 +2,6 @@ import React, {Component, useState, useContext, useRef} from 'react';
 import { userContext } from '../user-context/user-context';
 import './_history-bookmarks.scss';
 
-import {AnswerInsights} from './ask';
-
 const OldQ = (props) => {
     const [viewTime, setViewTime] = useState(false);
     const toggleViewTime = () => setViewTime(!viewTime);
