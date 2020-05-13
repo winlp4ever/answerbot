@@ -59,6 +59,8 @@ def disconnect():
     print('disconnected from server')
 
 def getRelatedQuestions(id):
+    if id == -1:
+        return []
     while True:
         try:
             conn = psycopg2.connect (
@@ -71,7 +73,7 @@ def getRelatedQuestions(id):
             sleep(0.5)
             continue
         break
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(''' 
         select question_graph.id_target as trg, question.question_normalized
         from 
@@ -89,7 +91,7 @@ def getRelatedQuestions(id):
         where question_graph.id_origin=%s
     ''', [str(id)])
     res = cur.fetchall()
-    print(res)
+    print()
     return res
 
 def get_answer(old_msg):
@@ -109,6 +111,9 @@ def get_answer(old_msg):
     ans = {}
     msg = template.copy()
     res = {}
+
+    sol_id = -1
+
     if qs and qs[0][2] > 0.9:
         while True:
             try:
@@ -123,9 +128,9 @@ def get_answer(old_msg):
                 continue
             break
         print('what the hell')
-        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute('''
-            select answer_temp.*
+            select answer_temp.*, question_answer_temp.question_id as qid
             from 
                 question_answer_temp
             inner join 
@@ -145,6 +150,10 @@ def get_answer(old_msg):
         ans = cur.fetchone()
         ans_ = ans.copy() if ans else None
         possible_res = []
+        
+        if ans:
+            print(ans) 
+            sol_id = ans['qid']
         while ans:
             if ans['answer_level'] == old_msg['chat']['user']['level']:
                 possible_res.append(ans)
@@ -161,7 +170,8 @@ def get_answer(old_msg):
         conn.close()
     
     print('responded.')
-    msg['related_questions'] = getRelatedQuestions(qs[0][0])
+    print(sol_id)
+    msg['related_questions'] = getRelatedQuestions(sol_id)
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
     msg['answer'] = res
