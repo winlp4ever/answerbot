@@ -58,17 +58,39 @@ def on_message(msg):
 def disconnect():
     print('disconnected from server')
 
-def getRelatedQuestions(q):
-    headers = {"Ocp-Apim-Subscription-Key": azureConfig['key']}
-    params = {"q": q, "textDecorations": True, "textFormat": "HTML"}
-    try:
-        response = requests.get(azureConfig['endpoint'], headers=headers, params=params)
-        response.raise_for_status()
-        search_results = response.json()
-        return search_results['relatedSearches']['value'][:5]
-    except Exception as e:
-        print(e)
-        return []
+def getRelatedQuestions(id):
+    while True:
+        try:
+            conn = psycopg2.connect (
+                host=dbconfig['host'], database=dbconfig['database'],
+                user=dbconfig['user'], password=dbconfig['password'], port=dbconfig['port'],
+                connect_timeout=2
+            )
+        except Exception as e:
+            print(e)
+            sleep(0.5)
+            continue
+        break
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute(''' 
+        select question_graph.id_target as trg, question.question_normalized
+        from 
+            (
+                select distinct question_id 
+                from 
+                    question_answer_temp
+            ) as qs
+        inner join 
+            question_graph
+        on question_graph.id_target = qs.question_id 
+        inner join 
+            question 
+        on qs.question_id = question.id
+        where question_graph.id_origin=%s
+    ''', [str(id)])
+    res = cur.fetchall()
+    print(res)
+    return res
 
 def get_answer(old_msg):
     question = old_msg['chat']['text']
@@ -102,7 +124,24 @@ def get_answer(old_msg):
             break
         print('what the hell')
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute('select * from answer_temp, question_answer_temp where answer_temp.id=question_answer_temp.answer_temp_id and question_answer_temp.question_id = %s;', [str(qs[0][0])])
+        cur.execute('''
+            select answer_temp.*
+            from 
+                question_answer_temp
+            inner join 
+                answer_temp 
+            on question_answer_temp.answer_temp_id = answer_temp.id 
+            inner join 
+                question 
+            on 
+                (
+                    question_answer_temp.question_id = question.id 
+                    or question_answer_temp.question_id = question.question_equivalent
+                )
+            where question.id = %s
+            and answer_temp.answer_valid='1'
+            order by answer_rank;
+        ''', [str(qs[0][0])])
         ans = cur.fetchone()
         ans_ = ans.copy() if ans else None
         possible_res = []
@@ -111,7 +150,8 @@ def get_answer(old_msg):
                 possible_res.append(ans)
             ans = cur.fetchone()
         if possible_res:
-            res = possible_res[random.randint(0, len(possible_res)-1)]
+            #res = possible_res[random.randint(0, len(possible_res)-1)]
+            res = possible_res[0]
         else:
             res = ans_
         conn.commit()
@@ -121,7 +161,7 @@ def get_answer(old_msg):
         conn.close()
     
     print('responded.')
-    msg['related_questions'] = getRelatedQuestions(question)
+    msg['related_questions'] = getRelatedQuestions(qs[0][0])
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
     msg['answer'] = res
@@ -132,6 +172,8 @@ def get_answer(old_msg):
         'chat': msg,
         'conversationID': old_msg['conversationID']
     }
+
+    
 
 def get_hints(msg):
     question = msg['typing']

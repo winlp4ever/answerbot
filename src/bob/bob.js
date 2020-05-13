@@ -53,10 +53,11 @@ const Options = [
 ]
 
 const AnswerInsights = ({content}) => {
+    console.log(content.answer.answer_paragraph);
     return <div className='answer-insights'>
         <div className='full-answer'>
             <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
-            {content.answer.answer_paragraph}
+            {content.answer.answer_paragraph.replace('\\n', 'w')}
         </div>
         <div className='orientation'>
             <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore more:</h4>
