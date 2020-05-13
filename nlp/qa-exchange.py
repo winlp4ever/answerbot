@@ -91,7 +91,6 @@ def getRelatedQuestions(id):
         where question_graph.id_origin=%s
     ''', [str(id)])
     res = cur.fetchall()
-    print()
     return res
 
 def get_answer(old_msg):
@@ -127,7 +126,6 @@ def get_answer(old_msg):
                 sleep(0.5)
                 continue
             break
-        print('what the hell')
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute('''
             select answer_temp.*, question_answer_temp.question_id as qid
@@ -152,7 +150,6 @@ def get_answer(old_msg):
         possible_res = []
         
         if ans:
-            print(ans) 
             sol_id = ans['qid']
         while ans:
             if ans['answer_level'] == old_msg['chat']['user']['level']:
@@ -170,7 +167,6 @@ def get_answer(old_msg):
         conn.close()
     
     print('responded.')
-    print(sol_id)
     msg['related_questions'] = getRelatedQuestions(sol_id)
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
@@ -187,7 +183,7 @@ def get_answer(old_msg):
 
 def get_hints(msg):
     question = msg['typing']
-    if len(question) < 7:
+    if len(question) < 3:
         print('okk')
         return {
             'hints': [],
