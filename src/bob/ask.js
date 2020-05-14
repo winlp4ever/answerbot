@@ -129,11 +129,16 @@ const Answer = ({content, socket, setIns}) => {
     const [foc, setFoc] = useState(false);
     const [hov, setHov] = useState(false);
     const [firstRender, setFirstRender] = useState(false);
+    const [onceTime, setOnceTime] = useState(true);
+    const [showHelp, setShowHelp] = useState(false);
 
     useEffect(() => {
         setFirstRender(true);
     }, []);
     
+    useEffect(() => {
+        if (showHelp) setTimeout(()=> setShowHelp(false), 1200)
+    }, [showHelp]);
 
     const handleClick = () => {
         if (foc) setIns(null);
@@ -141,12 +146,22 @@ const Answer = ({content, socket, setIns}) => {
         setFoc(!foc);
     }
 
-    const handleHover = () => {
+    const handleMouseLeave = () => {
         if (!foc) {
-            if (hov) setIns(null);
-            else setIns(content);
+            setIns(null);
         }
-        setHov(!hov);
+        setShowHelp(false);
+    }
+
+    const handleMouseEnter = () => {
+        if (!foc) {
+            setIns(content);
+        }
+        if (!foc & onceTime) {
+            setShowHelp(true);
+            setOnceTime(false);
+        }
+
     }
 
     const togglePin = () => {
@@ -165,16 +180,18 @@ const Answer = ({content, socket, setIns}) => {
 
     return <div> 
         <Sound url={IncomingMsg} playStatus={firstRender? 'PLAYING': 'PAUSED'} onFinishedPlaying={_ => setFirstRender(false)}/>
+        
         <div className='chat'>
             <span className='text'>{content.text != '' ? 'I found something for you': 
                 'I have troubles getting an answer for your question'}</span>
         </div>
         {content.text != '' ? <div 
             className={'answer' + (foc? ' foc': '')} 
-            onMouseEnter={handleHover} 
-            onMouseLeave={handleHover}
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave}
             onClick={handleClick}
         >
+            {showHelp? <div className='help-info'>Click to focus!</div>: null}
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
