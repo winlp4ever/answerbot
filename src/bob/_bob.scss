@@ -18,7 +18,7 @@
     .answer-insights-container {
         position: relative;
         box-sizing: border-box;
-        padding: 0.5em;
+        padding: 1em;
         height: 500px;
         width: 300px;
         border-radius: 1em;
@@ -47,7 +47,7 @@
             position: relative;
             box-sizing: border-box;
             padding: 0.25em 0.5em;
-            
+            height: 100%;
             overflow-y: scroll;
             white-space: pre-line;
             overflow-wrap: break-word;

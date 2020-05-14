@@ -94,7 +94,7 @@ export default class Bob extends Component {
 
     componentDidMount () {
         this.state.socket.on('bob-msg', msg => {
-            if (msg.conversationID == this.context.user.userid) {
+            if (msg.conversationID & msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 let dct = this.context.user;
@@ -124,7 +124,7 @@ export default class Bob extends Component {
             }
         })
         this.state.socket.on('new-chat', msg => {
-            if (msg.conversationID == this.context.user.userid) {
+            if (msg.conversationID & msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 this.setState({chats: chats_, hints: []});
@@ -136,7 +136,7 @@ export default class Bob extends Component {
             }
         })
         this.state.socket.on('bob-hints', msg => {
-            if (msg.conversationID == this.context.user.userid) {
+            if (msg.conversationID & msg.conversationID == this.context.user.userid) {
                 this.setState({hints: msg.hints})
             }
         })
@@ -159,8 +159,10 @@ export default class Bob extends Component {
     }
 
     render() {
+        
         let main = null;
-        if (this.state.tab == 0) {
+        if (this.context.user.username == '') main = null;
+        else if (this.state.tab == 0) {
             main = <Ask 
                 socket={this.state.socket}
                 chats={this.state.chats}

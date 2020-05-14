@@ -91,7 +91,23 @@ const Answer = ({content, socket, setIns}) => {
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u);
-    const [mini, setMini] = useState(false);
+    const [foc, setFoc] = useState(false);
+    const [hov, setHov] = useState(false);
+
+    const handleClick = () => {
+        if (foc) setIns(null);
+        else setIns(content);
+        setFoc(!foc);
+    }
+
+    const handleHover = () => {
+        if (!foc) {
+            if (hov) setIns(null);
+            else setIns(content);
+        }
+        setHov(!hov);
+    }
+
     const togglePin = () => {
         if (pin) {
             let dct = Us.user;
@@ -105,7 +121,6 @@ const Answer = ({content, socket, setIns}) => {
         }
         setPin(!pin)
     };
-    const toggleMini = () => setMini(!mini);
 
     return <div> 
         <div className='chat'>
@@ -113,9 +128,10 @@ const Answer = ({content, socket, setIns}) => {
                 'I have troubles getting an answer for your question'}</span>
         </div>
         {content.text != '' ? <div 
-            className={'answer'} 
-            onMouseEnter={_ => setIns(content)} 
-            onMouseLeave={_ => setIns(null)}
+            className={'answer' + (foc? ' foc': '')} 
+            onMouseEnter={handleHover} 
+            onMouseLeave={handleHover}
+            onClick={handleClick}
         >
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 

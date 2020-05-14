@@ -22,15 +22,17 @@ const BobMenu = ({options, activeTab, changeTab}) => {
             startIcon={<AccountCircleIcon />}
             onClick={toggleViewUserInfo}
         >
-            {Us.user.username}
+            {Us.user.username==''? 'Please login': Us.user.username}
         </Button>
-        {options.map((o, id) => <Button 
-            key={id}
-            className={o.cl + (id == activeTab ? ' focus': '')}
-            onClick={_ => changeTab(id)}
-        >
-            {o.icon}
-        </Button>)}
+        {Us.user.username == ''? null: <div>
+            {options.map((o, id) => <Button 
+                key={id}
+                className={o.cl + (id == activeTab ? ' focus': '')}
+                onClick={_ => changeTab(id)}
+            >
+                {o.icon}
+            </Button>)}
+        </div>}
         {viewUserInfo? <div className='user-info'>
             <Auth />
         </div>: null}
