@@ -9,12 +9,47 @@ import RadioButtonCheckedRoundedIcon from '@material-ui/icons/RadioButtonChecked
 import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import $ from 'jquery';
+import Sound from 'react-sound';
 
 import './_ask.scss';
 import MdRender from '../markdown-render/markdown-render';
+import IncomingMsg from '../../sounds/incoming-msg.mp3';
+import IsTyping from '../../sounds/is-typing.mp3';
+import Lottie from 'react-lottie'
+import TypingIcon from '../../imgs/typing.json';
 
 import {getCurrentTime} from '../utils';
 
+class Typing extends Component {
+    state = {
+        times: 0
+    }
+
+    increment = () => {
+        this.setState({times: this.state.times+1})
+    }
+
+    render(){
+  
+        const defaultOptions = {
+            loop: true,
+            autoplay: true,
+            animationData: TypingIcon,
+            rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+            }
+        };
+  
+        return(
+            <div className='is-typing'>
+                {this.state.times >= 2? null: <Sound url={IsTyping} playStatus='PLAYING' 
+                    onFinishedPlaying={this.increment}/>}
+                <Lottie options={defaultOptions} width={50}/>
+            </div>
+        )
+    }
+}
+  
 const Chat = ({content}) => {
     return <div className='chat'>
         <span className='text'>{content.text}</span>
@@ -93,6 +128,12 @@ const Answer = ({content, socket, setIns}) => {
     const [pin, setPin] = useState(u);
     const [foc, setFoc] = useState(false);
     const [hov, setHov] = useState(false);
+    const [firstRender, setFirstRender] = useState(false);
+
+    useEffect(() => {
+        setFirstRender(true);
+    }, []);
+    
 
     const handleClick = () => {
         if (foc) setIns(null);
@@ -123,6 +164,7 @@ const Answer = ({content, socket, setIns}) => {
     };
 
     return <div> 
+        <Sound url={IncomingMsg} playStatus={firstRender? 'PLAYING': 'PAUSED'} onFinishedPlaying={_ => setFirstRender(false)}/>
         <div className='chat'>
             <span className='text'>{content.text != '' ? 'I found something for you': 
                 'I have troubles getting an answer for your question'}</span>
@@ -186,7 +228,6 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     const toggleHint = (i) => {
         setFocus(i);
     }
-    console.log(hints);
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 
@@ -341,6 +382,7 @@ const Ask = (props) => {
             {chatSegments.map((p, id) => {
                 return <ChatSegment key={id} chats={p} socket={props.socket} setIns={props.setInsight}/>
             })}
+            {props.isTyping? <Typing />: null}
         </div>
         <NewChat socket={props.socket} hints={props.hints}/>
     </div>

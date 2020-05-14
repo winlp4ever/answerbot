@@ -31,6 +31,7 @@ import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import Auth from '../user-auth/user-auth';
 
+
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 
 const Options = [
@@ -70,7 +71,6 @@ const AnswerInsights = ({content}) => {
     </div>
 }
 
-
 export default class Bob extends Component {
     static contextType = userContext;
     state = {
@@ -83,7 +83,8 @@ export default class Bob extends Component {
         newResponseComing: false,
         instantAnswer: '',
         instantAnswerMsgEnable: false, 
-        insight: null
+        insight: null,
+        isTyping: false
     }
 
     _setInsight = (cnt) => {
@@ -100,7 +101,7 @@ export default class Bob extends Component {
                 let dct = this.context.user;
                 dct.history.push(msg.chat);
                 this.context.updateUser(dct);
-
+                this.setState({isTyping: false})
                 if (this.state.minimal) {
                     this.setState({
                         chats: chats_, 
@@ -127,7 +128,7 @@ export default class Bob extends Component {
             if (msg.conversationID & msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
-                this.setState({chats: chats_, hints: []});
+                this.setState({chats: chats_, hints: [], isTyping: true});
                 if ($(".old-chats").length > 0) {
                     $(".old-chats").animate({
                         scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
@@ -169,6 +170,7 @@ export default class Bob extends Component {
                 hints={this.state.hints}
                 setInsight={this._setInsight}
                 insight={this.state.insight}
+                isTyping={this.state.isTyping}
             />
         } else if (this.state.tab == 1) {
             main = <HistoryBookmarks
