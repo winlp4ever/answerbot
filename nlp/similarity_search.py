@@ -32,7 +32,7 @@ class SimiSearch:
             "script_score": {
                 "query": {"match_all": {}},
                 "script": {
-                    "source": "return cosineSimilarity(params.query_vector, doc['vectorisation']);",
+                    "source": "return cosineSimilarity(params.query_vector, 'vectorisation');",
                     "params": {
                         "query_vector": query_vector
                     }

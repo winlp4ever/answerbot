@@ -144,7 +144,7 @@ app.post('/submit-answer-rating', (req, res) => {
 })
 
 app.post('/post-news', (req, res) => {
-    const query = 'data science, machine learning, deep learning';
+    const query = 'web development';
     utils.getNews(query, (ans)=> {
         console.log(ans);
         res.json(ans);
