@@ -75,7 +75,7 @@ def getRelatedQuestions(id):
         break
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(''' 
-        select question_graph.id_target as trg, question.question_normalized
+        select question_relations.id_target as trg, question.question_normalized
         from 
             (
                 select distinct question_id 
@@ -83,12 +83,12 @@ def getRelatedQuestions(id):
                     question_answer_temp
             ) as qs
         inner join 
-            question_graph
-        on question_graph.id_target = qs.question_id 
+            question_relations
+        on question_relations.id_target = qs.question_id 
         inner join 
             question 
         on qs.question_id = question.id
-        where question_graph.id_origin=%s
+        where question_relations.id_origin=%s
     ''', [str(id)])
     res = cur.fetchall()
     return res
@@ -154,6 +154,7 @@ def get_answer(old_msg):
                 ans = cur.fetchone()
             msg['answer'] = res
             msg['text'] = res['answer_paragraph'][:90]
+            sol_id = res['qid']
             if len(res['answer_paragraph']) > 90 and not msg['text'].endswith('..'):
                 msg['text'] += '...'
            
@@ -164,8 +165,9 @@ def get_answer(old_msg):
         
     
     print('responded.')
-    #msg['related_questions'] = getRelatedQuestions(sol_id)
-    msg['related_questions'] = []
+    msg['related_questions'] = getRelatedQuestions(sol_id)
+    print(msg['related_questions'])
+    #msg['related_questions'] = []
     msg['type'] = 'answer'
     
     msg['original_question'] = question
