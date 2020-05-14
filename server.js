@@ -59,8 +59,6 @@ client.connect();
 
 var usersPath = './users'
 
-
-
 var count = 0;
 var users = JSON.parse(fs.readFileSync(path.join(usersPath, 'users.json'))).users;
 var chats = {};
