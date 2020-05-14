@@ -63,6 +63,9 @@ const AnswerInsights = ({content}) => {
             <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore more:</h4>
             {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
         </div>
+        {content.answer.source? <div className='source'>
+            <a href={content.answer.source} >{content.answer.source}</a>
+        </div>: null}
     </div>
 }
 

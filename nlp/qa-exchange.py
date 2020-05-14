@@ -167,7 +167,8 @@ def get_answer(old_msg):
         conn.close()
     
     print('responded.')
-    msg['related_questions'] = getRelatedQuestions(sol_id)
+    #msg['related_questions'] = getRelatedQuestions(sol_id)
+    msg['related_questions'] = []
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
     msg['answer'] = res
