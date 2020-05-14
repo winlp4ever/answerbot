@@ -11,6 +11,7 @@ import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import $ from 'jquery';
 
 import './_ask.scss';
+import MdRender from '../markdown-render/markdown-render';
 
 import {getCurrentTime} from '../utils';
 
@@ -124,10 +125,9 @@ const Answer = ({content, socket, setIns}) => {
             </div>
             <span 
                 className='answer-text' 
-                dangerouslySetInnerHTML={{
-                    __html: '... ' + content.text
-                }}
-            />
+            > 
+                <MdRender source={content.text} />
+            </span>
         </div>:null}
         {content.text != ''? <RateTheAnswer />:null}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
@@ -170,6 +170,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     const toggleHint = (i) => {
         setFocus(i);
     }
+    console.log(hints);
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 

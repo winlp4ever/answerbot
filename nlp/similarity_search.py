@@ -12,7 +12,7 @@ class SimiSearch:
         self.tk = Token()
         self.bc = SentenceTransformer('bert-base-nli-mean-tokens')
         
-    def findSimQuestions(self, q: str, topk: int, minScore=0.7, isErr=[False]):
+    def findSimQuestions(self, q: str, topk: int, minScore=0.7):
         """
         Find similar questions based on cosine similarity to a question q and return top k results
         Params:

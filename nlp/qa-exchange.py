@@ -95,25 +95,22 @@ def getRelatedQuestions(id):
 
 def get_answer(old_msg):
     question = old_msg['chat']['text']
-    isErr = [False]
     global sim
-    qs = sim.findSimQuestions(question, 5, isErr=isErr)
-    if isErr[0]:
-        while True:
-            try:
-                sim = SimiSearch()
-            except Exception as e:
-                print(e)
-                sleep(2)
-                continue
-            break
-    ans = {}
-    msg = template.copy()
-    res = {}
+    qs = sim.findSimQuestions(question, 5)
+    print(qs)
+    while True:
+        try:
+            sim = SimiSearch()
+        except Exception as e:
+            print(e)
+            sleep(2)
+            continue
+        break
 
+    msg = template.copy()
     sol_id = -1
 
-    if qs and qs[0][2] > 0.9:
+    if qs and qs[0][2] > 0.93:
         while True:
             try:
                 conn = psycopg2.connect (
@@ -146,32 +143,31 @@ def get_answer(old_msg):
             order by answer_rank;
         ''', [str(qs[0][0])])
         ans = cur.fetchone()
-        ans_ = ans.copy() if ans else None
-        possible_res = []
-        
         if ans:
-            sol_id = ans['qid']
-        while ans:
-            if ans['answer_level'] == old_msg['chat']['user']['level']:
-                possible_res.append(ans)
-            ans = cur.fetchone()
-        if possible_res:
-            #res = possible_res[random.randint(0, len(possible_res)-1)]
-            res = possible_res[0]
-        else:
-            res = ans_
+            res = ans.copy()        
+            if ans:
+                sol_id = ans['qid']
+            while ans:
+                if ans['answer_level'] == old_msg['chat']['user']['level']:
+                    res = ans
+                    break
+                ans = cur.fetchone()
+            msg['answer'] = res
+            msg['text'] = res['answer_paragraph'][:90]
+            if len(res['answer_paragraph']) > 90 and not msg['text'].endswith('..'):
+                msg['text'] += '...'
+           
         conn.commit()
-
         # close the database
         cur.close()
         conn.close()
+        
     
     print('responded.')
     #msg['related_questions'] = getRelatedQuestions(sol_id)
     msg['related_questions'] = []
-    msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
-    msg['answer'] = res
+    
     msg['original_question'] = question
     tm = datetime.fromtimestamp(time.time())
     msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
@@ -190,19 +186,12 @@ def get_hints(msg):
             'hints': [],
             'conversationID': msg['conversationID']
         }
-    isErr = [False]
     global sim
-    qs = sim.findSimQuestions(question, 5, isErr=isErr)
-    if isErr[0]:
-        sleep(0.5)
-        err = True
-        while err:
-            try:
-                sim = SimiSearch()
-                err = False
-            except Exception as e:
-                print(e)
-        qs = sim.findSimQuestions(question, 5, isErr=isErr)
+    try:
+        qs = sim.findSimQuestions(question, 5)
+    except Exception as e:
+        print(e)
+        qs = []
     return {
         'hints': qs,
         'conversationID': msg['conversationID']
@@ -211,7 +200,7 @@ def get_hints(msg):
 sio.connect('http://localhost:5000')
 
 while True:
-    sleep(0.0001)
+    sleep(1e-4)
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()
