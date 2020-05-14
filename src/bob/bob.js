@@ -53,7 +53,6 @@ const Options = [
 ]
 
 const AnswerInsights = ({content}) => {
-    console.log(content.answer.answer_paragraph);
     return <div className='answer-insights-container'>
         <div className='answer-insights'>
             <div className='full-answer'>
@@ -91,7 +90,6 @@ export default class Bob extends Component {
         if (cnt == null) this.setState({insight: null});
         else if (cnt.answer == null) this.setState({insight: null});
         else this.setState({insight: cnt});
-        console.log(this.state.insight);
     }
 
     componentDidMount () {
@@ -138,7 +136,6 @@ export default class Bob extends Component {
             }
         })
         this.state.socket.on('bob-hints', msg => {
-            console.log(msg.hints.length);
             if (msg.conversationID == this.context.user.userid) {
                 this.setState({hints: msg.hints})
             }
