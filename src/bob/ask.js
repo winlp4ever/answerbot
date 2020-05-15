@@ -102,6 +102,7 @@ const RelatedQuestions = ({qs, socket}) => {
         });
     }
     if (qs.length == 0) return null;
+    console.log(qs)
     return <div className='related-questions'>
         <span className={'text' + (viewRel? ' rel': '')}
             onClick={toggleRel}
@@ -113,8 +114,8 @@ const RelatedQuestions = ({qs, socket}) => {
             {qs.map((q, id) => <div className='rel-q' key={id}>
                 <span 
                     className='text' 
-                    onClick={_ => ask(q.question_normalized)} 
-                    dangerouslySetInnerHTML={{__html: q.question_normalized}} 
+                    onClick={_ => ask(q.question_text)} 
+                    dangerouslySetInnerHTML={{__html: q.question_text}} 
                 />
             </div>)}
         </div>:null}
