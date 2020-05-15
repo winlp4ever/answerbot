@@ -75,7 +75,7 @@ def getRelatedQuestions(id):
         break
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute(''' 
-        select question_relations.id_target as trg, question.question_normalized
+        select question_relations.id_target as trg, question.question_text
         from 
             (
                 select distinct question_id 
@@ -206,10 +206,12 @@ while True:
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()
+        print(msg['conversationID'])
         sio.emit('bob-msg', get_answer(msg))
     if hints_queue:
         print('sending hints...')
         typing = hints_queue.pop()
+        print(typing['conversationID'])
         sio.emit('bob-hints', get_hints(typing))
 
 
