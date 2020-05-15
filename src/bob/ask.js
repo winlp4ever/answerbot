@@ -64,7 +64,7 @@ const RateTheAnswer = ({content}) => {
     return <div className='rating'>
         <span className='text'>
             <img src={require('../../imgs/bob/rating.svg')} />
-            <b>Please rate the answer</b>
+            <b>Merci d'evaluer la reponse</b>
         </span>
         <div className='rating-score'>
             {[1, 2, 3, 4, 5].map(i => <span 
@@ -107,7 +107,7 @@ const RelatedQuestions = ({qs, socket}) => {
             onClick={toggleRel}
         >
             <img src={require('../../imgs/bob/related.svg')} />
-            <b>Wanna see some related questions?</b>
+            <b>Veuillez vous voir quelques questions proches?</b>
         </span>
         {viewRel? <div>
             {qs.map((q, id) => <div className='rel-q' key={id}>
@@ -182,8 +182,8 @@ const Answer = ({content, socket, setIns}) => {
         <Sound url={IncomingMsg} playStatus={firstRender? 'PLAYING': 'PAUSED'} onFinishedPlaying={_ => setFirstRender(false)}/>
         
         <div className='chat'>
-            <span className='text'>{content.text != '' ? 'I found something for you': 
-                'I have troubles getting an answer for your question'}</span>
+            <span className='text'>{content.text != '' ? 'J\'ai trouve quelque chose': 
+                'J\'arrive pas a trouver une reponse. Question mal posee ou pas precise!!!'}</span>
         </div>
         {content.text != '' ? <div 
             className={'answer' + (foc? ' foc': '')} 
@@ -191,7 +191,7 @@ const Answer = ({content, socket, setIns}) => {
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
         >
-            {showHelp? <div className='help-info'>Click to focus!</div>: null}
+            {showHelp? <div className='help-info'>Cliquer a focus!</div>: null}
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
