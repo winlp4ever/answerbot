@@ -1,15 +1,20 @@
 .bob {
     .bob-menu {
         position: absolute;
-        top: 0.25em;
+        top: 0em;
         margin: 0;
         width: 100%;
         right: 0;
         box-sizing: border-box;
-        padding: 0.2em 0.5em;
+        padding: 0.25em 0.5em;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
+        background: #fafafa;
+        border-bottom: 1px solid rgb(238, 238, 238);
+        border-top-left-radius: 0.8em;
+        border-top-right-radius: 0.8em;
+        overflow: hidden;
         .user-info {
             width: 250px;
             position: absolute;
@@ -27,25 +32,26 @@
             position: relative;
             color: #bdbdbd;
             min-width: 0;
-            padding: 0.4em;
-            border-radius: 0.5em;
+            padding: 0.5em;
+            border-radius: 3em;
             transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
             opacity: 0.7;
             margin: auto 0.25em;
+            animation: none;
             svg {
                 font-size: 1.2em;
                 
             }
             img {
-                height: 1.2em;
+                height: 1.5em;
                 vertical-align: middle;
                 filter: grayscale(100%);
                 transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+                animation: none;
             }
             &.focus {
                 opacity: 1;
                 color: #004ecb;
-                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
                 img {
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }

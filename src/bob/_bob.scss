@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    padding-right: 4em;
+    padding-right: 4.5em;
     box-sizing: border-box;
     margin-right: 0;
     .answer-insights-container {
@@ -43,73 +43,22 @@
             border-left: solid 0.6em white;
             //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
         }
-        .answer-insights {
-            position: relative;
-            box-sizing: border-box;
-            padding: 0.25em 0.5em;
-            height: 100%;
-            overflow-y: scroll;
-            white-space: pre-line;
-            overflow-wrap: break-word;
-            -ms-overflow-style: none;
-            &::-webkit-scrollbar {
-                display: none;
-            }
-            .full-answer, .orientation {
-                position: relative;
-                box-sizing: border-box;
-                padding: 0.5em;
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-                max-height: 400px;
-                overflow-y: scroll;
-                overflow-wrap: break-word;
-                white-space: pre-wrap;
-                h4 {
-                    display: block;
-                    line-height: 1.6;
-                    box-sizing: border-box;
-                    padding: 0.2em 0em;
-                    margin: 0;
-                    img {
-                        height: 1.6em;
-                        vertical-align: middle;
-                    }
-                }
-                span {
-                    display: inline-block;
-                    box-sizing: border-box;
-                    padding: 0.2em 0.5em;
-                    border: 1px solid lightgrey;
-                    border-radius: 0.8em;
-                }
-                &.orientation:before {
-                    content: '';
-                    position: absolute;
-                    height: 1px;
-                    width: 100%;
-                    top: 0;
-                    right: 0;
-                    background: rgb(230, 230, 230);
-                }
-            }
-            
-        }
+        
     }
     .bob-ava {
         position: absolute;
         right: 0;
         bottom: 0;
         box-sizing: border-box;
-        padding: 0.5em;
+        padding: 0;
         border-radius: 50%;
-        background: white;
-        box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
+        background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
+        box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+        border: 1px solid lightgrey;
         z-index: 1;
         img {
             display: block;
-            height: 2em;
+            height: 3.6em;
         }
         .notif-res {
             position: absolute;
@@ -243,7 +192,6 @@
                     bottom: 0;
                     min-width: 0;
                     border-radius: 50%;
-                    
                     display: block;
                     margin: auto 0;
                     padding: 0.5em;
@@ -251,6 +199,7 @@
                         display: block;
                     }
                     img {
+                        animation: none;
                         display: block;
                         margin: auto;
                         height: 1.5em;

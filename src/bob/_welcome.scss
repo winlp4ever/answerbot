@@ -1,0 +1,43 @@
+@keyframes img-appear {
+    0% {opacity: 0; transform: scale(1.25);}
+    100% {opacity: 1; transform: none;}
+}
+
+@keyframes text-appear {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: none;}
+}
+.bob-welcome {
+    position: relative;
+    img {
+        position: relative;
+        width: 60%;
+        display: block;
+        margin: auto;
+        animation: img-appear 0.3s cubic-bezier(0, 0, 0.2, 1);
+        box-sizing: border-box;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .bob-says-hi {
+        position: absolute;
+        top: 0.5em;
+        right: 1.6em;
+        width: 3.2em;
+    }
+    h2, span {
+        line-height: 1.2;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 0 1em;
+        margin: 0;
+        animation: text-appear 0.3s cubic-bezier(0, 0, 0.2, 1); 
+        font-weight: 800;
+        letter-spacing: 1px; 
+        color: #424242;          
+    }
+    h2 {
+        color: #2962ff;
+    } 
+}

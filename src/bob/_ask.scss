@@ -20,11 +20,6 @@
     100% {border: 1px solid transparent}
 }
 
-@keyframes welcome-appear {
-    0% {opacity: 0; transform: translateY(2em)}
-    100% {opacity: 1; transform: none;}
-}
-
 .bob-container {
     .bob {
         .ask {
@@ -72,6 +67,7 @@
                     display: block;
                     margin: auto 0;
                     padding: 0.5em;
+                    animation: none;
                     span {
                         display: block;
                     }
@@ -80,6 +76,7 @@
                         margin: auto;
                         height: 1.5em;
                         filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                        animation: none;
                     }
                     &.show-hints {
                         //background: #bbdefb;
@@ -165,27 +162,7 @@
                     box-sizing: border-box;
                     padding: 0 1.5em;
                 }
-                .bob-welcome {
-                    img {
-                        width: 60%;
-                        display: block;
-                        margin: auto;
-                        animation: welcome-appear 1s cubic-bezier(0, 0, 0.2, 1);
-        
-                    }
-                    h2, span {
-                        line-height: 1.2;
-                        display: block;
-                        text-align: center;
-                        box-sizing: border-box;
-                        padding: 0 1em;
-                        margin: 0;
-                        animation: welcome-appear 1s cubic-bezier(0, 0, 0.2, 1);                
-                    }
-                    h2 {
-                        color: #2962ff;
-                    } 
-                }
+                
                 .chat-segment {
                     margin: 0.5em 0;
                     display: flex;

@@ -1,0 +1,53 @@
+.answer-insights {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0.25em 0.5em;
+    height: 100%;
+    overflow-y: scroll;
+    white-space: pre-line;
+    overflow-wrap: break-word;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .full-answer, .orientation {
+        position: relative;
+        box-sizing: border-box;
+        padding: 0.5em;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        max-height: 400px;
+        overflow-y: scroll;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        h4 {
+            display: block;
+            line-height: 1.6;
+            box-sizing: border-box;
+            padding: 0.2em 0em;
+            margin: 0;
+            img {
+                height: 1.6em;
+                vertical-align: middle;
+            }
+        }
+        span {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 0.2em 0.5em;
+            border: 1px solid lightgrey;
+            border-radius: 0.8em;
+        }
+        &.orientation:before {
+            content: '';
+            position: absolute;
+            height: 1px;
+            width: 100%;
+            top: 0;
+            right: 0;
+            background: rgb(230, 230, 230);
+        }
+    }
+    
+}

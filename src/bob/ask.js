@@ -17,7 +17,7 @@ import IncomingMsg from '../../sounds/incoming-msg.mp3';
 import IsTyping from '../../sounds/is-typing.mp3';
 import Lottie from 'react-lottie'
 import TypingIcon from '../../imgs/typing.json';
-
+import Welcome from './welcome';
 import {getCurrentTime} from '../utils';
 
 class Typing extends Component {
@@ -365,14 +365,6 @@ const NewChat = (props) => {
         <Button onClick={send} ref={sending}>
             <img src={require('../../imgs/bob/send.svg')}/>
         </Button>
-    </div>
-}
-
-const Welcome = () => {
-    return <div className='bob-welcome'>
-        <img src={require('../../imgs/bob/welcome-bot.svg')} />
-        <h2>Hi, I'm here to help!</h2>
-        <span>Ask me any course-relevant question and I'll try my best to untie the knot!</span>
     </div>
 }
 

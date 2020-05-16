@@ -30,7 +30,7 @@ import Ask, {NewChat} from './ask';
 import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import Auth from '../user-auth/user-auth';
-
+import AnswerInsights from './answer-insights';
 
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 
@@ -53,23 +53,6 @@ const Options = [
     },
 ]
 
-const AnswerInsights = ({content}) => {
-    return <div className='answer-insights-container'>
-        <div className='answer-insights'>
-            <div className='full-answer'>
-                <h4><img src={require('../../imgs/bob/A.svg')} /> Reponse complete:</h4>
-                <MdRender source={content.answer.answer_paragraph.replace('\\n', 'w')} />
-            </div>
-            <div className='orientation'>
-                <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore encore:</h4>
-                {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
-            </div>
-            {content.answer.source? <div className='source'>
-                <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
-            </div>: null}
-        </div>
-    </div>
-}
 
 export default class Bob extends Component {
     static contextType = userContext;
@@ -187,7 +170,7 @@ export default class Bob extends Component {
             <div className='bob-ava' onClick={this.toggleMode}>
                 {this.state.newResponseComing? <span className='notif-res'>
                 </span>: null}
-                <img src={require('../../imgs/bob/bob_.png')} />
+                <img src={require('../../imgs/bob/bob-transparent.svg')} />
             </div>
             <div className={'bob' + (this.state.minimal? ' minimal': '')}>
                 {this.state.minimal & this.state.newResponseComing & this.state.instantAnswerMsgEnable? 
