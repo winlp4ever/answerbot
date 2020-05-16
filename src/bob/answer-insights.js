@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './_answer-insights.scss';
+import MdRender from '../markdown-render/markdown-render';
 
 const AnswerInsights = ({content}) => {
     return <div className='answer-insights-container'>

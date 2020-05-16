@@ -349,13 +349,13 @@
                             img {
                                 position: absolute;
                                 display: block;
-                                width: 1.5em;
+                                width: 2.25em;
                                 margin: 0.6em 0 auto 0.5em;
-                                height: 1.5em;
-                                padding: 0.25em;
+                                height: 2.25em;
+                                padding: 0;
                                 bottom: 0.25em;
                                 right: 0;
-                                background: #ffe0b2;
+                                background: linear-gradient(to bottom, #9575cd 0%, #7e57c2 100%);
                                 border-radius: 50%;
                             }
                         }
@@ -363,9 +363,10 @@
                             text-align: right;
                             .text {
                                 background: inherit;
-                                border: 1px solid lightgrey;
+                                //border: 1px solid lightgrey;
                                 border-bottom-left-radius: 1.5em;
                                 border-top-left-radius: 1.5em;
+                                background: #e8eaf6;
                             }
                             .time {
                                 right: 0;

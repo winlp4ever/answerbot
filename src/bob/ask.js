@@ -227,7 +227,7 @@ const ChatSegment = (props) => {
     return <div className={cl}>
         <div className='user'>
             {isBob ? 
-                <img src={require('../../imgs/bob/robot.svg')} />
+                <img src={require('../../imgs/bob/bob-transparent.svg')} />
             : null}
         </div>
         <div className='content'>
