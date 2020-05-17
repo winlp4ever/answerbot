@@ -77,7 +77,7 @@
     "react-router-dom": "^5.1.2",
     "react-sound": "^1.2.0",
     "react-syntax-highlighter": "^11.0.2",
-    "react-transition-group": "^4.3.0",
+    "react-transition-group": "^4.4.1",
     "remark-math": "^2.0.0",
     "remarkable": "^2.0.0",
     "request": "^2.88.2",

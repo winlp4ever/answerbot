@@ -17,6 +17,7 @@ import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import NotificationsActiveRoundedIcon from '@material-ui/icons/NotificationsActiveRounded';
+import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 
 // import style file
@@ -78,7 +79,6 @@ export default class Bob extends Component {
 
     componentDidMount () {
         this.state.socket.on('bob-msg', msg => {
-            console.log(msg)
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
@@ -167,28 +167,30 @@ export default class Bob extends Component {
 
         return <div className='bob-container'>
             {this.state.insight? <AnswerInsights content={this.state.insight} setContent={this._setInsight}/>: null}
-            <div className='bob-ava' onClick={this.toggleMode}>
+            <div className='bob-ava' >
                 {this.state.newResponseComing? <span className='notif-res'>
                 </span>: null}
-                <img src={require('../../imgs/bob/bob-transparent.svg')} />
-            </div>
-            <div className={'bob' + (this.state.minimal? ' minimal': '')}>
-                {this.state.minimal & this.state.newResponseComing & this.state.instantAnswerMsgEnable? 
-                    <div className='instant-answer'>
-                        <span className='msg'>Here's the response, click me to see more details!</span>
+                <CSSTransition in={this.state.minimal} unmountOnExit classNames='minimal'>
+                    <div className='minimal'>
+                        <NewChat socket={this.state.socket} hints={this.state.hints} />
                     </div>
-                :null}
-                {this.state.minimal? <NewChat socket={this.state.socket} hints={this.state.hints} />
-                :<div>
-                    <Button className='minimize-window' onClick={this.toggleMode}><MinimizeRoundedIcon/></Button>
+                </CSSTransition>
+                <img src={require('../../imgs/bob/bob-transparent.svg')} onClick={this.toggleMode} />
+            </div>
+ 
+            <CSSTransition in={!this.state.minimal} unmountOnExit classNames='bob' timeout={350}>
+                <div className='bob maximal'>
+                    <Button className='minimize-window' onClick={this.toggleMode} >
+                        <MinimizeRoundedIcon/>
+                    </Button>
                     <BobMenu 
                         options={Options} 
                         activeTab={this.state.tab}
                         changeTab={this.changeTab} 
                     />
                     {main}
-                </div>}
-            </div>
+                </div>
+            </CSSTransition>
         </div>
     }
 }
