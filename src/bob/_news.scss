@@ -32,7 +32,7 @@
             .new {
                 position: relative;
                 box-sizing: border-box;
-                padding: 0.5em 1em;
+                padding: 1em;
                 margin: 0.5em 0 2em 0;
                 display: block;
                 font-size: 0.7em;
@@ -41,8 +41,8 @@
                 letter-spacing: unset;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                 border-radius: 0.8em;
-                border: 1px solid lightgrey;
                 color: #424242;
+                background: whitesmoke;
                 h3 {
                     display: block;
                     text-transform: uppercase;
@@ -50,11 +50,12 @@
                     margin: 0.5em 0;
                     overflow-wrap: break-word;
                     white-space: normal;
-                    letter-spacing: 1px;
-                    font-size: 1em;
+                    font-size: 1.2em;
+                    line-height: 1.5;
                     font-weight: 800;
+
                     a {
-                        color: rgb(94, 94, 94);
+                        color: #212121;
                     }
                 }
                 span {
