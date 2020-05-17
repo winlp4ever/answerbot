@@ -8,7 +8,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Auth from '../user-auth/user-auth';
 import { userContext } from '../user-context/user-context';
 
-const BobMenu = ({options, activeTab, changeTab}) => {
+const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
     const [viewUserInfo, setViewUserInfo] = useState(false);
 
     const toggleViewUserInfo = () => {
@@ -32,6 +32,9 @@ const BobMenu = ({options, activeTab, changeTab}) => {
             >
                 {o.icon}
             </Button>)}
+            <Button className='close' onClick={toggleMode}>
+                <img src={require('../../imgs/bob/close.svg')} />
+            </Button>
         </div>}
         {viewUserInfo? <div className='user-info'>
             <Auth />

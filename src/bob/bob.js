@@ -48,10 +48,6 @@ const Options = [
         icon: <img src={require('../../imgs/bob/feed.svg')}/>,
         cl: 'view-explore'
     },
-    {
-        icon: <img src={require('../../imgs/bob/list.svg')}/>,
-        cl: 'view-more'
-    },
 ]
 
 
@@ -164,7 +160,6 @@ export default class Bob extends Component {
         } else if (this.state.tab == 2) {
             main = <News />
         }
-
         return <div className='bob-container'>
             {this.state.insight? <AnswerInsights content={this.state.insight} setContent={this._setInsight}/>: null}
             <div className='bob-ava' >
@@ -180,13 +175,11 @@ export default class Bob extends Component {
  
             <CSSTransition in={!this.state.minimal} unmountOnExit classNames='bob' timeout={350}>
                 <div className='bob maximal'>
-                    <Button className='minimize-window' onClick={this.toggleMode} >
-                        <MinimizeRoundedIcon/>
-                    </Button>
                     <BobMenu 
                         options={Options} 
                         activeTab={this.state.tab}
                         changeTab={this.changeTab} 
+                        toggleMode={this.toggleMode}
                     />
                     {main}
                 </div>
