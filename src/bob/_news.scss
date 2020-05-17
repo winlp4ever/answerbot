@@ -13,11 +13,24 @@
     .bob {
         .bob-news {
             position: relative;
-            height: calc(500px - 3.6em);
+            height: calc(500px - 3.2em);
             overflow-y: scroll;
             
             box-sizing: border-box;
             padding: 0.25em 0.5em;
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+              
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                background: #6b6b6b;
+                border-radius: 10px;
+            }
             .newsfeeds-illus {
                 position: absolute;
                 width: 100%;
