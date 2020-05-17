@@ -151,12 +151,22 @@
                 display: block;
                 position: relative;
                 box-sizing: border-box;
-                padding: 0.5em 0;
+                padding: 0.5em 0.1em;
                 height: 100%;
                 overflow-y: scroll;
                 &::-webkit-scrollbar {
-                    display: none;
+                    width: 5px;
                 }
+                &::-webkit-scrollbar-track {
+                    background: transparent !important;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: rgb(209, 209, 209);
+                    border-radius: 10px;
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                    background: #6b6b6b;
+                }   
                 .is-typing {
                     float: right;
                     box-sizing: border-box;
@@ -345,7 +355,7 @@
                         display: flex;
                         flex-direction: row-reverse;
                         .user {
-                            width: 2.25em;
+                            width: 2.5em;
                             img {
                                 position: absolute;
                                 display: block;
@@ -354,7 +364,7 @@
                                 height: 2.25em;
                                 padding: 0;
                                 bottom: 0.25em;
-                                right: 0;
+                                right: 0.1em;
                                 background: linear-gradient(to bottom, #9575cd 0%, #7e57c2 100%);
                                 border-radius: 50%;
                             }

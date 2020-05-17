@@ -28,8 +28,11 @@
             }
     
             &::-webkit-scrollbar-thumb {
-                background: #6b6b6b;
+                background: rgb(209, 209, 209);
                 border-radius: 10px;
+            }
+            &::-webkit-scrollbar-thumb:hover {
+                background: #6b6b6b;
             }
             .newsfeeds-illus {
                 position: absolute;

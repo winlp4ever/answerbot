@@ -131,7 +131,7 @@ export default class Bob extends Component {
         if (this.state.minimal) {
             this.setState({minimal: false, newResponseComing: false});
         } else {
-            this.setState({minimal: true});
+            this.setState({minimal: true, insight: null});
         }
     }
 
