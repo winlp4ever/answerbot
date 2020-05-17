@@ -205,8 +205,8 @@ const Answer = ({content, socket, setIns}) => {
                 <MdRender source={content.text} />
             </span>
         </div>:null}
-        {content.text != ''? <RateTheAnswer />:null}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
+        {content.text != ''? <RateTheAnswer />:null}
     </div>
 }
 
