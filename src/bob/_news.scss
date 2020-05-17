@@ -1,3 +1,14 @@
+@keyframes news-appear {
+    0% {
+        opacity: 0; 
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 .bob-container {
     .bob {
         .bob-news {
@@ -7,6 +18,41 @@
             
             box-sizing: border-box;
             padding: 0.25em 0.5em;
+            .newsfeeds-illus {
+                position: absolute;
+                width: 100%;
+                top: 1em;
+                right: 0.5em;
+                box-sizing: border-box;
+                padding: 3em 1em;
+                img {
+                    width: 100%;
+                }
+                h2, span {
+                    line-height: 1.2;
+                    display: block;
+                    text-align: center;
+                    box-sizing: border-box;
+                    padding: 0 1em;
+                    margin: 0;
+                    animation: text-appear 0.3s cubic-bezier(0, 0, 0.2, 1); 
+                    font-weight: 800;
+                    letter-spacing: 1px; 
+                    color: #424242;          
+                }
+                h2 {
+                    color: #2962ff;
+                } 
+                &.newsfeeds-illus-exit {
+                    opacity: 1;
+                    transform: none;
+                }
+                &.newsfeeds-illus-exit-active {
+                    opacity: 0;
+                    transform: translateY(-150px);
+                    transition: all 0.25s cubic-bezier(0,0, 0.2,1);
+                }
+            }
             .refresh {
                 position: absolute;
                 top: 1em;
@@ -29,7 +75,7 @@
                     opacity: 1;
                 }
             }
-            .new {
+            .news {
                 position: relative;
                 box-sizing: border-box;
                 padding: 1em;
@@ -43,6 +89,7 @@
                 border-radius: 0.8em;
                 color: #424242;
                 background: whitesmoke;
+                animation: news-appear 0.25s cubic-bezier(0, 0, 0.2, 1);
                 h3 {
                     display: block;
                     text-transform: uppercase;
