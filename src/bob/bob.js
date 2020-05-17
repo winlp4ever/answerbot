@@ -165,7 +165,7 @@ export default class Bob extends Component {
             <div className='bob-ava' >
                 {this.state.newResponseComing? <span className='notif-res'>
                 </span>: null}
-                <CSSTransition in={this.state.minimal} unmountOnExit classNames='minimal'>
+                <CSSTransition in={this.state.minimal} unmountOnExit classNames='minimal' timeout={250}>
                     <div className='minimal'>
                         <NewChat socket={this.state.socket} hints={this.state.hints} />
                     </div>
