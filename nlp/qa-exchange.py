@@ -47,12 +47,11 @@ def connect():
 
 @sio.on('ask-bob')
 def on_message(msg):
-    questions_queue.appendleft(msg)
+    sio.emit('bob-msg', get_answer(msg))
 
 @sio.on('ask-for-hints-bob')
 def on_message(msg):
-    if msg['typing'] not in {'', ' '}:
-        hints_queue.appendleft(msg)
+    sio.emit('bob-hints', get_hints(msg))
 
 @sio.event
 def disconnect():
@@ -200,21 +199,6 @@ def get_hints(msg):
     }
 
 sio.connect('http://localhost:5000')
-
-while True:
-    sleep(1e-4)
-    if questions_queue:
-        print('responding...')
-        msg = questions_queue.pop()
-        print(msg['conversationID'])
-        sio.emit('bob-msg', get_answer(msg))
-    if hints_queue:
-        print('sending hints...')
-        typing = hints_queue.pop()
-        print(typing['conversationID'])
-        sio.emit('bob-hints', get_hints(typing))
-
-
 sio.wait()
 
 

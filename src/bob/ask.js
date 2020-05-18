@@ -29,7 +29,7 @@ class Typing extends Component {
         this.setState({times: this.state.times+1})
     }
 
-    render(){
+    render() {
   
         const defaultOptions = {
             loop: true,
@@ -42,8 +42,11 @@ class Typing extends Component {
   
         return(
             <div className='is-typing'>
-                {this.state.times >= 2? null: <Sound url={IsTyping} playStatus='PLAYING' 
-                    onFinishedPlaying={this.increment}/>}
+                {this.state.times < 2 && <Sound 
+                    url={IsTyping} 
+                    playStatus='PLAYING' 
+                    onFinishedPlaying={this.increment}
+                />}
                 <Lottie options={defaultOptions} width={50}/>
             </div>
         )
@@ -57,9 +60,8 @@ const Chat = ({content}) => {
     </div>
 }
 
-const RateTheAnswer = ({content}) => {
+const RateTheAnswer = () => {
     const [score, setScore] = useState(0);
-    const [hov, setHov] = useState(0);
 
     return <div className='rating'>
         <span className='text'>
@@ -98,7 +100,6 @@ const RelatedQuestions = ({qs, socket}) => {
         });
     }
     if (qs.length == 0) return null;
-    console.log(qs)
     return <div className='related-questions'>
         <span className={'text' + (viewRel? ' rel': '')}
             onClick={toggleRel}
@@ -152,7 +153,6 @@ const Answer = ({content, socket, setIns}) => {
             setShowHelp(true);
             setOnceTime(false);
         }
-
     }
 
     const togglePin = () => {
@@ -169,8 +169,7 @@ const Answer = ({content, socket, setIns}) => {
         setPin(!pin)
     };
 
-    return <div> 
-        
+    return <div>
         <div className='chat'>
             <span className='text'>{content.text != '' ? 'J\'ai trouve quelque chose': 
                 'J\'arrive pas a trouver une reponse. Question mal posee ou pas precise!!!'}</span>
@@ -195,7 +194,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
         </div>:null}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
-        {content.text != ''? <RateTheAnswer />:null}
+        {content.text != '' && <RateTheAnswer />}
     </div>
 }
 
@@ -310,7 +309,6 @@ const NewChat = (props) => {
     }
 
     const handleKeyDown = (e) => {
-        
         let keycode = e.keyCode || e.which;
         if (keycode == 13) {
             e.preventDefault();
@@ -331,13 +329,14 @@ const NewChat = (props) => {
     }
 
     return <div className='new-chat'>
-        {viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0 ?
-            <Hints 
+        {
+            (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
+             <Hints 
                 hints={props.hints} 
                 applyHint={applyHint} 
                 autoComplete={autoComplete}
-            />
-        : null}
+            />: null
+        } 
         <Button className={'show-hints' + (viewHints? '': ' not-show') + 
             ((props.hints.length > 0 & viewHints)? ' hinting': '')} 
             onClick={viewHideHints}
@@ -370,18 +369,19 @@ const Ask = (props) => {
             }
         }
         segment.push(c);
-        
     })
     if (segment) chatSegments.push(segment);
 
     return <div className='ask'>
-        
         <div className='old-chats'>
             {props.chats.length == 0? <Welcome />: null}
-            {chatSegments.map((p, id) => {
-                return <ChatSegment key={id} chats={p} socket={props.socket} setIns={props.setInsight}/>
-            })}
-            {props.isTyping? <Typing />: null}
+            {chatSegments.map((p, id) => <ChatSegment 
+                key={id} 
+                chats={p} 
+                socket={props.socket} 
+                setIns={props.setInsight}
+            />)}
+            {props.isTyping && <Typing />}
         </div>
         <NewChat socket={props.socket} hints={props.hints}/>
     </div>
