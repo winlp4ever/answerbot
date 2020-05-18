@@ -78,10 +78,6 @@ const RateTheAnswer = ({content}) => {
     </div>
 }
 
-const MultipleChoice = ({content}) => {
-    return null;
-}
-
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false);
 
@@ -128,14 +124,8 @@ const Answer = ({content, socket, setIns}) => {
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u);
     const [foc, setFoc] = useState(false);
-    const [hov, setHov] = useState(false);
-    const [firstRender, setFirstRender] = useState(false);
     const [onceTime, setOnceTime] = useState(true);
     const [showHelp, setShowHelp] = useState(false);
-
-    useEffect(() => {
-        setFirstRender(true);
-    }, []);
     
     useEffect(() => {
         if (showHelp) setTimeout(()=> setShowHelp(false), 1200)
@@ -180,7 +170,6 @@ const Answer = ({content, socket, setIns}) => {
     };
 
     return <div> 
-        <Sound url={IncomingMsg} playStatus={firstRender? 'PLAYING': 'PAUSED'} onFinishedPlaying={_ => setFirstRender(false)}/>
         
         <div className='chat'>
             <span className='text'>{content.text != '' ? 'J\'ai trouve quelque chose': 

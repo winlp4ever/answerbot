@@ -3,53 +3,40 @@ import React, {Component, useState, useContext, useEffect, useRef} from 'react';
 import {userContext} from '../user-context/user-context';
 
 // third party imports
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import SendRoundedIcon from '@material-ui/icons/SendRounded';
-import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
-import MinimizeRoundedIcon from '@material-ui/icons/MinimizeRounded';
-import SmsFailedOutlinedIcon from '@material-ui/icons/SmsFailedOutlined';
-import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
-import Button from '@material-ui/core/Button';
 import io from 'socket.io-client';
-import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
-import StarRoundedIcon from '@material-ui/icons/StarRounded';
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import NotificationsActiveRoundedIcon from '@material-ui/icons/NotificationsActiveRounded';
 import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
+import Sound from 'react-sound';
 
 // import style file
 import './_bob.scss';
 
 // other cpns imports
-
-import MdRender from '../markdown-render/markdown-render';
 import BobMenu from './menu';
 import Ask, {NewChat} from './ask';
 import HistoryBookmarks from './history-bookmarks';
 import News from './news';
-import Auth from '../user-auth/user-auth';
 import AnswerInsights from './answer-insights';
+import IncomingMsg from '../../sounds/incoming-msg.mp3';
 
-const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
-        cl: 'view-ask'
+        cl: 'view-ask',
+        view: (props) => <Ask {...props} />
     },
     {
         icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
-        cl: 'view-bookmarks'
+        cl: 'view-bookmarks',
+        view: (props) => <HistoryBookmarks {...props} />
     },
     {
         icon: <img src={require('../../imgs/bob/feed.svg')}/>,
-        cl: 'view-explore'
+        cl: 'view-explore',
+        view: (props) => <News {...props} />
     },
 ]
-
 
 export default class Bob extends Component {
     static contextType = userContext;
@@ -61,47 +48,44 @@ export default class Bob extends Component {
         tab: 0, 
         minimal: true,
         newResponseComing: false,
-        instantAnswer: '',
-        instantAnswerMsgEnable: false, 
         insight: null,
         isTyping: false
     }
 
     _setInsight = (cnt) => {
-        if (cnt == null) this.setState({insight: null});
-        else if (cnt.answer == null) this.setState({insight: null});
-        else this.setState({insight: cnt});
+        if (cnt == null) 
+            this.setState({insight: null});
+        else if (cnt.answer == null) 
+            this.setState({insight: null});
+        else 
+            this.setState({insight: cnt});
+    }
+
+    _scrollToBottom = () => {
+        if ($(".old-chats").length > 0) {
+            $(".old-chats").animate({
+                scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+            }, 500);
+        }
     }
 
     componentDidMount () {
         this.state.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
+                // update user chat history
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
+
                 let dct = this.context.user;
                 dct.history.push(msg.chat);
                 this.context.updateUser(dct);
-                this.setState({isTyping: false})
-                if (this.state.minimal) {
-                    this.setState({
-                        chats: chats_, 
-                        newResponseComing: true, 
-                        instantAnswerMsgEnable: true,
-                        instantAnswer: msg.chat.text
-                    });
-                    setTimeout(() => {
-                        this.setState({instantAnswerMsgEnable: false})
-                    }, 8000)
-                }
-                else {
-                    this.setState({chats: chats_});
-                }
-                if ($(".old-chats").length > 0) {
-                    $(".old-chats").animate({
-                        scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
-                    }, 500);
-                }
-                
+                // update state
+                this.setState({
+                    newResponseComing: true,
+                    chats: chats_,
+                    isTyping: false
+                });
+                this._scrollToBottom();
             }
         })
         this.state.socket.on('new-chat', msg => {
@@ -109,11 +93,7 @@ export default class Bob extends Component {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 this.setState({chats: chats_, hints: [], isTyping: true});
-                if ($(".old-chats").length > 0) {
-                    $(".old-chats").animate({
-                        scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
-                    }, 500);
-                }
+                this._scrollToBottom();
             }
         })
         this.state.socket.on('bob-hints', msg => {
@@ -140,32 +120,33 @@ export default class Bob extends Component {
     }
 
     render() {
-        
-        let main = null;
-        if (this.context.user.username == '') main = null;
-        else if (this.state.tab == 0) {
-            main = <Ask 
-                socket={this.state.socket}
-                chats={this.state.chats}
-                hints={this.state.hints}
-                setInsight={this._setInsight}
-                insight={this.state.insight}
-                isTyping={this.state.isTyping}
-            />
-        } else if (this.state.tab == 1) {
-            main = <HistoryBookmarks
-                setInsight={this._setInsight}
-                insight={this.state.insight}
-            />
-        } else if (this.state.tab == 2) {
-            main = <News />
+        let props = {
+            socket: this.state.socket,
+            chats: this.state.chats,
+            hints: this.state.hints,
+            setInsight: this._setInsight,
+            insight: this.state.insight,
+            isTyping: this.state.isTyping
         }
+        let V = Options[this.state.tab]
         return <div className='bob-container'>
-            {this.state.insight? <AnswerInsights content={this.state.insight} setContent={this._setInsight}/>: null}
+            {this.state.insight && <AnswerInsights 
+                content={this.state.insight} 
+                setContent={this._setInsight}
+            />}
+            {this.state.newResponseComing && <Sound 
+                url={IncomingMsg} 
+                playStatus='PLAYING' 
+                onFinishedPlaying={_ => this.setState({newResponseComing: false})}
+            />}
             <div className='bob-ava' >
-                {this.state.newResponseComing? <span className='notif-res'>
-                </span>: null}
-                <CSSTransition in={this.state.minimal} unmountOnExit classNames='minimal' timeout={250}>
+                {this.state.newResponseComing && <span className='notif-res'></span>}
+                <CSSTransition 
+                    in={this.state.minimal} 
+                    unmountOnExit 
+                    classNames='minimal' 
+                    timeout={250}
+                >
                     <div className='minimal'>
                         <NewChat socket={this.state.socket} hints={this.state.hints} />
                     </div>
@@ -173,7 +154,12 @@ export default class Bob extends Component {
                 <img src={require('../../imgs/bob/bob-transparent.svg')} onClick={this.toggleMode} />
             </div>
  
-            <CSSTransition in={!this.state.minimal} unmountOnExit classNames='bob' timeout={350}>
+            <CSSTransition 
+                in={!this.state.minimal} 
+                unmountOnExit 
+                classNames='bob' 
+                timeout={350}
+            >
                 <div className='bob maximal'>
                     <BobMenu 
                         options={Options} 
@@ -181,7 +167,7 @@ export default class Bob extends Component {
                         changeTab={this.changeTab} 
                         toggleMode={this.toggleMode}
                     />
-                    {main}
+                    {this.context.user.username != '' && <V.view {...props}/>}
                 </div>
             </CSSTransition>
         </div>
