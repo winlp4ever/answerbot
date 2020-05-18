@@ -1,9 +1,12 @@
 {
     "mappings": {
         "properties": {
-                "vectorisation": {
+            "vectorisation": {
                 "type": "dense_vector",
                 "dims": 768
+            },
+            "text": {
+                "type": "search_as_you_type"
             }
         }
     }
