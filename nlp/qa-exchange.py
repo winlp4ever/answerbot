@@ -108,7 +108,7 @@ async def run():
             msg = template.copy()
             sol_id = -1
 
-            if qs and qs[0][2] > 0.93:
+            if qs and qs[0]['score'] > 0.93:
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
                 cur.execute('''
                     select answer_temp.*, question_answer_temp.question_id as qid
@@ -127,7 +127,7 @@ async def run():
                     where question.id = %s
                     and answer_temp.answer_valid='1'
                     order by answer_rank;
-                ''', [str(qs[0][0])])
+                ''', [str(qs[0]['id'])])
                 ans = cur.fetchone()
                 if ans:
                     res = ans.copy()        
@@ -192,4 +192,6 @@ async def run():
         print("PostgreSQL connection pool is closed")
 
 
-asyncio.run(run())
+#asyncio.run(run())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(run())
