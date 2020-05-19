@@ -4,16 +4,34 @@ import './_history-bookmarks.scss';
 
 const OldQ = (props) => {
     const [viewTime, setViewTime] = useState(false);
+    const [focus, setFocus] = useState(false);
+    const [hover, setHover] = useState(false);
+   
+    const handleFocus = () => {
+        if (!focus) props.setInsight(props.q);
+        else props.setInsight(null);
+        setFocus(!focus);
+    }
+
+    const handleHover = () => {
+        if (!focus) {
+            if (hover) props.setInsight(null);
+            if (!hover) props.setInsight(props.q);
+        }
+        setHover(!hover);
+    }
+
     const toggleViewTime = () => setViewTime(!viewTime);
     return <div 
         className='old-question' 
         onMouseEnter={toggleViewTime} 
         onMouseLeave={toggleViewTime}
     >
-        {viewTime? <span className='time'>{props.q.datetime}</span>: null}
+        {viewTime && <span className='time'>{props.q.datetime}</span>}
         <span 
-            onMouseEnter={_ => props.setInsight(props.q)} 
-            onMouseLeave={_ => props.setInsight(null)}
+            onClick={handleFocus}
+            onMouseEnter={handleHover} 
+            onMouseLeave={handleHover}
             className='old-q'
         >
             {props.q.original_question}

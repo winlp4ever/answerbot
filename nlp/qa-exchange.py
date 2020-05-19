@@ -102,19 +102,7 @@ try:
         sol_id = -1
 
         if qs and qs[0][2] > 0.93:
-            while True:
-                try:
-                    conn = psycopg2.connect (
-                        host=dbconfig['host'], database=dbconfig['database'],
-                        user=dbconfig['user'], password=dbconfig['password'], port=dbconfig['port'],
-                        connect_timeout=2
-                    )
-                except Exception as e:
-                    print(e)
-                    sleep(0.5)
-                    continue
-                break
-            cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+            cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
             cur.execute('''
                 select answer_temp.*, question_answer_temp.question_id as qid
                 from 
