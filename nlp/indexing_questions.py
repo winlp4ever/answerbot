@@ -29,7 +29,7 @@ def main():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) # use psycopg2.extras.DictCursor to return row as dict object
 
     # retrieve all questions
-    cur.execute("SELECT * FROM question;")
+    cur.execute("SELECT * FROM question where question_valid=1;")
     q = cur.fetchone()
     while q:
         doc = {

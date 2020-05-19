@@ -1,4 +1,4 @@
-import yake 
+import flashtext
 
 text = 'comment faire un tableau en css'
 
