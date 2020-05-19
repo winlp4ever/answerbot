@@ -35,7 +35,8 @@ def main():
         doc = {
             'id': q['id'],
             'text': q['question_text'],
-            'vectorisation': q['vectorisation']
+            'vectorisation': q['vectorisation'],
+            'rep': q['question_tsv']
         }
         es.index(index='qa', body=doc, id=q['id'])
         print('done for %d' % q['id'])

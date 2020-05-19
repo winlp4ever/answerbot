@@ -58,7 +58,7 @@ class SimiSearch:
             body={
                 "size": topk,
                 "query": script_query,
-                "_source": ['id', 'text']
+                "_source": ['id', 'text', 'rep']
             }
         )
 
@@ -66,8 +66,16 @@ class SimiSearch:
         print('search time: {}'.format(search_time))
 
         res = []
+        reps = []
         for r in response['hits']['hits'][:topk]:
-            res.append([r['_source']['id'], r['_source']['text'], r['_score']])
+            if r['_source']['rep'] not in reps:
+                reps.append(r['_source']['rep'])
+                res.append({
+                    'id': r['_source']['id'],
+                    'text': r['_source']['text'],
+                    'score': r['_score'],
+                    'rep': r['_source']['rep']
+                })
         return res
     
 
