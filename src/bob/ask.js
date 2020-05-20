@@ -63,11 +63,20 @@ const Chat = ({content}) => {
 
 const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
+    const [evalMsg, setEvalMsg] = useState('')
+
+    const _retrieveMsg = async () => {
+        setEvalMsg(await postActionMsg(Actions.EVALRESPONSE))
+    }
+    
+    useEffect(() => {
+        _retrieveMsg()
+    }, [])
 
     return <div className='rating'>
         <span className='text'>
             <img src={require('../../imgs/bob/rating.svg')} />
-            <b>Merci d'evaluer la reponse</b>
+            <b>{evalMsg}</b>
         </span>
         <div className='rating-score'>
             {[1, 2, 3, 4, 5].map(i => <span 
@@ -128,7 +137,21 @@ const Answer = ({content, socket, setIns}) => {
     const [foc, setFoc] = useState(false)
     const [onceTime, setOnceTime] = useState(true)
     const [showHelp, setShowHelp] = useState(false)
+    const [msg, setMsg] = useState('')
     
+
+    const _retrieveMsg = async () => {
+        if (content.answer) {
+            setMsg(await postActionMsg(Actions.ANSWER))
+        } else {
+            setMsg(await postActionMsg(Actions.UNABLETOANSWER))
+        }
+    }
+
+    useEffect(() => {
+        _retrieveMsg()
+    }, [])
+
     useEffect(() => {
         if (showHelp) setTimeout(()=> setShowHelp(false), 1200)
     }, [showHelp])
@@ -172,10 +195,9 @@ const Answer = ({content, socket, setIns}) => {
 
     return <div>
         <div className='chat'>
-            <span className='text'>{content.text != '' ? 'J\'ai trouve quelque chose': 
-                'J\'arrive pas a trouver une reponse. Question mal posee ou pas precise!!!'}</span>
+            <span className='text'>{msg}</span>
         </div>
-        {content.text != '' ? <div 
+        {content.text != '' && <div 
             className={'answer' + (foc? ' foc': '')} 
             onMouseEnter={handleMouseEnter} 
             onMouseLeave={handleMouseLeave}
@@ -193,7 +215,7 @@ const Answer = ({content, socket, setIns}) => {
             > 
                 <MdRender source={content.text} />
             </span>
-        </div>:null}
+        </div>}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
         {content.text != '' && <RateTheAnswer />}
     </div>

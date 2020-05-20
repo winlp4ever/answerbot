@@ -144,7 +144,6 @@ app.post('/submit-answer-rating', (req, res) => {
 })
 
 app.post('/post-bob-msg', (req, res) => {
-    console.log(req.body)
     const query = `
     select * 
     from 
@@ -159,7 +158,6 @@ app.post('/post-bob-msg', (req, res) => {
         if (err) {
             res.json({status: err.stack});
         } else {
-            console.log(response);
             res.json({status: 'ok', msg: response.rows[0].message_text});
         }
     })

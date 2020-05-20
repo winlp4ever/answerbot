@@ -149,7 +149,6 @@ async def run():
             
             print('responded.')
             msg['related_questions'] = getRelatedQuestions(sol_id)
-            print(msg['related_questions'])
             #msg['related_questions'] = []
             msg['type'] = 'answer'
             
@@ -165,7 +164,6 @@ async def run():
         def get_hints(msg):
             question = msg['typing']
             if len(question) < 3:
-                print('okk')
                 return {
                     'hints': [],
                     'conversationID': msg['conversationID']
