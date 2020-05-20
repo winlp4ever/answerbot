@@ -351,7 +351,7 @@ const NewChat = (props) => {
             setViewHints(false)
         }
     }
-
+    if (user.username == '') return null;
     return <div className='new-chat'>
         {
             (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
