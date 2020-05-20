@@ -143,6 +143,28 @@ app.post('/submit-answer-rating', (req, res) => {
     })
 })
 
+app.post('/post-bob-msg', (req, res) => {
+    console.log(req.body)
+    const query = `
+    select * 
+    from 
+        bob_message
+    inner join 
+        action_message
+    on bob_message.id = action_message.message_id
+    where action_message.action_id = $1
+    `
+    const values = [req.body.actionID]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            console.log(response);
+            res.json({status: 'ok', msg: response.rows[0].message_text});
+        }
+    })
+})
+
 app.post('/post-news', (req, res) => {
     const query = 'web development';
     utils.getNews(query, (ans)=> {
