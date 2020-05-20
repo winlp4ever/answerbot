@@ -132,9 +132,11 @@ const RelatedQuestions = ({qs, socket}) => {
             {qs.map((q, id) => <div className='rel-q' key={id}>
                 <span 
                     className='text' 
-                    onClick={_ => ask(q.question_text)} 
-                    dangerouslySetInnerHTML={{__html: q.question_text}} 
-                />
+                    onClick={_ => ask(q.question_text)}   
+                >
+                    <a dangerouslySetInnerHTML={{__html: q.question_text}} />
+                    <img src={require('../../imgs/bob/goto.svg')} />
+                </span>
             </div>)}
         </div>: <div>
             {qs.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
