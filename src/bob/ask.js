@@ -263,7 +263,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             className={'hint' + (focus==id? ' focus': '') + (autoComplete-1 == id? ' auto-complete': '')}
             onMouseEnter={_ => toggleHint(id)}
             onMouseLeave={_ => toggleHint(-1)}
-            onClick={_ => applyHint(h[1])}
+            onClick={_ => applyHint(h.text)}
         >
             <span>{h.rep? h.text: <a>@mon code ne marche pas</a>}</span>
             <span className='similarity-score'>{`${parseInt(h.score * 100)}%`}</span>
