@@ -111,7 +111,7 @@ async def run():
             if qs and qs[0]['score'] > 0.93:
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
                 cur.execute('''
-                    select answer_temp.*, question_answer_temp.question_id as qid
+                    select answer_temp.*, question_answer_temp.question_id as qid, question.question_fuzzy as fuzzy
                     from 
                         question_answer_temp
                     inner join 

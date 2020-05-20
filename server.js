@@ -158,7 +158,7 @@ app.post('/post-bob-msg', (req, res) => {
         if (err) {
             res.json({status: err.stack});
         } else {
-            res.json({status: 'ok', msg: response.rows[0].message_text});
+            res.json({status: 'ok', msg: response.rows[Math.floor(Math.random() * response.rows.length)].message_text});
         }
     })
 })
