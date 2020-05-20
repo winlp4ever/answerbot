@@ -154,6 +154,8 @@
                 padding: 0.5em 0.1em;
                 height: 100%;
                 overflow-y: scroll;
+                scrollbar-color: rgb(209, 209, 209) transparent;;
+                scrollbar-width: 5px;
                 &::-webkit-scrollbar {
                     width: 5px;
                 }
@@ -178,7 +180,7 @@
                     display: flex;
                     flex-direction: row;
                     .user {
-                        min-width: 1em;
+                        min-width: 0.5em;
                     }
                     .content {
                         max-width: calc(100% - 3em);
@@ -355,15 +357,15 @@
                         display: flex;
                         flex-direction: row-reverse;
                         .user {
-                            width: 2.5em;
+                            width: 2em;
                             img {
                                 position: absolute;
                                 display: block;
-                                width: 2.25em;
-                                margin: 0.6em 0 auto 0.5em;
-                                height: 2.25em;
+                                width: 1.8em;
+                                margin: 0.6em 0 auto 0em;
+                                height: 1.8em;
                                 padding: 0;
-                                bottom: 0.25em;
+                                bottom: 0.5em;
                                 right: 0.1em;
                                 background: linear-gradient(to bottom, #9575cd 0%, #7e57c2 100%);
                                 border-radius: 50%;

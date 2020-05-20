@@ -92,6 +92,16 @@ const RateTheAnswer = () => {
 
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false)
+    const [msg, setMsg] = useState('')
+    
+
+    const _retrieveMsg = async () => {
+        setMsg(await postActionMsg(Actions.RELATEDQUESTIONS))
+    }
+
+    useEffect(() => {
+        _retrieveMsg()
+    }, [])
 
     const user = useContext(userContext).user
     
@@ -115,7 +125,7 @@ const RelatedQuestions = ({qs, socket}) => {
             onClick={toggleRel}
         >
             <img src={require('../../imgs/bob/related.svg')} />
-            <b>Veuillez vous voir quelques questions proches?</b>
+            <b>{msg}</b>
         </span>
         {viewRel? <div>
             {qs.map((q, id) => <div className='rel-q' key={id}>
@@ -296,8 +306,8 @@ const NewChat = (props) => {
 
     const handleAutoComplete = () => {
         if (viewHints & autoComplete >= 0 & autoComplete < props.hints.length) {
-            setNewchat(props.hints[autoComplete][1])
-            input.current.value = props.hints[autoComplete][1]
+            setNewchat(props.hints[autoComplete].text)
+            input.current.value = props.hints[autoComplete].text
         }
     }
 
