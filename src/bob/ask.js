@@ -76,17 +76,15 @@ const RateTheAnswer = () => {
     return <div className='rating'>
         <span className='text'>
             <img src={require('../../imgs/bob/rating.svg')} />
-            <b>{evalMsg}</b>
-        </span>
-        <div className='rating-score'>
-            {[1, 2, 3, 4, 5].map(i => <span 
+            <b>{evalMsg}</b>&nbsp;
+            {[1, 2, 3, 4, 5].map(i => <i 
                 key={i}
                 onClick={_ => setScore(i)}
                 className={i <= score ? 'on': 'off'}
             >
                 {i <= score? <StarsIcon />: <RadioButtonUncheckedRoundedIcon />}
-            </span>)}
-        </div>
+            </i>)}
+        </span>
     </div>
 }
 

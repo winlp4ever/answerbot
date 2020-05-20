@@ -51,7 +51,7 @@
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
                     }
-                    border-radius: 1.5em;
+                    border-radius: 1.2em;
                     resize: unset;
                     border: none;
                     background: whitesmoke;
@@ -192,7 +192,7 @@
                         span {
                             border: 1px solid transparent;
                             padding: 0.35em 1em;
-                            border-radius: 0.5em;
+                            border-radius: 0.25em;
                             font-size: 0.8em;
                             max-width: 75%;
                             overflow-wrap: break-word;
@@ -215,7 +215,7 @@
                             position: absolute;
                             top: -2.8em;
                             display: none;
-                            border-radius: 0.5em;
+                            border-radius: 0.25em;
                             border-color: lightgrey;
                             color: whitesmoke;
                             background: #424242;
@@ -223,17 +223,19 @@
                     }
                     .answer {
                         position: relative;
-                        margin: 0.5em 0 0.5em 1em;
+                        margin: 0.25em 0 0.25em 1em;
                         box-sizing: border-box;
                         padding: 0.5em 1em 0.5em;
-                        border-radius: 1.2em;
+                        border-radius: 0.25em;
                         font-size: 0.8em;
                         transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                         background: white;
                         color: #424242;
                         border: 1px solid transparent;
                         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
-                        
+                        p {
+                            margin: 0.2em 0;
+                        }
                         &:hover {
                             box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
                         }
@@ -318,17 +320,18 @@
                         }
                     }
                     .rating {
-                        .rating-score {
-                            margin: 0.5em 0;
-                            span {
-                                padding: 0.1em;
-                                margin: 0.1em;
-                                svg {
-                                    font-size: 1.2em;
-                                }
-                                &.on {
-                                    color: #00c853;
-                                }
+                        overflow-wrap: break-word;
+                        margin: 0.25em 0;
+                        i {
+                            vertical-align: middle;
+                            padding: 0.05em;
+                            margin: 0.05em;
+                            color: #424242;
+                            svg {
+                                font-size: 1em;
+                            }
+                            &.on {
+                                color: #00c853;
                             }
                         }
                     }
@@ -376,8 +379,8 @@
                             .text {
                                 background: inherit;
                                 //border: 1px solid lightgrey;
-                                border-bottom-left-radius: 1.5em;
-                                border-top-left-radius: 1.5em;
+                                border-bottom-left-radius: 1.2em;
+                                border-top-left-radius: 1.2em;
                                 background: #e8eaf6;
                             }
                             .time {
@@ -389,7 +392,7 @@
                             .rel-q {
                                 margin: 0.15em 0;
                                 .text {
-                                    border-radius: 1.5em;
+                                    border-radius: 1.2em;
                                     line-height: 1.25;
                                     font-size: 0.7em;
                                     box-shadow: none;
@@ -400,13 +403,12 @@
                             }
                             &:first-child {
                                 .text {
-                                    border-top-right-radius: 1.5em;
+                                    border-top-right-radius: 1.2em;
                                 }
                             }
                             &:last-child {
                                 .text {
-                                    border-bottom-right-radius: 1.5em;
-                                    
+                                    border-bottom-right-radius: 1.2em;
                                 }
                             }
                         }
