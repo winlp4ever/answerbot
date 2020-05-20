@@ -77,13 +77,16 @@ const RateTheAnswer = () => {
         <span className='text'>
             <img src={require('../../imgs/bob/rating.svg')} />
             <b>{evalMsg}</b>&nbsp;
-            {[1, 2, 3, 4, 5].map(i => <i 
-                key={i}
-                onClick={_ => setScore(i)}
-                className={i <= score ? 'on': 'off'}
-            >
-                {i <= score? <StarsIcon />: <RadioButtonUncheckedRoundedIcon />}
-            </i>)}
+            <span className='rating-stars'>
+                {[1, 2, 3, 4, 5].map(i => <i 
+                    key={i}
+                    onClick={_ => setScore(i)}
+                    className={i <= score ? 'on': 'off'}
+                >
+                    {i <= score? <StarsIcon />: <RadioButtonUncheckedRoundedIcon />}
+                </i>)}
+            </span>
+            
         </span>
     </div>
 }
@@ -133,7 +136,17 @@ const RelatedQuestions = ({qs, socket}) => {
                     dangerouslySetInnerHTML={{__html: q.question_text}} 
                 />
             </div>)}
-        </div>:null}
+        </div>: <div>
+            {qs.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
+                <span 
+                    className='text' 
+                    onClick={_ => ask(q.question_text)}   
+                >
+                    <a dangerouslySetInnerHTML={{__html: q.question_text}} />
+                    <img src={require('../../imgs/bob/goto.svg')} />
+                </span>
+            </div>)}
+        </div>}
     </div>
 }
 
@@ -274,7 +287,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             onClick={_ => applyHint(h.text)}
         >
             <span>{h.rep? h.text: <a>@mon code ne marche pas</a>}</span>
-            <span className='similarity-score'>{`${parseInt(h.score * 100)}%`}</span>
+            <span className='similarity-score'>{`${parseInt((h.score-0.5)*2 * 100)}%`}</span>
         </div>)}
     </div>
 }

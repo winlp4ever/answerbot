@@ -151,7 +151,7 @@
                 display: block;
                 position: relative;
                 box-sizing: border-box;
-                padding: 0.5em 0.1em;
+                padding: 0.5em 0.5em;
                 height: 100%;
                 overflow-y: scroll;
                 scrollbar-color: rgb(209, 209, 209) transparent;;
@@ -176,11 +176,14 @@
                 }
                 
                 .chat-segment {
-                    margin: 0.5em 0;
+                    position: relative;
+                    margin: 0em 0 1em 0;
                     display: flex;
                     flex-direction: row;
                     .user {
-                        min-width: 0.5em;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
                     }
                     .content {
                         max-width: calc(100% - 3em);
@@ -223,9 +226,9 @@
                     }
                     .answer {
                         position: relative;
-                        margin: 0.25em 0 0.25em 1em;
+                        margin: 0.5em 0 0.5em 1em;
                         box-sizing: border-box;
-                        padding: 0.5em 1em 0.5em;
+                        padding: 0.5em 1.5em 0.5em 0.8em;
                         border-radius: 0.25em;
                         font-size: 0.8em;
                         transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
@@ -298,7 +301,7 @@
                             .pin, .pinned {
                                 min-width: 0;
                                 padding: 0.2em;
-                                margin: 0.2em 0.4em;
+                                margin: 0.2em 0.2em;
                                 border-radius: 50%;
                                 background: #fff8e1;
                                 img {
@@ -322,6 +325,10 @@
                     .rating {
                         overflow-wrap: break-word;
                         margin: 0.25em 0;
+                        .rating-stars {
+                            display: inline-block;
+                            padding: 0;
+                        }
                         i {
                             vertical-align: middle;
                             padding: 0.05em;
@@ -341,6 +348,7 @@
                                 background: whitesmoke;
                                 border-bottom-right-radius: 1.5em;
                                 border-top-right-radius: 1.5em;  
+                                margin-bottom: 0.5em;
                             }
                             &:first-child {
                                 .text {
@@ -360,7 +368,6 @@
                         display: flex;
                         flex-direction: row-reverse;
                         .user {
-                            width: 2em;
                             img {
                                 position: absolute;
                                 display: block;
@@ -368,8 +375,8 @@
                                 margin: 0.6em 0 auto 0em;
                                 height: 1.8em;
                                 padding: 0;
-                                bottom: 0.5em;
-                                right: 0.1em;
+                                bottom: 0.2em;
+                                right: 0em;
                                 background: linear-gradient(to bottom, #9575cd 0%, #7e57c2 100%);
                                 border-radius: 50%;
                             }
@@ -394,11 +401,17 @@
                                 .text {
                                     border-radius: 1.2em;
                                     line-height: 1.25;
-                                    font-size: 0.7em;
+                                    font-size: 0.8em;
                                     box-shadow: none;
-                                    background: #2962ff;
-                                    color: white;
+                                    background: transparent;
+                                    color: #212121;
                                     border: none;
+                                    border-radius: unset;
+                                    border-bottom: 1px solid rgb(172, 172, 172);
+                                }
+                                img {
+                                    margin: 0 0.2em;
+                                    width: 0.8em;
                                 }
                             }
                             &:first-child {

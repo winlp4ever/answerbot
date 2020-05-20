@@ -108,7 +108,7 @@ async def run():
             msg = template.copy()
             sol_id = -1
 
-            if qs and qs[0]['score'] > 0.93:
+            if qs and qs[0]['score'] > 0.95:
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
                 cur.execute('''
                     select answer_temp.*, question_answer_temp.question_id as qid, question.question_fuzzy as fuzzy
