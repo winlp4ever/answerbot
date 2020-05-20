@@ -1,24 +1,25 @@
-import React, {Component, useState, useContext, useEffect, useRef} from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
-import {userContext} from '../user-context/user-context';
+import React, {Component, useState, useContext, useEffect, useRef} from 'react'
+import ReactDOM, { findDOMNode } from 'react-dom'
+import {userContext} from '../user-context/user-context'
 
-import Button from '@material-ui/core/Button';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import StarsIcon from '@material-ui/icons/Stars';
-import RadioButtonCheckedRoundedIcon from '@material-ui/icons/RadioButtonCheckedRounded';
-import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded';
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import $ from 'jquery';
-import Sound from 'react-sound';
+import Button from '@material-ui/core/Button'
+import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+import StarsIcon from '@material-ui/icons/Stars'
+import RadioButtonCheckedRoundedIcon from '@material-ui/icons/RadioButtonCheckedRounded'
+import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded'
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded'
+import $ from 'jquery'
+import Sound from 'react-sound'
 
-import './_ask.scss';
-import MdRender from '../markdown-render/markdown-render';
-import IncomingMsg from '../../sounds/incoming-msg.mp3';
-import IsTyping from '../../sounds/is-typing.mp3';
+import './_ask.scss'
+import MdRender from '../markdown-render/markdown-render'
+import IncomingMsg from '../../sounds/incoming-msg.mp3'
+import IsTyping from '../../sounds/is-typing.mp3'
 import Lottie from 'react-lottie'
-import TypingIcon from '../../imgs/typing.json';
-import Welcome from './welcome';
-import {getCurrentTime} from '../utils';
+import TypingIcon from '../../imgs/typing.json'
+import Welcome from './welcome'
+import {getCurrentTime} from '../utils'
+import Actions, {postActionMsg} from './actions'
 
 class Typing extends Component {
     state = {
@@ -38,7 +39,7 @@ class Typing extends Component {
             rendererSettings: {
             preserveAspectRatio: 'xMidYMid slice'
             }
-        };
+        }
   
         return(
             <div className='is-typing'>
@@ -61,7 +62,7 @@ const Chat = ({content}) => {
 }
 
 const RateTheAnswer = () => {
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(0)
 
     return <div className='rating'>
         <span className='text'>
@@ -81,11 +82,11 @@ const RateTheAnswer = () => {
 }
 
 const RelatedQuestions = ({qs, socket}) => {
-    const [viewRel, setViewRel] = useState(false);
+    const [viewRel, setViewRel] = useState(false)
 
-    const user = useContext(userContext).user;
+    const user = useContext(userContext).user
     
-    const toggleRel = () => setViewRel(!viewRel);
+    const toggleRel = () => setViewRel(!viewRel)
 
     const ask = (txt) => {
         const nc = {
@@ -97,9 +98,9 @@ const RelatedQuestions = ({qs, socket}) => {
         socket.emit('ask-bob', {
             chat: nc,
             conversationID: user.userid
-        });
+        })
     }
-    if (qs.length == 0) return null;
+    if (qs.length == 0) return null
     return <div className='related-questions'>
         <span className={'text' + (viewRel? ' rel': '')}
             onClick={toggleRel}
@@ -120,54 +121,54 @@ const RelatedQuestions = ({qs, socket}) => {
 }
 
 const Answer = ({content, socket, setIns}) => {
-    const Us = useContext(userContext);
+    const Us = useContext(userContext)
 
     let u = content.datetime in Us.user.bookmarks
-    const [pin, setPin] = useState(u);
-    const [foc, setFoc] = useState(false);
-    const [onceTime, setOnceTime] = useState(true);
-    const [showHelp, setShowHelp] = useState(false);
+    const [pin, setPin] = useState(u)
+    const [foc, setFoc] = useState(false)
+    const [onceTime, setOnceTime] = useState(true)
+    const [showHelp, setShowHelp] = useState(false)
     
     useEffect(() => {
         if (showHelp) setTimeout(()=> setShowHelp(false), 1200)
-    }, [showHelp]);
+    }, [showHelp])
 
     const handleClick = () => {
-        if (foc) setIns(null);
-        else setIns(content);
-        setFoc(!foc);
+        if (foc) setIns(null)
+        else setIns(content)
+        setFoc(!foc)
     }
 
     const handleMouseLeave = () => {
         if (!foc) {
-            setIns(null);
+            setIns(null)
         }
-        setShowHelp(false);
+        setShowHelp(false)
     }
 
     const handleMouseEnter = () => {
         if (!foc) {
-            setIns(content);
+            setIns(content)
         }
         if (!foc & onceTime) {
-            setShowHelp(true);
-            setOnceTime(false);
+            setShowHelp(true)
+            setOnceTime(false)
         }
     }
 
     const togglePin = () => {
         if (pin) {
-            let dct = Us.user;
-            delete dct.bookmarks[content.datetime];
-            Us.updateUser(dct);
+            let dct = Us.user
+            delete dct.bookmarks[content.datetime]
+            Us.updateUser(dct)
         }
         else {
-            let dct = Us.user;
-            dct.bookmarks[content.datetime] = content;
-            Us.updateUser(dct);
+            let dct = Us.user
+            dct.bookmarks[content.datetime] = content
+            Us.updateUser(dct)
         }
         setPin(!pin)
-    };
+    }
 
     return <div>
         <div className='chat'>
@@ -200,16 +201,16 @@ const Answer = ({content, socket, setIns}) => {
 
 const ChatSegment = (props) => {
     // get user context
-    const user = useContext(userContext).user;
+    const user = useContext(userContext).user
 
-    let cl = 'chat-segment';
-    let isBob = false;
+    let cl = 'chat-segment'
+    let isBob = false
     // check if these phrases are spoken by current user
     if (props.chats.length > 0) {
-        if (user.username == props.chats[0].user.username) cl += ' me';
+        if (user.username == props.chats[0].user.username) cl += ' me'
         if (props.chats[0].user.username == 'bob') {
-            cl += ' chatbot';
-            isBob = true;
+            cl += ' chatbot'
+            isBob = true
         }
     }
     return <div className={cl}>
@@ -220,19 +221,19 @@ const ChatSegment = (props) => {
         </div>
         <div className='content'>
             {props.chats.map((c, id) => {
-                if (c.type == 'chat') return <Chat key={id} content={c}/>;
+                if (c.type == 'chat') return <Chat key={id} content={c}/>
                 if (c.type == 'answer') 
-                    return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>;
+                    return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>
             })}
         </div>
     </div>
 }
 
 const Hints = ({hints, applyHint, autoComplete}) => {
-    const [focus, setFocus] = useState(-1);
+    const [focus, setFocus] = useState(-1)
 
     const toggleHint = (i) => {
-        setFocus(i);
+        setFocus(i)
     }
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
@@ -249,22 +250,22 @@ const Hints = ({hints, applyHint, autoComplete}) => {
 }
 
 const NewChat = (props) => {
-    const [newchat, setNewchat] = useState('');
-    const [viewHints, setViewHints] = useState(true);
-    const [autoComplete, setAutoComplete] = useState(0);
+    const [newchat, setNewchat] = useState('')
+    const [viewHints, setViewHints] = useState(true)
+    const [autoComplete, setAutoComplete] = useState(0)
 
-    const input = useRef(null);
-    const sending = useRef(null);
-    const user = useContext(userContext).user;
+    const input = useRef(null)
+    const sending = useRef(null)
+    const user = useContext(userContext).user
 
     const viewHideHints = () => {
-        setViewHints(!viewHints);
-        input.current.focus();
+        setViewHints(!viewHints)
+        input.current.focus()
     }
 
     const handleChange = (e) => {
-        setNewchat(e.target.value);
-        if (e.target.value.length == 7) setViewHints(true);
+        setNewchat(e.target.value)
+        if (e.target.value.length == 7) setViewHints(true)
         props.socket.emit('ask-for-hints-bob', {
             'typing': e.target.value,
             'conversationID': user.userid
@@ -273,8 +274,8 @@ const NewChat = (props) => {
 
     const handleAutoComplete = () => {
         if (viewHints & autoComplete >= 0 & autoComplete < props.hints.length) {
-            setNewchat(props.hints[autoComplete][1]);
-            input.current.value = props.hints[autoComplete][1];
+            setNewchat(props.hints[autoComplete][1])
+            input.current.value = props.hints[autoComplete][1]
         }
     }
 
@@ -288,13 +289,13 @@ const NewChat = (props) => {
         props.socket.emit('ask-bob', {
             chat: nc,
             conversationID: user.userid
-        });
-        setNewchat('');
-        input.current.value = '';
+        })
+        setNewchat('')
+        input.current.value = ''
     }
 
     const send = () => {
-        if (newchat == '') return;
+        if (newchat == '') return
         const nc = {
             time: getCurrentTime(true),
             user: user,
@@ -304,28 +305,28 @@ const NewChat = (props) => {
         props.socket.emit('ask-bob', {
             chat: nc,
             conversationID: user.userid
-        });
-        setNewchat('');
-        input.current.value = '';
+        })
+        setNewchat('')
+        input.current.value = ''
     }
 
     const handleKeyDown = (e) => {
-        let keycode = e.keyCode || e.which;
+        let keycode = e.keyCode || e.which
         if (keycode == 13) {
-            e.preventDefault();
-            sending.current.click();
+            e.preventDefault()
+            sending.current.click()
         }
         else if (keycode == 9) {
-            e.preventDefault();
-            if (autoComplete >= props.hints.length) setAutoComplete(0);
+            e.preventDefault()
+            if (autoComplete >= props.hints.length) setAutoComplete(0)
             else {
-                setAutoComplete(autoComplete + 1);
-                handleAutoComplete();
+                setAutoComplete(autoComplete + 1)
+                handleAutoComplete()
             }
         }
         else if (keycode == 27) {
-            e.preventDefault();
-            setViewHints(false);
+            e.preventDefault()
+            setViewHints(false)
         }
     }
 
@@ -358,20 +359,20 @@ const NewChat = (props) => {
 }
 
 const Ask = (props) => {
-    let chatSegments = [];
-    let segment = [];
-    let currentUser = '';
+    let chatSegments = []
+    let segment = []
+    let currentUser = ''
     props.chats.forEach((c, id) => {
         if (c.user.username != currentUser) {
-            currentUser = c.user.username;
+            currentUser = c.user.username
             if (segment.length > 0) {
-                chatSegments.push(segment);
-                segment = [];
+                chatSegments.push(segment)
+                segment = []
             }
         }
-        segment.push(c);
+        segment.push(c)
     })
-    if (segment) chatSegments.push(segment);
+    if (segment) chatSegments.push(segment)
 
     return <div className='ask'>
         <div className='old-chats'>
@@ -388,5 +389,5 @@ const Ask = (props) => {
     </div>
 }
 
-export default Ask;
-export { NewChat };
+export default Ask
+export { NewChat }
