@@ -260,9 +260,12 @@ const ChatSegment = (props) => {
     }
     return <div className={cl}>
         <div className='user'>
-            {isBob ? 
-                <img src={require('../../imgs/bob/bob-transparent.svg')} />
-            : null}
+            {isBob &&
+                <div>
+                    <span>Bob</span>
+                    <img src={require('../../imgs/bob/bob-transparent.svg')} />
+                </div>
+            }
         </div>
         <div className='content'>
             {props.chats.map((c, id) => {

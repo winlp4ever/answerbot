@@ -109,23 +109,35 @@ async def run():
             sol_id = -1
 
             if qs and qs[0]['score'] > 0.95:
+                print(qs[0]['id'])
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
                 cur.execute('''
-                    select answer_temp.*, question_answer_temp.question_id as qid, question.question_fuzzy as fuzzy
+                    select answer_temp.*, q.*
                     from 
                         question_answer_temp
-                    inner join 
-                        answer_temp 
-                    on question_answer_temp.answer_temp_id = answer_temp.id 
-                    inner join 
-                        question 
-                    on 
+                    inner join
                         (
-                            question_answer_temp.question_id = question.id 
-                            or question_answer_temp.question_id = question.question_equivalent
-                        )
-                    where question.id = %s
-                    and answer_temp.answer_valid='1'
+                            select qs.id as qid, question.question_fuzzy as fuzzy
+                            from 
+                                question 
+                            inner join
+                                question as qs
+                            on (
+                                    question.id = qs.question_equivalent 
+                                    or question.id = qs.id 
+                                    or question.question_equivalent = qs.id
+                                    or (
+                                            question.question_equivalent = qs.question_equivalent 
+                                            and question.question_equivalent > 0
+                                        )
+                                ) 
+                            where question.id = %s
+                        ) as q
+                    on (q.qid = question_answer_temp.question_id)
+                    inner join 
+                        answer_temp
+                    on question_answer_temp.answer_temp_id = answer_temp.id
+                    where answer_temp.answer_valid = '1' 
                     order by answer_rank;
                 ''', [str(qs[0]['id'])])
                 ans = cur.fetchone()
