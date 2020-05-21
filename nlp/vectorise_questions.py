@@ -1,16 +1,10 @@
-'''
-This script use bert-as-a-service, extracts all existing questions from a 
-postgresql then calculate and store back to db all bert vectorisations of questions.
-The goal is to have a system that returns similar questions to the one typed by 
-front user.
-'''
 import psycopg2
 import json
 from tokenizer import Token
 
 tk = Token()
 from sentence_transformers import SentenceTransformer
-mod = SentenceTransformer('bert-base-nli-mean-tokens')
+mod = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
 
 
 # read db-config file
@@ -28,11 +22,13 @@ cur.execute("SELECT id, question_text FROM question;")
 questions = cur.fetchall()
 
 # iterate over all questions
+processed = 0
+total = 0
 for idx, text in questions:
     tks = tk.tokenize([text])[0]
-    embeddings = mod.encode([tks])[0]
-    cur.execute("update question set dimensions=768, vectorisation=%s where id=%s", [embeddings.tolist(), idx])
-    print('done for %d' % idx)
+    embeddings = mod.encode([tks])[0].tolist()
+    cur.execute("update question set dimensions=%s, vectorisation=%s where id=%s", [len(embeddings), embeddings, idx])
+    print('done for question with %d - total processed questions: %d' % (idx, processed))
 
 conn.commit()
 

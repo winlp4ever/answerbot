@@ -9,7 +9,7 @@ class SimiSearch:
     def __init__(self):
         self.es = Elasticsearch(maxsize=1000)
         self.tk = Token()
-        self.bc = SentenceTransformer('bert-base-nli-mean-tokens')
+        self.bc = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
         
     def findSimQuestions(self, q: str, topk: int, minScore=0.7):
         """
@@ -41,12 +41,12 @@ class SimiSearch:
                     }
                 },
                 "script": {
-                    "source": "return cosineSimilarity(params.query_vector, 'vectorisation');",
+                    "source": "return 1+cosineSimilarity(params.query_vector, 'vectorisation');",
                     "params": {
                         "query_vector": query_vector
                     }
                 },
-                "min_score": minScore
+                "min_score": minScore+1
             }
         }
 

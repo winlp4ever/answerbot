@@ -3,7 +3,7 @@
         "properties": {
             "vectorisation": {
                 "type": "dense_vector",
-                "dims": 768
+                "dims": 1024
             },
             "text": {
                 "type": "search_as_you_type"
