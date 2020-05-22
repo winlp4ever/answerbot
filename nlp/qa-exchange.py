@@ -189,7 +189,8 @@ async def run():
                 if msg['timestamp'] < conversations[convID]:
                     return {
                         'hints': [],
-                        'conversationID': msg['conversationID']
+                        'conversationID': msg['conversationID'],
+                        'timestamp': msg['timestamp']
                     }
                 conversations[convID] = msg['timestamp']
             try:
@@ -199,7 +200,8 @@ async def run():
                 qs = []
             return {
                 'hints': qs,
-                'conversationID': msg['conversationID']
+                'conversationID': msg['conversationID'],
+                'timestamp': msg['timestamp']
             }
 
         await sio.connect('http://localhost:5000')

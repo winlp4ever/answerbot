@@ -36,7 +36,7 @@ if (mode == 'prod') {
 else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { wsEngine: 'ws' });
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)

@@ -98,6 +98,7 @@ export default class Bob extends Component {
         })
         this.state.socket.on('bob-hints', msg => {
             if (msg.conversationID == this.context.user.userid) {
+                console.log(new Date().getTime() - msg.timestamp)
                 this.setState({hints: msg.hints})
             }
         })
