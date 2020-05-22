@@ -190,7 +190,8 @@ async def run():
                     return {
                         'hints': [],
                         'conversationID': msg['conversationID'],
-                        'timestamp': msg['timestamp']
+                        'timestamp': msg['timestamp'],
+                        'socketid': msg['socketid']
                     }
                 conversations[convID] = msg['timestamp']
             try:
@@ -201,7 +202,8 @@ async def run():
             return {
                 'hints': qs,
                 'conversationID': msg['conversationID'],
-                'timestamp': msg['timestamp']
+                'timestamp': msg['timestamp'],
+                'socketid': msg['socketid']
             }
 
         await sio.connect('http://localhost:5000')

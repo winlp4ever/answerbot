@@ -81,14 +81,13 @@ io.on('connection', function(socket){
         io.emit('bob-msg', msg);
     })
     socket.on('ask-for-hints-bob', msg => {
+        msg.socketid = socket.id;
         io.emit('ask-for-hints-bob', msg);
-        console.log('node->py')
-        console.log(new Date().getTime() - msg.timestamp)
+        console.log('node->py', new Date().getTime() - msg.timestamp)
     })
     socket.on('bob-hints', msg => {
-        io.emit('bob-hints', msg);
-        console.log('py->node')
-        console.log(new Date().getTime() - msg.timestamp)
+        io.to(msg.socketid).emit('bob-hints', msg);
+        console.log('py->node', new Date().getTime() - msg.timestamp)
     })
 
     // 3wa websocket
@@ -159,8 +158,6 @@ app.post('/login', (req, res) => {
 app.post('/get-user-data', (req, res) => {
     res.json({username: req.body.username, color: users[req.body.username].color});                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 })
-
-
 
 app.post('/admin-verify', (req, res) => {
     if (req.body.pass != '2311') res.json({answer: 'n'});
