@@ -11,7 +11,7 @@ class SimiSearch:
         self.tk = Token()
         self.bc = SentenceTransformer('distiluse-base-multilingual-cased')
         
-    def findSimQuestions(self, q: str, topk: int, minScore=0.7):
+    def findSimQuestions(self, q: str, topk: int, minScore=0.5):
         """
         Find similar questions based on cosine similarity to a question q and return top k results
         Params:

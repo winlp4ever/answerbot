@@ -83,7 +83,7 @@ const RateTheAnswer = () => {
                     onClick={_ => setScore(i)}
                     className={i <= score ? 'on': 'off'}
                 >
-                    {i <= score? <StarsIcon />: <RadioButtonUncheckedRoundedIcon />}
+                   <StarsIcon />
                 </i>)}
             </span>
             

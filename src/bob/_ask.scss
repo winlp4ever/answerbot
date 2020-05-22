@@ -341,7 +341,11 @@
                             svg {
                                 font-size: 1em;
                             }
+                            &.off {
+                                opacity: 0.5;
+                            }
                             &.on {
+                                opacity: 1;
                                 color: #00c853;
                             }
                         }
