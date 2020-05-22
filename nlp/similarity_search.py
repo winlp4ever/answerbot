@@ -9,7 +9,7 @@ class SimiSearch:
     def __init__(self):
         self.es = Elasticsearch(maxsize=1000)
         self.tk = Token()
-        self.bc = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
+        self.bc = SentenceTransformer('distiluse-base-multilingual-cased')
         
     def findSimQuestions(self, q: str, topk: int, minScore=0.7):
         """

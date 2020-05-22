@@ -31,6 +31,7 @@ def main():
     # retrieve all questions
     cur.execute("SELECT * FROM question where question_valid=1;")
     q = cur.fetchone()
+    cnt = 0
     while q:
         doc = {
             'id': q['id'],
@@ -39,7 +40,8 @@ def main():
             'rep': q['question_tsv']
         }
         es.index(index='qa', body=doc, id=q['id'])
-        print('done for %d' % q['id'])
+        cnt += 1
+        print('done for %d - processed: %d' % (q['id'], cnt))
         q = cur.fetchone()
     # close the database
     cur.close()

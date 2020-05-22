@@ -11,7 +11,7 @@ const AnswerInsights = ({content}) => {
                 <MdRender source={content.answer.answer_paragraph.replace('\\n', 'w')} />
             </div>
             <div className='orientation'>
-                <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore encore:</h4>
+                <h4><img src={require('../../imgs/bob/explore.svg')} /> Explore encore:</h4>
                 {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
             </div>
             {content.answer.source? <div className='source'>

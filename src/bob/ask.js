@@ -291,7 +291,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             onMouseLeave={_ => toggleHint(-1)}
             onClick={_ => applyHint(h.text)}
         >
-            <span>{h.rep? h.text: <a>@mon code ne marche pas</a>}</span>
+            <span dangerouslySetInnerHTML={{__html: h.rep? h.text: '<a>@mon code ne marche pas</a>'}}></span>
             <span className='similarity-score'>{`${parseInt((h.score-1.25)*4/3 * 100)}%`}</span>
         </div>)}
     </div>

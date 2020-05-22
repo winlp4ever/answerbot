@@ -209,6 +209,10 @@ app.post('/post-news', (req, res) => {
     })
 })
 
+app.post('/post-err-code', (req, res) => {
+    
+})
+
 // on terminating the process
 process.on('SIGINT', _ => {
     console.log('now you quit!');

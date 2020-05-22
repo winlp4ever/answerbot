@@ -4,7 +4,7 @@ from tokenizer import Token
 
 tk = Token()
 from sentence_transformers import SentenceTransformer
-mod = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
+mod = SentenceTransformer('distiluse-base-multilingual-cased')
 
 
 # read db-config file
@@ -29,6 +29,7 @@ for idx, text in questions:
     embeddings = mod.encode([tks])[0].tolist()
     cur.execute("update question set dimensions=%s, vectorisation=%s where id=%s", [len(embeddings), embeddings, idx])
     print('done for question with %d - total processed questions: %d' % (idx, processed))
+    processed += 1
 
 conn.commit()
 
