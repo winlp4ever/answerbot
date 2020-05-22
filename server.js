@@ -82,10 +82,12 @@ io.on('connection', function(socket){
     })
     socket.on('ask-for-hints-bob', msg => {
         io.emit('ask-for-hints-bob', msg);
+        console.log('node->py')
         console.log(new Date().getTime() - msg.timestamp)
     })
     socket.on('bob-hints', msg => {
         io.emit('bob-hints', msg);
+        console.log('py->node')
         console.log(new Date().getTime() - msg.timestamp)
     })
 
