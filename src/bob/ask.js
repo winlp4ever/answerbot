@@ -315,8 +315,9 @@ const NewChat = (props) => {
         setNewchat(e.target.value)
         if (e.target.value.length == 7) setViewHints(true)
         props.socket.emit('ask-for-hints-bob', {
-            'typing': e.target.value,
-            'conversationID': user.userid
+            typing: e.target.value,
+            conversationID: user.userid,
+            timestamp: new Date().getTime()
         })
     }
 
@@ -352,7 +353,7 @@ const NewChat = (props) => {
         }
         props.socket.emit('ask-bob', {
             chat: nc,
-            conversationID: user.userid
+            conversationID: user.userid,
         })
         setNewchat('')
         input.current.value = ''

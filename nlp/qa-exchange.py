@@ -40,7 +40,7 @@ f = open('db-credentials/config.json')
 dbconfig = json.load(f)
 f.close()
 
-
+conversations = {}
 
 async def run():
     try:
@@ -181,6 +181,17 @@ async def run():
                     'conversationID': msg['conversationID']
                 }
             global sim
+            global conversations
+            convID = msg['conversationID']
+            if convID not in conversations:
+                conversations[convID] = msg['timestamp']
+            else:
+                if msg['timestamp'] < conversations[convID]:
+                    return {
+                        'hints': [],
+                        'conversationID': msg['conversationID']
+                    }
+                conversations[convID] = msg['timestamp']
             try:
                 qs = sim.findSimQuestions(question, 5)
             except Exception as e:
