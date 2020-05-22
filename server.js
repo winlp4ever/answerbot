@@ -83,7 +83,7 @@ io.on('connection', function(socket){
     socket.on('ask-for-hints-bob', msg => {
         msg.socketid = socket.id;
         io.emit('ask-for-hints-bob', msg);
-        console.log('node->py', new Date().getTime() - msg.timestamp)
+        console.log('front->node', new Date().getTime() - msg.timestamp)
     })
     socket.on('bob-hints', msg => {
         io.to(msg.socketid).emit('bob-hints', msg);

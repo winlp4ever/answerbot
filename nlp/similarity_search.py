@@ -50,7 +50,7 @@ class SimiSearch:
             }
         }
 
-        print('encoding time: {}'.format(embedding_time))
+        #print('encoding time: {}'.format(embedding_time))
 
         search_start = time.time()
         response = self.es.search(
@@ -63,7 +63,7 @@ class SimiSearch:
         )
 
         search_time = time.time() - search_start
-        print('search time: {}'.format(search_time))
+        #print('search time: {}'.format(search_time))
 
         res = []
         reps = []
