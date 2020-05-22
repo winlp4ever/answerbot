@@ -53,7 +53,7 @@ async def run():
         ps_connection  = postgreSQL_pool.getconn()
 
         if(ps_connection):
-            print("successfully recived connection from connection pool ")
+            print("successfully received connection from connection pool ")
 
         # load azure credentials
         f = open('azure-credentials/config.json')
@@ -194,7 +194,7 @@ async def run():
         await sio.connect('http://localhost:5000')
         await sio.wait()
     except (Exception, psycopg2.DatabaseError) as error :
-        print ("Error while connecting to PostgreSQL", error)
+        print (error)
 
     finally:
         if (postgreSQL_pool):

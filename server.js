@@ -86,6 +86,44 @@ io.on('connection', function(socket){
     socket.on('bob-hints', msg => {
         io.emit('bob-hints', msg);
     })
+
+    // 3wa websocket
+    let io_3wa = require('socket.io-client')('http://learning.3wa.pixelsass.fr/bob-ia', 
+        {
+            extraHeaders:
+            {
+                token:'eaqYvt4a8emwgQwdXzpwELcRYnZxwnTJ8YABjLJg4W6Pw2ruz9Z2gsuVn2bRkaNm'
+            }
+        })
+
+    io_3wa.on('event_login', msg => {
+        let query = `
+            insert into activities (studentid, activitytype, record) 
+            values ($1, 'login', '{}')
+        `
+        let values = [msg]
+        client.query(query, values, (err, response) => {
+            if (err) {
+                console.log(err.stack)
+            } else {
+                console.log(response)
+            }
+        })
+    })
+    io_3wa.on('event_submit', msg => {
+        let query = `
+            insert into activities (studentid, activitytype, record)
+            values ($1, 'submit', $2)
+        `
+        let values = [msg.id_user, JSON.stringify(msg)]
+        client.query(query, values, (err, response) => {
+            if (err) {
+                console.log(err.stack)
+            } else {
+                console.log(response)
+            }
+        })
+    })
 });
 
 // normal routes with POST/GET 
