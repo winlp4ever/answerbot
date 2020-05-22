@@ -179,7 +179,9 @@ async def run():
             if len(question) < 3:
                 return {
                     'hints': [],
-                    'conversationID': msg['conversationID']
+                    'conversationID': msg['conversationID'],
+                    'timestamp': msg['timestamp'],
+                    'socketid': msg['socketid']
                 }
             global sim
             global conversations
@@ -196,7 +198,9 @@ async def run():
                     }
                 conversations[convID] = msg['timestamp']
             try:
+                st = time.time()
                 qs = sim.findSimQuestions(question, 5)
+                print('search-time : %f' % (time.time()-st))
             except Exception as e:
                 print(e)
                 qs = []

@@ -3,7 +3,7 @@ import React, {Component, useState, useContext, useEffect, useRef} from 'react';
 import {userContext} from '../user-context/user-context';
 
 // third party imports
-import socketIOClient from 'socket.io-client';
+import io from 'socket.io-client';
 import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
@@ -50,7 +50,9 @@ export default class Bob extends Component {
         insight: null,
         isTyping: false
     }
-    socket = socketIOClient(ENDPOINT)
+    socket = io({
+        transports: ['websocket']
+    })
 
 
     _setInsight = (cnt) => {
