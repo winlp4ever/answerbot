@@ -19,7 +19,7 @@ import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 
-const ENDPOINT = 'http://localhost:5000'
+const ENDPOINT = 'http://35.180.157.188:5000/'
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
