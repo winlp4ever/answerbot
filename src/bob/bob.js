@@ -3,7 +3,7 @@ import React, {Component, useState, useContext, useEffect, useRef} from 'react';
 import {userContext} from '../user-context/user-context';
 
 // third party imports
-import io from 'socket.io-client';
+import socketIOClient from 'socket.io-client';
 import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
@@ -19,7 +19,7 @@ import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 
-
+const ENDPOINT = 'http://localhost:5000'
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
@@ -43,7 +43,6 @@ export default class Bob extends Component {
     state = {
         hints: [],
         chats: [],
-        socket: io(),
         pins: [],
         tab: 0, 
         minimal: true,
@@ -51,6 +50,8 @@ export default class Bob extends Component {
         insight: null,
         isTyping: false
     }
+    socket = socketIOClient(ENDPOINT)
+
 
     _setInsight = (cnt) => {
         if (cnt == null) 
@@ -70,7 +71,7 @@ export default class Bob extends Component {
     }
 
     componentDidMount () {
-        this.state.socket.on('bob-msg', msg => {
+        this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
                 let chats_ = this.state.chats.slice();
@@ -88,7 +89,7 @@ export default class Bob extends Component {
                 this._scrollToBottom();
             }
         })
-        this.state.socket.on('new-chat', msg => {
+        this.socket.on('new-chat', msg => {
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
@@ -96,7 +97,7 @@ export default class Bob extends Component {
                 this._scrollToBottom();
             }
         })
-        this.state.socket.on('bob-hints', msg => {
+        this.socket.on('bob-hints', msg => {
             if (msg.conversationID == this.context.user.userid) {
                 console.log(new Date().getTime() - msg.timestamp)
                 this.setState({hints: msg.hints})
@@ -105,7 +106,7 @@ export default class Bob extends Component {
     }
 
     componentWillUnmount () {
-        this.state.socket.disconnect();
+        this.socket.disconnect();
     }
 
     toggleMode = () => {
@@ -122,7 +123,7 @@ export default class Bob extends Component {
 
     render() {
         let props = {
-            socket: this.state.socket,
+            socket: this.socket,
             chats: this.state.chats,
             hints: this.state.hints,
             setInsight: this._setInsight,
@@ -149,7 +150,7 @@ export default class Bob extends Component {
                     timeout={250}
                 >
                     <div className='minimal'>
-                        <NewChat socket={this.state.socket} hints={this.state.hints} />
+                        <NewChat socket={this.socket} hints={this.state.hints} />
                     </div>
                 </CSSTransition>
                 <img src={require('../../imgs/bob/bob-transparent.svg')} onClick={this.toggleMode} />

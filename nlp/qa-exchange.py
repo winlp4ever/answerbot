@@ -175,6 +175,7 @@ async def run():
 
         def get_hints(msg):
             question = msg['typing']
+            print(question)
             if len(question) < 3:
                 return {
                     'hints': [],
