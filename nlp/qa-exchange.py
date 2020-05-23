@@ -124,7 +124,7 @@ async def run():
                         order by id desc, date desc
                     ''')
                     res = cur.fetchone()
-                    if False:
+                    if res:
                         msg['answer'] = res['record']
                         msg['text'] = res['record']['message']
                         msg['type'] = 'exercise-err-message'
