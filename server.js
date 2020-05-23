@@ -109,21 +109,22 @@ io.on('connection', function(socket){
             if (err) {
                 console.log(err.stack)
             } else {
-                console.log(response)
+                console.log('ok')
             }
         })
     })
     io_3wa.on('event_submit', msg => {
+        console.log(msg)
         let query = `
-            insert into activities (studentid, activitytype, record)
-            values ($1, 'submit', $2)
+            insert into activities (studentid, activitytype, record, status, exerciseid, date)
+            values ($1, 'submit', $2, $3, $4, NOW()::date)
         `
-        let values = [msg.id_user, JSON.stringify(msg)]
+        let values = [msg.id_user, JSON.stringify(msg), msg.status, msg.id_exercice]
         client.query(query, values, (err, response) => {
             if (err) {
                 console.log(err.stack)
             } else {
-                console.log(response)
+                console.log('ok')
             }
         })
     })
