@@ -72,6 +72,7 @@ export default class Bob extends Component {
     }
 
     componentDidMount () {
+        console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
