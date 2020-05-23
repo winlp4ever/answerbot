@@ -161,13 +161,21 @@ const Answer = ({content, socket, setIns}) => {
     const [onceTime, setOnceTime] = useState(true)
     const [showHelp, setShowHelp] = useState(false)
     const [msg, setMsg] = useState('')
-    
+    const [showAnswer, setShowAnswer] = useState(false)
 
     const _retrieveMsg = async () => {
-        if (content.answer) {
-            setMsg(await postActionMsg(Actions.ANSWER))
+        if (content.text != '') {
+            if (content.answer.fuzzy) {
+                setMsg(await postActionMsg(Actions.UNABLETOANSWER))
+                setShowAnswer(false)
+            }
+            else {
+                setMsg(await postActionMsg(Actions.ANSWER))
+                setShowAnswer(true)
+            }
         } else {
             setMsg(await postActionMsg(Actions.UNABLETOANSWER))
+            setShowAnswer(false)
         }
     }
 
@@ -220,7 +228,7 @@ const Answer = ({content, socket, setIns}) => {
         <div className='chat'>
             <span className='text'>{msg}</span>
         </div>
-        {content.text != '' && <div 
+        {showAnswer && <div 
             className={'answer' + (foc? ' foc': '')} 
             onMouseEnter={handleMouseEnter} 
             onMouseLeave={handleMouseLeave}
@@ -240,7 +248,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
         </div>}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
-        {content.text != '' && <RateTheAnswer />}
+        {showAnswer && <RateTheAnswer />}
     </div>
 }
 

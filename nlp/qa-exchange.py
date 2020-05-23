@@ -138,7 +138,7 @@ async def run():
                         answer_temp
                     on question_answer_temp.answer_temp_id = answer_temp.id
                     where answer_temp.answer_valid = '1' 
-                    order by answer_rank;
+                    order by answer_temp.answer_teacher_manual_review desc, answer_rank, answer_temp.id asc;
                 ''', [str(qs[0]['id'])])
                 ans = cur.fetchone()
                 if ans:
