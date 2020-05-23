@@ -22,9 +22,9 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
             startIcon={<AccountCircleIcon />}
             onClick={toggleViewUserInfo}
         >
-            {Us.user.username==''? 'Please login': Us.user.username}
+            {Us.user.userid? Us.user.userid: 'anonymous'}
         </Button>
-        {Us.user.username == ''? null: <div>
+        {Us.user.userid? <div>
             {options.map((o, id) => <Button 
                 key={id}
                 className={o.cl + (id == activeTab ? ' focus': '')}
@@ -35,9 +35,6 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
             <Button className='close' onClick={toggleMode}>
                 <img src={require('../../imgs/bob/close.svg')} />
             </Button>
-        </div>}
-        {viewUserInfo? <div className='user-info'>
-            <Auth />
         </div>: null}
     </div>
 }

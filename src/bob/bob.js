@@ -74,6 +74,7 @@ export default class Bob extends Component {
     componentDidMount () {
         console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
+            console.log(msg.conversationID)
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
                 let chats_ = this.state.chats.slice();
@@ -124,6 +125,7 @@ export default class Bob extends Component {
     }
 
     render() {
+        console.log(this.context.user.userid)
         let props = {
             socket: this.socket,
             chats: this.state.chats,
@@ -171,7 +173,7 @@ export default class Bob extends Component {
                         changeTab={this.changeTab} 
                         toggleMode={this.toggleMode}
                     />
-                    {this.context.user.username != '' && <V.view {...props}/>}
+                    {this.context.user.userid? <V.view {...props}/>: null}
                 </div>
             </CSSTransition>
         </div>

@@ -22,6 +22,14 @@ const OldQ = (props) => {
     }
 
     const toggleViewTime = () => setViewTime(!viewTime);
+    
+    let view = false
+    if (props.q.answer) {
+        if (props.q.answer.fuzzy) view = false
+        else view = true 
+    } else view = false
+
+    if (!view) return null
     return <div 
         className='old-question' 
         onMouseEnter={toggleViewTime} 

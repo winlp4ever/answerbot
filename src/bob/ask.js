@@ -260,8 +260,8 @@ const ChatSegment = (props) => {
     let isBob = false
     // check if these phrases are spoken by current user
     if (props.chats.length > 0) {
-        if (user.username == props.chats[0].user.username) cl += ' me'
-        if (props.chats[0].user.username == 'bob') {
+        if (user.userid == props.chats[0].user.userid) cl += ' me'
+        if (props.chats[0].user.userid == -1) {
             cl += ' chatbot'
             isBob = true
         }
@@ -386,7 +386,7 @@ const NewChat = (props) => {
             setViewHints(false)
         }
     }
-    if (user.username == '') return null;
+    if (!user.userid) return null;
     return <div className='new-chat'>
         {
             (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
@@ -420,8 +420,8 @@ const Ask = (props) => {
     let segment = []
     let currentUser = ''
     props.chats.forEach((c, id) => {
-        if (c.user.username != currentUser) {
-            currentUser = c.user.username
+        if (c.user.userid != currentUser) {
+            currentUser = c.user.userid
             if (segment.length > 0) {
                 chatSegments.push(segment)
                 segment = []
