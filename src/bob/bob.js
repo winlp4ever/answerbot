@@ -13,7 +13,8 @@ import './_bob.scss';
 
 // other cpns imports
 import BobMenu from './menu';
-import Ask, {NewChat} from './ask';
+import Ask from './ask';
+import NewChat from './new-chat'
 import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
@@ -57,6 +58,8 @@ export default class Bob extends Component {
     _setInsight = (cnt) => {
         if (cnt == null) 
             this.setState({insight: null});
+        else if (cnt.type != 'answer')
+            this.setState({insight: null});
         else if (cnt.answer == null) 
             this.setState({insight: null});
         else 
@@ -74,7 +77,7 @@ export default class Bob extends Component {
     componentDidMount () {
         console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
-            console.log(msg.conversationID)
+            console.log(msg)
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
                 let chats_ = this.state.chats.slice();
