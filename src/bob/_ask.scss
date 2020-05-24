@@ -51,12 +51,13 @@
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
                     }
-                    border-radius: 1.2em;
+                    border-radius: 1.5em;
                     resize: unset;
                     border: none;
-                    background: whitesmoke;
+                    background: rgb(252, 252, 252);
                     transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
                     line-height: 1.6;
+                    border: 1px solid rgb(231, 231, 231);
                 }
                 button {
                     position: relative;
@@ -225,9 +226,10 @@
                         }
                     }
                     .answer {
+                        width: 105%;
                         position: relative;
                         margin: 1em 0;
-                        transform: translateX(-0.5em);
+                        transform: translateX(-1em);
                         box-sizing: border-box;
                         padding: 0.5em 1.5em 0.5em 0.8em;
                         border-radius: 0.8em;

@@ -3,6 +3,8 @@ import {userContext} from '../user-context/user-context'
 
 import Actions, {postActionMsg} from './actions'
 
+import {getCurrentTime} from '../utils'
+
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false)
     const [msg, setMsg] = useState('')

@@ -17,14 +17,7 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
 
     const Us = useContext(userContext);
     return <div className='bob-menu'>
-        <Button 
-            className='user' 
-            startIcon={<AccountCircleIcon />}
-            onClick={toggleViewUserInfo}
-        >
-            {Us.user.userid? Us.user.userid: 'anonymous'}
-        </Button>
-        {Us.user.userid? <div>
+        {Us.user.userid? <div className='bob-menu-options'>
             {options.map((o, id) => <Button 
                 key={id}
                 className={o.cl + (id == activeTab ? ' focus': '')}
