@@ -120,10 +120,10 @@ async def run():
                         select * from activities 
                         where activitytype = 'submit' 
                         and status = false 
-                        and exerciseid = 1
+                        and exerciseid = %d
                         and studentid = %d
                         order by id desc, date desc
-                    ''' % old_msg['conversationID'])
+                    ''' % (old_msg['chat']['user']['exerciseid'], old_msg['conversationID']))
                     res = cur.fetchone()
                     if res:
                         msg['answer'] = res['record']
