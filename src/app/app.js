@@ -27,7 +27,7 @@ export default class App extends Component {
             username: '',
             email: '',
             userid: parseInt(PARAMS.get('user')) || 0,
-            exerciseid: parseInt(PARAMS.get('exercise')) || 0,
+            exerciseid: parseInt(PARAMS.get('exercice')) || 0,
             level: 'Master2',
             history: [],
             bookmarks: {}
