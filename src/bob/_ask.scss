@@ -428,6 +428,8 @@
                                     color: #212121;
                                     border: none;
                                     border-radius: unset;
+                                    border-top-right-radius: unset;
+                                    border-bottom-right-radius: 0 !important;
                                     border-bottom: 1px solid rgb(172, 172, 172);
                                 }
                                 img {
