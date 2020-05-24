@@ -15,8 +15,7 @@ const Welcome = () => {
     }, [])
 
     return <div className='bob-welcome'>
-        <img src={require('../../imgs/bob/assistant.svg')} />
-        <img className='bob-says-hi' src={require('../../imgs/bob/bobsayshi.svg')} />
+        <img src={require('../../imgs/bob/_bob.svg')} />
         <h2>{msg}</h2>
     </div>
 }
