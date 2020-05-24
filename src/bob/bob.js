@@ -24,17 +24,20 @@ const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
         cl: 'view-ask',
-        view: (props) => <Ask {...props} />
+        view: (props) => <Ask {...props} />,
+        name: 'chat'
     },
     {
         icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
         cl: 'view-bookmarks',
-        view: (props) => <HistoryBookmarks {...props} />
+        view: (props) => <HistoryBookmarks {...props} />,
+        name: 'history'
     },
     {
         icon: <img src={require('../../imgs/bob/feed.svg')}/>,
         cl: 'view-explore',
-        view: (props) => <News {...props} />
+        view: (props) => <News {...props} />,
+        name: 'explorer'
     },
 ]
 
