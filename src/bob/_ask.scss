@@ -57,10 +57,13 @@
                     border-bottom-left-radius: 0.8em;
                     resize: unset;
                     border: none;
-                    background: rgb(252, 252, 252);
+                    background: whitesmoke;
                     transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
                     line-height: 1.6;
-                    border: 1px solid rgb(231, 231, 231);
+                    border: 1px solid transparent;
+                    &:focus {
+                        border: 1px solid #90caf9;
+                    }
                 }
                 button {
                     position: relative;
