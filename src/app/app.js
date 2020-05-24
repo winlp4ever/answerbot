@@ -18,13 +18,16 @@ import ViewHeadlineRoundedIcon from '@material-ui/icons/ViewHeadlineRounded';
 import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Cookies from 'js-cookie';
 
+let PARAMS = new URLSearchParams(window.location.search)
+
+console.log(PARAMS)
 export default class App extends Component {
     state = {
         user: {
             username: '',
             email: '',
-            color: '',
-            userid: 1,
+            userid: parseInt(PARAMS.get('user')) || 0,
+            exerciseid: parseInt(PARAMS.get('exercise')) || 0,
             level: 'Master2',
             history: [],
             bookmarks: {}
@@ -33,23 +36,14 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        let userdata = Cookies.get('user');
-        if (userdata) {
-            this.setState({user: JSON.parse(userdata)});   
-        }
+        console.log(this.state)
+    }
+
+    updateUser =  (info) => {
+        this.setState({user: info});
     }
 
     componentWillUnmount = () => {};
-
-    updateUser =  async (info) => {
-        await this.setState(
-            {user: info});
-        if (info.username != '') {
-            Cookies.set('user', this.state.user, {expires: 1});
-        } else {
-            Cookies.remove('user');
-        }
-    }
 
     selectTab = (i) => {
         this.setState({activeTab: i});

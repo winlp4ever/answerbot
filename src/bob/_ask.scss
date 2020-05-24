@@ -43,7 +43,7 @@
                     position: relative;
                     margin: 0 0.3em;
                     display: block;
-                    width: 75%;
+                    width: 85%;
                     box-sizing: border-box;
                     padding: 0.5em 1em;
                     outline: none;
@@ -51,12 +51,16 @@
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
                     }
-                    border-radius: 1.2em;
+                    border-radius: 1.5em;
                     resize: unset;
                     border: none;
                     background: whitesmoke;
                     transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
                     line-height: 1.6;
+                    border: 1px solid transparent;
+                    &:focus {
+                        border: 1px solid #768fff;
+                    }
                 }
                 button {
                     position: relative;
@@ -100,7 +104,7 @@
                     position: absolute;
                     z-index: 10;
                     bottom: 3.6em;
-                    width: 300px;
+                    width: 322px;
                     left: 0.75em;
                     background: white;
                     box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
@@ -225,9 +229,10 @@
                         }
                     }
                     .answer {
+                        width: 105%;
                         position: relative;
                         margin: 1em 0;
-                        transform: translateX(-0.5em);
+                        transform: translateX(-1em);
                         box-sizing: border-box;
                         padding: 0.5em 1.5em 0.5em 0.8em;
                         border-radius: 0.8em;
@@ -403,7 +408,8 @@
                                 //border: 1px solid lightgrey;
                                 border-bottom-left-radius: 1.2em;
                                 border-top-left-radius: 1.2em;
-                                background: #e8eaf6;
+                                background: #ffd180;
+                                color: #212121;
                             }
                             .time {
                                 right: 0;
@@ -422,6 +428,8 @@
                                     color: #212121;
                                     border: none;
                                     border-radius: unset;
+                                    border-top-right-radius: unset;
+                                    border-bottom-right-radius: 0 !important;
                                     border-bottom: 1px solid rgb(172, 172, 172);
                                 }
                                 img {

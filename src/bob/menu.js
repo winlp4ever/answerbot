@@ -8,6 +8,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Auth from '../user-auth/user-auth';
 import { userContext } from '../user-context/user-context';
 
+const HelpBox = ({msg}) => {
+    return <div className='help-box'>
+        {msg}
+    </div>
+}
+
 const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
     const [viewUserInfo, setViewUserInfo] = useState(false);
 
@@ -17,27 +23,18 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
 
     const Us = useContext(userContext);
     return <div className='bob-menu'>
-        <Button 
-            className='user' 
-            startIcon={<AccountCircleIcon />}
-            onClick={toggleViewUserInfo}
-        >
-            {Us.user.username==''? 'Please login': Us.user.username}
-        </Button>
-        {Us.user.username == ''? null: <div>
+        {Us.user.userid? <div className='bob-menu-options'>
             {options.map((o, id) => <Button 
                 key={id}
                 className={o.cl + (id == activeTab ? ' focus': '')}
                 onClick={_ => changeTab(id)}
             >
+                <HelpBox msg={o.name} />
                 {o.icon}
             </Button>)}
             <Button className='close' onClick={toggleMode}>
                 <img src={require('../../imgs/bob/close.svg')} />
             </Button>
-        </div>}
-        {viewUserInfo? <div className='user-info'>
-            <Auth />
         </div>: null}
     </div>
 }

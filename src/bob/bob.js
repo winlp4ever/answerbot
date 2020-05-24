@@ -13,28 +13,31 @@ import './_bob.scss';
 
 // other cpns imports
 import BobMenu from './menu';
-import Ask, {NewChat} from './ask';
+import Ask from './ask';
+import NewChat from './new-chat'
 import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 
-const ENDPOINT = 'http://35.180.157.188:5000/'
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
         cl: 'view-ask',
-        view: (props) => <Ask {...props} />
+        view: (props) => <Ask {...props} />,
+        name: 'chat'
     },
     {
         icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
         cl: 'view-bookmarks',
-        view: (props) => <HistoryBookmarks {...props} />
+        view: (props) => <HistoryBookmarks {...props} />,
+        name: 'history'
     },
     {
         icon: <img src={require('../../imgs/bob/feed.svg')}/>,
         cl: 'view-explore',
-        view: (props) => <News {...props} />
+        view: (props) => <News {...props} />,
+        name: 'explorer'
     },
 ]
 
@@ -58,6 +61,8 @@ export default class Bob extends Component {
     _setInsight = (cnt) => {
         if (cnt == null) 
             this.setState({insight: null});
+        else if (cnt.type != 'answer')
+            this.setState({insight: null});
         else if (cnt.answer == null) 
             this.setState({insight: null});
         else 
@@ -73,7 +78,9 @@ export default class Bob extends Component {
     }
 
     componentDidMount () {
+        console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
+            console.log(msg)
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
                 let chats_ = this.state.chats.slice();
@@ -124,6 +131,7 @@ export default class Bob extends Component {
     }
 
     render() {
+        console.log(this.context.user.userid)
         let props = {
             socket: this.socket,
             chats: this.state.chats,
@@ -171,7 +179,7 @@ export default class Bob extends Component {
                         changeTab={this.changeTab} 
                         toggleMode={this.toggleMode}
                     />
-                    {this.context.user.username != '' && <V.view {...props}/>}
+                    {this.context.user.userid? <V.view {...props}/>: null}
                 </div>
             </CSSTransition>
         </div>

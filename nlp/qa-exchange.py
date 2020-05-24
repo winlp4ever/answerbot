@@ -21,8 +21,7 @@ hints_queue = deque()
 bob = {
     'username': 'bob',
     'email': '',
-    'color': '',
-    'userid': 0
+    'userid': -1
 }
 template = {
     'user': bob,
@@ -106,11 +105,47 @@ async def run():
             print(qs)
 
             msg = template.copy()
+            msg['original_question'] = question
+            tm = datetime.fromtimestamp(time.time())
+            msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
             sol_id = -1
 
             if qs and qs[0]['score'] > 0.95:
                 print(qs[0]['id'])
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+                if not qs[0]['rep']:
+                    # question type mon code ne marche pas
+                    cur.execute('''
+                        select * from activities 
+                        where activitytype = 'submit' 
+                        and status = false 
+                        and exerciseid = %d
+                        and studentid = %d
+                        order by id desc, date desc
+                    ''' % (old_msg['chat']['user']['exerciseid'], old_msg['conversationID']))
+                    res = cur.fetchone()
+                    if res:
+                        msg['answer'] = res['record']
+                        msg['text'] = res['record']['message']
+                        msg['type'] = 'exercise-err-message'
+                        msg['original_question'] = question
+                    else:
+                        cur.execute('''
+                            select error_code_message, error_code_count
+                            from error_codes
+                            where id_exercise = 1
+                            order by error_code_count desc
+                        ''')
+                        res = cur.fetchall()
+                        msg['answer'] = res[:4] if res else []
+                        msg['type'] = 'exercise-common-errs'
+                        msg['original_question'] = question
+                    cur.close()
+                    return {
+                        'chat': msg,
+                        'conversationID': old_msg['conversationID']
+                    }
                 cur.execute('''
                     select answer_temp.*, q.*
                     from 
@@ -138,13 +173,11 @@ async def run():
                         answer_temp
                     on question_answer_temp.answer_temp_id = answer_temp.id
                     where answer_temp.answer_valid = '1' 
-                    order by answer_rank;
+                    order by answer_temp.answer_teacher_manual_review desc, answer_rank, answer_temp.id asc;
                 ''', [str(qs[0]['id'])])
                 ans = cur.fetchone()
                 if ans:
                     res = ans.copy()        
-                    if ans:
-                        sol_id = ans['qid']
                     while ans:
                         if ans['answer_level'] == old_msg['chat']['user']['level']:
                             res = ans
@@ -163,10 +196,6 @@ async def run():
             msg['related_questions'] = getRelatedQuestions(sol_id)
             #msg['related_questions'] = []
             msg['type'] = 'answer'
-            
-            msg['original_question'] = question
-            tm = datetime.fromtimestamp(time.time())
-            msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
             return {
                 'chat': msg,
                 'conversationID': old_msg['conversationID']
