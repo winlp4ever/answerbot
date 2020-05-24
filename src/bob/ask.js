@@ -218,7 +218,7 @@ const ChatSegment = (props) => {
                 if (c.type == 'answer') 
                     return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>
                 if (c.type == 'exercise-err-message' || 'exercise-common-errs')
-                    return <ExTrouble content={c} />
+                    return <ExTrouble key={id} content={c} />
             })}
         </div>
     </div>

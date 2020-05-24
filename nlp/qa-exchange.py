@@ -121,8 +121,9 @@ async def run():
                         where activitytype = 'submit' 
                         and status = false 
                         and exerciseid = 1
+                        and studentid = %d
                         order by id desc, date desc
-                    ''')
+                    ''' % old_msg['conversationID'])
                     res = cur.fetchone()
                     if res:
                         msg['answer'] = res['record']

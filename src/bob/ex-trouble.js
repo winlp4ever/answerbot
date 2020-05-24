@@ -4,6 +4,15 @@ import {postForData} from '../utils';
 import Actions, {postActionMsg} from './actions'
 import './_ex-trouble.scss'
 
+const ErrMsg = ({msg}) => {
+    if (msg) 
+        return <span className='err-msg'>
+            <img src={require('../../imgs/bob/err.svg')} />
+            {msg}
+        </span>
+    return null
+}
+
 const ExTrouble = ({content}) => {
     const [errAvailable, setErrAvailable] = useState(false)
     const [msg, setMsg] = useState('')
@@ -31,14 +40,7 @@ const ExTrouble = ({content}) => {
                 {content.text}
             </span>
         </div>: <div className='err-msgs'>
-            {content.answer.map((m, id) => {
-                    if (m.error_code_message) 
-                        return <span key={id} className='err-msg'>
-                            <img src={require('../../imgs/bob/err.svg')} />
-                            {m.error_code_message}
-                        </span>
-                    return null;
-                }
+            {content.answer.map((m, id) => <ErrMsg msg={m.error_code_message} key={id}/>
             )}
         </div>}
     </div>
