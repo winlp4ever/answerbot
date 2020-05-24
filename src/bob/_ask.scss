@@ -43,7 +43,7 @@
                     position: relative;
                     margin: 0 0.3em;
                     display: block;
-                    width: 75%;
+                    width: 85%;
                     box-sizing: border-box;
                     padding: 0.5em 1em;
                     outline: none;
@@ -51,7 +51,10 @@
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
                     }
-                    border-radius: 1.5em;
+                    border-top-right-radius: 1.5em;
+                    border-bottom-right-radius: 1.5em;
+                    border-top-left-radius: 0.8em;
+                    border-bottom-left-radius: 0.8em;
                     resize: unset;
                     border: none;
                     background: rgb(252, 252, 252);

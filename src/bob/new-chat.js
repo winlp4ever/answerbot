@@ -119,12 +119,6 @@ const NewChat = (props) => {
                 autoComplete={autoComplete}
             />: null
         } 
-        <Button className={'show-hints' + (viewHints? '': ' not-show') + 
-            ((props.hints.length > 0 & viewHints)? ' hinting': '')} 
-            onClick={viewHideHints}
-        >
-            <img src={require('../../imgs/bob/hint.svg')}/>
-        </Button>
         <TextareaAutosize
             ref={input}
             placeholder='ask a question'
