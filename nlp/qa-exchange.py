@@ -134,9 +134,9 @@ async def run():
                         cur.execute('''
                             select error_code_message, error_code_count
                             from error_codes
-                            where id_exercise = 1
+                            where id_exercise = %d
                             order by error_code_count desc
-                        ''')
+                        ''' % old_msg['chat']['user']['exerciseid'])
                         res = cur.fetchall()
                         msg['answer'] = res[:4] if res else []
                         msg['type'] = 'exercise-common-errs'
