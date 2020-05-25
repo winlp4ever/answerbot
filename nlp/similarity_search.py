@@ -41,7 +41,7 @@ class SimiSearch:
                     }
                 },
                 "script": {
-                    "source": "return 1+cosineSimilarity(params.query_vector, 'vectorisation');",
+                    "source": "1+cosineSimilarity(params.query_vector, 'vectorisation')",
                     "params": {
                         "query_vector": query_vector
                     }
@@ -57,7 +57,17 @@ class SimiSearch:
             index='qa',
             body={
                 "size": topk,
-                "query": script_query,
+                "query": {
+                    "multi_match": {
+                        "query": q,
+                        "type": "bool_prefix",
+                        "fields": [
+                            "text",
+                            "text._2gram",
+                            "text._3gram"
+                        ]
+                    }
+                },
                 "_source": ['id', 'text', 'rep']
             }
         )

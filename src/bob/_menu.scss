@@ -54,11 +54,13 @@
                 filter: grayscale(100%);
                 transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
                 animation: none;
+                opacity: 0.5;
             }
             &.focus {
                 opacity: 1;
                 color: #004ecb;
                 img {
+                    opacity: 1;
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }
                 .help-box {
