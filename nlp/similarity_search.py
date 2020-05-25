@@ -57,17 +57,7 @@ class SimiSearch:
             index='qa',
             body={
                 "size": topk,
-                "query": {
-                    "multi_match": {
-                        "query": q,
-                        "type": "bool_prefix",
-                        "fields": [
-                            "text",
-                            "text._2gram",
-                            "text._3gram"
-                        ]
-                    }
-                },
+                "query": script_query,
                 "_source": ['id', 'text', 'rep']
             }
         )
