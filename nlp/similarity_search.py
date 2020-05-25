@@ -41,7 +41,7 @@ class SimiSearch:
                     }
                 },
                 "script": {
-                    "source": "return 1+cosineSimilarity(params.query_vector, 'vectorisation');",
+                    "source": "1+cosineSimilarity(params.query_vector, 'vectorisation')",
                     "params": {
                         "query_vector": query_vector
                     }
