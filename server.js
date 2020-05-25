@@ -83,11 +83,13 @@ io.on('connection', function(socket){
     socket.on('ask-for-hints-bob', msg => {
         msg.socketid = socket.id;
         io.emit('ask-for-hints-bob', msg);
-        console.log('front->node', new Date().getTime() - msg.timestamp)
+        let now = new Date().getTime()
+        console.log('front->node', now - msg.timestamp)
     })
     socket.on('bob-hints', msg => {
         io.to(msg.socketid).emit('bob-hints', msg);
-        console.log('py->node', new Date().getTime() - msg.timestamp)
+        let now = new Date().getTime()
+        console.log('py->node', now - msg.timestamp)
     })
 
     // 3wa websocket

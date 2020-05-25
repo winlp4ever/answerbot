@@ -14,6 +14,8 @@ import requests
 
 import asyncio
 
+from functools import lru_cache
+
 sio = socketio.AsyncClient()
 print('1')
 questions_queue = deque()
@@ -30,6 +32,16 @@ template = {
 }
 
 sim = SimiSearch()
+
+@lru_cache(maxsize=500)
+def simQuestions(s):
+    '''
+    Combine elasticsearch with python lru-cache to improve performance
+    '''
+    if len(s) <= 2:
+        return []
+    return sim.findSimQuestions(s, 5)
+
 print('2')
 from psycopg2 import pool
 
@@ -101,7 +113,7 @@ async def run():
         def get_answer(old_msg):
             question = old_msg['chat']['text']
             global sim
-            qs = sim.findSimQuestions(question, 5)
+            qs = simQuestions(question)
             print(qs)
 
             msg = template.copy()
@@ -204,14 +216,6 @@ async def run():
 
         def get_hints(msg):
             question = msg['typing']
-            print(question)
-            if len(question) < 3:
-                return {
-                    'hints': [],
-                    'conversationID': msg['conversationID'],
-                    'timestamp': msg['timestamp'],
-                    'socketid': msg['socketid']
-                }
             global sim
             global conversations
             convID = msg['conversationID']
@@ -228,7 +232,7 @@ async def run():
                 conversations[convID] = msg['timestamp']
             try:
                 st = time.time()
-                qs = sim.findSimQuestions(question, 5)
+                qs = simQuestions(question)
                 print('search-time : %f' % (time.time()-st))
             except Exception as e:
                 print(e)
