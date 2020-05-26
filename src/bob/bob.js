@@ -80,7 +80,6 @@ export default class Bob extends Component {
     componentDidMount () {
         console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
-            console.log(msg)
             if (msg.conversationID == this.context.user.userid) {
                 // update user chat history
                 let chats_ = this.state.chats.slice();
@@ -108,7 +107,7 @@ export default class Bob extends Component {
         })
         this.socket.on('bob-hints', msg => {
             if (msg.conversationID == this.context.user.userid) {
-                console.log(new Date().getTime() - msg.timestamp)
+                console.log('hints response time: ', new Date().getTime() - msg.timestamp)
                 this.setState({hints: msg.hints})
             }
         })
@@ -131,7 +130,6 @@ export default class Bob extends Component {
     }
 
     render() {
-        console.log(this.context.user.userid)
         let props = {
             socket: this.socket,
             chats: this.state.chats,

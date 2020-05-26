@@ -26,12 +26,10 @@ renderWeb();
 
 
 if (module.hot) {
-    console.log('what fuct');
     module.hot.accept(
         [
             './app/app', 
         ], () => {
-            console.log('what merde');
             renderWeb();
         }
     );
