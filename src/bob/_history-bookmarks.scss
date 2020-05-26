@@ -10,12 +10,11 @@
         .bob-bookmarks {
             position: relative;
             
-            overflow-y: scroll;
+            overflow-y: overlay;
             word-wrap: break-word;
-            height: 40%;
-            margin-bottom: 1em;
+            margin-bottom: 0em;
             line-height: 1.2;
-            border-bottom: 1px solid lightgrey;
+            border-bottom: 1px solid rgb(231, 231, 231);
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -29,7 +28,11 @@
                 img {
                     height: 1em;
                     vertical-align: middle;
-                    margin-right: 0.25em;
+                    margin-left: 0.5em;
+                }
+                .expand {
+                    margin-left: 0em;
+                    margin-right: 0.75em;
                 }
             }
             .old-bookmark {
@@ -74,7 +77,11 @@
                 img {
                     height: 1em;
                     vertical-align: middle;
-                    margin-right: 0.25em;
+                    margin-left: 0.5em;
+                }
+                .expand {
+                    margin-left: 0em;
+                    margin-right: 0.75em;
                 }
             }
             .old-question {
@@ -89,19 +96,20 @@
                     box-sizing: border-box;
                     padding: 0.2em 0.5em;
                     border-radius: 1em;
-                    margin: 0.1em;
+                    margin: 0.1em 0.5em 0.1em 0.1em;
                     overflow-wrap: break-word;
-                    background: whitesmoke;
+                    color: #424242;
                     &.time {
                         position: absolute;
-                        top: -2em;
+                        top: -1.5em;
                         right: 50%;
                         transform: translateX(50%);
                         color: grey;
-                        font-weight: 700;
+                        font-weight: 600;
                         font-size: 0.65em;
-                        border-radius: 0;
+                        border-radius: 0.5em;
                         background: white;
+                        border: 1px solid rgb(231, 231, 231);
                     }
                     &.old-q {
                         font-weight: 600;
