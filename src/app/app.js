@@ -35,9 +35,7 @@ export default class App extends Component {
         activeTab: 0,
     }
 
-    componentDidMount() {
-        console.log(this.state)
-    }
+    componentDidMount() {}
 
     updateUser =  (info) => {
         this.setState({user: info});
