@@ -208,7 +208,7 @@ const ChatSegment = (props) => {
             {isBob &&
                 <div>
                     <span>Bob</span>
-                    <img src={require('../../imgs/bob/bob-transparent.svg')} />
+                    <img src={require('../../imgs/bob/bob-outlined.svg')} />
                 </div>
             }
         </div>
