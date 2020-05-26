@@ -23,7 +23,7 @@ import IncomingMsg from '../../sounds/incoming-msg.mp3';
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
-        inActiveIcon: <img src={require('../../imgs/bob/chat.svg')} />,
+        inActiveIcon: <img src={require('../../imgs/bob/_chat.svg')} />,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'

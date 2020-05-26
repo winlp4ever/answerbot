@@ -10,8 +10,8 @@
         
         background: #fafafa;
         border-bottom: 1px solid rgb(238, 238, 238);
-        border-top-left-radius: 0.8em;
-        border-top-right-radius: 0.8em;
+        //border-top-left-radius: 0.8em;
+        //border-top-right-radius: 0.8em;
         .bob-menu-options {
             width: 100%;
             display: flex;
@@ -54,7 +54,7 @@
                 filter: grayscale(100%);
                 transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
                 animation: none;
-                opacity: 0.5;
+                opacity: 0.75;
             }
             &.focus {
                 opacity: 1;
