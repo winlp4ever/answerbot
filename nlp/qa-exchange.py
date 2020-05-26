@@ -33,7 +33,7 @@ template = {
 
 sim = SimiSearch()
 
-@lru_cache(maxsize=500)
+@lru_cache(maxsize=50000)
 def simQuestions(s):
     '''
     Combine elasticsearch with python lru-cache to improve performance
