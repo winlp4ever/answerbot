@@ -5,6 +5,8 @@ import Actions, {postActionMsg} from './actions'
 
 import {getCurrentTime} from '../utils'
 
+import Button from '@material-ui/core/Button';
+
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false)
     const [msg, setMsg] = useState('')
