@@ -241,6 +241,7 @@
                         color: #424242;
                         border: 1px solid transparent;
                         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+                        font-weight: 600;
                         p {
                             margin: 0.2em 0;
                         }
@@ -407,8 +408,9 @@
                                 //border: 1px solid lightgrey;
                                 border-bottom-left-radius: 1.2em;
                                 border-top-left-radius: 1.2em;
-                                background: #ffd180;
-                                color: #212121;
+                                background: #FEBE17;
+                                color: black;
+                                font-weight: 600;
                             }
                             .time {
                                 right: 0;
@@ -429,6 +431,10 @@
                                     border-radius: 0.5em;
                                     border-top-right-radius: 0.5em;
                                     border-bottom-right-radius: 0.5em !important;
+                                    transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                                    &:hover {
+                                        background: #e7f9eb;
+                                    }
                                     a {
                                         color: #424242;
                                     }
@@ -437,6 +443,7 @@
                                     margin: 0 0.2em;
                                     width: 0.8em;
                                 }
+                                
                             }
                             &:first-child {
                                 .text {

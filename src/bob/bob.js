@@ -151,16 +151,7 @@ export default class Bob extends Component {
             />}
             <div className='bob-ava' >
                 {this.state.newResponseComing && <span className='notif-res'></span>}
-                <CSSTransition 
-                    in={this.state.minimal} 
-                    unmountOnExit 
-                    classNames='minimal' 
-                    timeout={250}
-                >
-                    <div className='minimal'>
-                        <NewChat socket={this.socket} hints={this.state.hints} />
-                    </div>
-                </CSSTransition>
+                
                 <img src={require('../../imgs/bob/bob-transparent.svg')} onClick={this.toggleMode} />
             </div>
  
