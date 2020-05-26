@@ -4,13 +4,27 @@
         display: flex;
         flex-direction: column;
         justify-content: end;
-        width: 100%;
         box-sizing: border-box;
-        padding: 0.25em 0.5em;
+        padding: 0.25em 0.4em;
+        overflow-y: overlay;
+        scrollbar-color: rgb(209, 209, 209) transparent;
+        scrollbar-width: 0.25em;
+        margin: 0.15em;
+        &::-webkit-scrollbar {
+            width: 0.25em;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgb(209, 209, 209);
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #6b6b6b;
+        }   
         .bob-bookmarks {
             position: relative;
-            
-            overflow-y: overlay;
             word-wrap: break-word;
             margin-bottom: 0em;
             line-height: 1.2;
@@ -37,19 +51,25 @@
             }
             .old-bookmark {
                 max-height: 200px;
-                max-width: 100%;
                 overflow-y: scroll;
                 box-sizing: border-box;
-                padding: 0.25em 0.5em;
-                border-radius: 0.25em;;
-                border: 1px solid lightgrey;
-                line-height: 1.2;
+                margin-left: 0.35em;
+                border-left: 2px solid lightgrey;
                 margin-bottom: 0.5em;
+                color: #424242;
                 &::-webkit-scrollbar {
                     display: none;
                 }
                 span {
+                    position: relative;
+                    display: inline-block;
                     font-size: 0.8em;
+                    line-height: 1.2;
+                    box-sizing: border-box;
+                    padding: 0.25em 0.5em;
+                    border-radius: 1em;
+                    overflow-wrap: break-word;
+                    color: #424242;
                 }
                 .q_ {
                     font-weight: 600;
@@ -58,12 +78,8 @@
         }
         .bob-history {
             position: relative;
-            
-            overflow-y: scroll;
             word-wrap: break-word;
-            max-height: 60%;
             box-sizing: border-box;
-            
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -88,15 +104,16 @@
                 position: relative;
                 line-height: 1.2;
                 margin-top: 0.25em;
+                margin-left: 0.35em;
+                border-left: 2px solid lightgrey;
                 span {
                     position: relative;
                     display: inline-block;
                     font-size: 0.8em;
                     line-height: 1.2;
                     box-sizing: border-box;
-                    padding: 0.2em 0.5em;
+                    padding: 0.25em 0.5em;
                     border-radius: 1em;
-                    margin: 0.1em 0.5em 0.1em 0.1em;
                     overflow-wrap: break-word;
                     color: #424242;
                     &.time {

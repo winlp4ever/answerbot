@@ -342,7 +342,6 @@
                     }
                     .rating {
                         overflow-wrap: break-word;
-                        margin: 0.1em 0;
                         .rating-stars {
                             display: inline-block;
                             padding: 0;
@@ -420,6 +419,7 @@
                                 background: #FEBE17;
                                 color: black;
                                 font-weight: 600;
+                                margin: 0.15em 0;
                             }
                             .time {
                                 right: 0;
@@ -428,7 +428,6 @@
                                 background: rgb(250, 250, 250);
                             }
                             .rel-q {
-                                margin: 0.15em 0;
                                 .text {
                                     border-radius: 1.2em;
                                     line-height: 1.25;
