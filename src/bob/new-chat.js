@@ -32,6 +32,7 @@ const NewChat = (props) => {
     const [newchat, setNewchat] = useState('')
     const [viewHints, setViewHints] = useState(true)
     const [autoComplete, setAutoComplete] = useState(0)
+    const [focus, setFocus] = useState(false)
 
     const input = useRef(null)
     const sending = useRef(null)
@@ -110,7 +111,7 @@ const NewChat = (props) => {
         }
     }
     if (!user.userid) return null;
-    return <div className='new-chat'>
+    return <div className={'new-chat' + (focus? ' focus': '')}>
         {
             (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
              <Hints 
@@ -125,6 +126,8 @@ const NewChat = (props) => {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className={'enter-question' + (newchat.length > 0? ' textin': '')}
+            onFocus={_ => setFocus(true)}
+            onBlur={_ => setFocus(false)}
         />
         <Button onClick={send} ref={sending}>
             <img src={require('../../imgs/bob/send.svg')}/>
