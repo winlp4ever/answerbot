@@ -35,13 +35,20 @@
                 flex-direction: row;
                 box-sizing: border-box;
                 padding: 0.1em 0.1em 0.1em;
-                margin: 0 0.5em 0.3em 0.5em;
-                border: 1px solid rgb(231, 231, 231);
+                margin: 0.75em 0.5em 0.5em;
+                background: whitesmoke;
                 justify-content: space-between;
                 border-radius: 1.5em;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                &.focus {
-                    border: 1px solid #75a7ff;
+                border: none;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: -0.65em;
+                    right: 0;
+                    background: rgb(231, 231, 231);
+                    width: 100%;
+                    height: 1px;
                 }
                 textarea {
                     position: relative;
@@ -51,6 +58,7 @@
                     box-sizing: border-box;
                     padding: 0.5em 0.75em;
                     outline: none;
+                    background: inherit;
                     font: {
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
@@ -154,13 +162,14 @@
                 display: block;
                 position: relative;
                 box-sizing: border-box;
-                padding: 0.5em 0.5em;
+                padding: 0.5em 0.4em;
                 height: 100%;
-                overflow-y: scroll;
+                margin: 0 0.15em;
+                overflow-y: overlay;
                 scrollbar-color: rgb(209, 209, 209) transparent;;
                 scrollbar-width: 5px;
                 &::-webkit-scrollbar {
-                    width: 5px;
+                    width: 0.25em;
                 }
                 &::-webkit-scrollbar-track {
                     background: transparent !important;
@@ -194,7 +203,7 @@
                     .chat, .rating, .related-questions {
                         position: relative;
                         box-sizing: border-box;
-                        margin: 0.15em 0;
+                        margin: 0em 0;
                         span {
                             border: 1px solid transparent;
                             padding: 0.35em 1em;
@@ -230,8 +239,8 @@
                     .answer {
                         width: 105%;
                         position: relative;
-                        margin: 1em 0;
-                        transform: translateX(-1em);
+                        margin: 0.5em 0;
+                        transform: translateX(-1.2em);
                         box-sizing: border-box;
                         padding: 0.5em 1.5em 0.5em 0.8em;
                         border-radius: 0.8em;
@@ -333,7 +342,7 @@
                     }
                     .rating {
                         overflow-wrap: break-word;
-                        margin: 0.25em 0;
+                        margin: 0.1em 0;
                         .rating-stars {
                             display: inline-block;
                             padding: 0;
@@ -344,14 +353,14 @@
                             margin: 0.05em;
                             color: #424242;
                             svg {
-                                font-size: 1em;
+                                font-size: 1.5em;
                             }
                             &.off {
                                 opacity: 0.5;
                             }
                             &.on {
                                 opacity: 1;
-                                color: #00c853;
+                                color: #388e3c;
                             }
                         }
                     }

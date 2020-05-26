@@ -31,7 +31,7 @@
         box-sizing: border-box;
         padding: 0.25em 0em;
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: overlay;
         white-space: pre-line;
         overflow-wrap: break-word;
         -ms-overflow-style: none;
@@ -42,11 +42,12 @@
         .full-answer, .orientation, .source {
             position: relative;
             box-sizing: border-box;
-            padding: 0.25em 1em;
+            padding: 0.25em 0.4em;
+            margin: 0 0.15em;
             scrollbar-color: rgb(209, 209, 209) transparent;
             scrollbar-width: 6px;
             &::-webkit-scrollbar {
-                width: 6px;
+                width: 0.25em;
             }
             &::-webkit-scrollbar-track {
                 background: transparent;
@@ -59,7 +60,7 @@
                 background: #6b6b6b;
             }
             max-height: 400px;
-            overflow-y: scroll;
+            overflow-y: overlay;
             overflow-wrap: break-word;
             white-space: pre-wrap;
             h4 {

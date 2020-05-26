@@ -30,7 +30,7 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
                 onClick={_ => changeTab(id)}
             >
                 <HelpBox msg={o.name} />
-                {o.icon}
+                {id == activeTab ? o.icon: o.inActiveIcon}
             </Button>)}
             <Button className='close' onClick={toggleMode}>
                 <img src={require('../../imgs/bob/close.svg')} />
