@@ -34,10 +34,10 @@
                 display: flex;
                 flex-direction: row;
                 box-sizing: border-box;
-                padding: 0.1em 0.25em 0.1em;
+                padding: 0.1em 0.1em 0.1em;
                 margin: 0 0.5em 0.3em 0.5em;
                 border: 1px solid rgb(231, 231, 231);
-                justify-content: space-evenly;
+                justify-content: space-between;
                 border-radius: 1.5em;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                 &.focus {
@@ -49,7 +49,7 @@
                     display: block;
                     width: 85%;
                     box-sizing: border-box;
-                    padding: 0.5em 1em;
+                    padding: 0.5em 0.75em;
                     outline: none;
                     font: {
                         family: 'Nunito', sans-serif;
