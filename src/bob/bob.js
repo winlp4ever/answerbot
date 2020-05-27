@@ -149,7 +149,7 @@ export default class Bob extends Component {
             />}
             {this.state.newResponseComing && <Sound 
                 url={IncomingMsg} 
-                playStatus='PLAYING' 
+                playStatus='PAUSED' 
                 onFinishedPlaying={_ => this.setState({newResponseComing: false})}
             />}
             <div className='bob-ava' >

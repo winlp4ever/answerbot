@@ -41,7 +41,7 @@ class Typing extends Component {
             <div className='is-typing'>
                 {this.state.times < 2 && <Sound 
                     url={IsTyping} 
-                    playStatus='PLAYING' 
+                    playStatus='PAUSED' 
                     onFinishedPlaying={this.increment}
                 />}
                 <Lottie options={defaultOptions} width={50}/>
