@@ -47,6 +47,11 @@
                 .expand {
                     margin-left: 0em;
                     margin-right: 0.75em;
+                    transition: 0.2s all cubic-bezier(0,0,0.2,1);
+                    transform: rotate(-90deg);
+                    &.on {
+                        transform: none;
+                    }
                 }
             }
             .old-bookmark {
@@ -98,6 +103,11 @@
                 .expand {
                     margin-left: 0em;
                     margin-right: 0.75em;
+                    transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                    transform: rotate(-90deg);
+                    &.on {
+                        transform: none;
+                    }
                 }
             }
             .old-question {

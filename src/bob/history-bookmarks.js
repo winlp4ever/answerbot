@@ -58,7 +58,10 @@ const History = (props) => {
 
     return <div className='bob-history'>
         <h4>
-            <img onClick={toggleSpan} className='expand' src={require('../../imgs/bob/expand.svg')}/>
+            <img 
+                onClick={toggleSpan} 
+                className={span? 'expand on': 'expand'} 
+                src={require('../../imgs/bob/expand.svg')}/>
             History
             <img src={require('../../imgs/bob/clock.svg')}/> 
         </h4>
@@ -81,7 +84,10 @@ const Bookmarks = (props) => {
     
     return <div className='bob-bookmarks'>
         <h4>
-            <img onClick={toggleSpan} className='expand' src={require('../../imgs/bob/expand.svg')}/>
+            <img 
+                onClick={toggleSpan} 
+                className={span? 'expand on': 'expand'} 
+                src={require('../../imgs/bob/expand.svg')}/>
             Bookmarks
             <img src={require('../../imgs/bob/bmk.svg')}/> 
         </h4>
