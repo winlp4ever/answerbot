@@ -122,7 +122,7 @@ const NewChat = (props) => {
         } 
         <TextareaAutosize
             ref={input}
-            placeholder='ask a question'
+            placeholder='entrez une question'
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className={'enter-question' + (newchat.length > 0? ' textin': '')}
@@ -130,7 +130,8 @@ const NewChat = (props) => {
             onBlur={_ => setFocus(false)}
         />
         <Button onClick={send} ref={sending}>
-            <img src={require('../../imgs/bob/send.svg')}/>
+            {focus? <img src={require('../../imgs/bob/send.svg')}/>
+            : <img src={require('../../imgs/bob/_send.svg')}/>}
         </Button>
     </div>
 }

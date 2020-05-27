@@ -1,27 +1,27 @@
-import React, {Component, useState, useContext, useRef} from 'react';
-import { userContext } from '../user-context/user-context';
-import './_history-bookmarks.scss';
+import React, {Component, useState, useContext, useRef} from 'react'
+import { userContext } from '../user-context/user-context'
+import './_history-bookmarks.scss'
 
 const OldQ = (props) => {
-    const [viewTime, setViewTime] = useState(false);
-    const [focus, setFocus] = useState(false);
-    const [hover, setHover] = useState(false);
+    const [viewTime, setViewTime] = useState(false)
+    const [focus, setFocus] = useState(false)
+    const [hover, setHover] = useState(false)
    
     const handleFocus = () => {
-        if (!focus) props.setInsight(props.q);
-        else props.setInsight(null);
-        setFocus(!focus);
+        if (!focus) props.setInsight(props.q)
+        else props.setInsight(null)
+        setFocus(!focus)
     }
 
     const handleHover = () => {
         if (!focus) {
-            if (hover) props.setInsight(null);
-            if (!hover) props.setInsight(props.q);
+            if (hover) props.setInsight(null)
+            if (!hover) props.setInsight(props.q)
         }
-        setHover(!hover);
+        setHover(!hover)
     }
 
-    const toggleViewTime = () => setViewTime(!viewTime);
+    const toggleViewTime = () => setViewTime(!viewTime)
     
     let view = false
     if (props.q.answer) {
@@ -48,35 +48,63 @@ const OldQ = (props) => {
 }
 
 const History = (props) => {
-    const user = useContext(userContext).user;
+    const [span, setSpan] = useState(false)
+    const user = useContext(userContext).user
+
+    const toggleSpan = () => {
+        setSpan(!span)
+        console.log('oof')
+    }
+
     return <div className='bob-history'>
-        <h4><img src={require('../../imgs/bob/clock.svg')}/> History:</h4>
-        {user.history.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q}/>)}
+        <h4>
+            <img 
+                onClick={toggleSpan} 
+                className={span? 'expand on': 'expand'} 
+                src={require('../../imgs/bob/expand.svg')}/>
+            History
+            <img src={require('../../imgs/bob/clock.svg')}/> 
+        </h4>
+        {span && <div>
+            {user.history.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q}/>)}
+        </div>}
     </div>
 }
 
 const Bookmarks = (props) => {
-    const user = useContext(userContext).user;
+    const [span, setSpan] = useState(false)
+    const user = useContext(userContext).user
 
-    let bms = [];
+    const toggleSpan = () => setSpan(!span)
+
+    let bms = []
     for (let b in user.bookmarks) {
-        bms.push(user.bookmarks[b]);
+        bms.push(user.bookmarks[b])
     }
     
     return <div className='bob-bookmarks'>
-        <h4><img src={require('../../imgs/bob/bmk.svg')}/> Bookmarks:</h4>
-        {bms.map((b, id) => {
-            return <div 
-                key={id} 
-                className='old-bookmark'
-                onMouseEnter={_ => props.setInsight(b)} 
-                onMouseLeave={_ => props.setInsight(null)}
-            >
-                <span className='q_'>
-                    {b.original_question}
-                </span>
-            </div>
-        })}
+        <h4>
+            <img 
+                onClick={toggleSpan} 
+                className={span? 'expand on': 'expand'} 
+                src={require('../../imgs/bob/expand.svg')}/>
+            Bookmarks
+            <img src={require('../../imgs/bob/bmk.svg')}/> 
+        </h4>
+        {span && <div>
+            {bms.map((b, id) => <div 
+                    key={id} 
+                    className='old-bookmark'
+                    onMouseEnter={_ => props.setInsight(b)} 
+                    onMouseLeave={_ => props.setInsight(null)}
+                >
+                    <span className='q_'>
+                        {b.original_question}
+                    </span>
+                </div>
+            )}
+        </div>}
+        
     </div>
 }
 
@@ -94,4 +122,4 @@ const HistoryBookmarks = (props) => {
     </div>
 }
 
-export default HistoryBookmarks;
+export default HistoryBookmarks

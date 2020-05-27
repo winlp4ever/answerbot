@@ -34,14 +34,21 @@
                 display: flex;
                 flex-direction: row;
                 box-sizing: border-box;
-                padding: 0.1em 0.1em 0.1em;
-                margin: 0 0.5em 0.3em 0.5em;
-                border: 1px solid rgb(231, 231, 231);
+                padding: 0.1em 0.25em 0.1em 0.1em;
+                margin: 0.75em 0.75em 0.5em;
+                background: whitesmoke;
                 justify-content: space-between;
                 border-radius: 1.5em;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                &.focus {
-                    border: 1px solid #75a7ff;
+                border: none;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: -0.65em;
+                    right: -2.5%;
+                    background: lightgrey;
+                    width: 105%;
+                    height: 1px;
                 }
                 textarea {
                     position: relative;
@@ -51,6 +58,7 @@
                     box-sizing: border-box;
                     padding: 0.5em 0.75em;
                     outline: none;
+                    background: inherit;
                     font: {
                         family: 'Nunito', sans-serif;
                         size: 0.8em;
@@ -80,6 +88,7 @@
                         height: 1.5em;
                         filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                         animation: none;
+                        opacity: 0.75;
                     }
                     &.show-hints {
                         //background: #bbdefb;
@@ -109,7 +118,7 @@
                     box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
                     box-sizing: border-box;
                     padding: 0.5em 0.5em;
-                    border-radius: 1em;
+                    border-radius: 0.35em;
                     animation: hints-appear 0.35s cubic-bezier(0, 0, 0.2, 1);
                     transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
                     .hint {
@@ -154,13 +163,14 @@
                 display: block;
                 position: relative;
                 box-sizing: border-box;
-                padding: 0.5em 0.5em;
+                padding: 0.5em 0.4em;
                 height: 100%;
-                overflow-y: scroll;
+                margin: 0 0.15em;
+                overflow-y: overlay;
                 scrollbar-color: rgb(209, 209, 209) transparent;;
                 scrollbar-width: 5px;
                 &::-webkit-scrollbar {
-                    width: 5px;
+                    width: 0.25em;
                 }
                 &::-webkit-scrollbar-track {
                     background: transparent !important;
@@ -194,7 +204,7 @@
                     .chat, .rating, .related-questions {
                         position: relative;
                         box-sizing: border-box;
-                        margin: 0.15em 0;
+                        margin: 0em 0;
                         span {
                             border: 1px solid transparent;
                             padding: 0.35em 1em;
@@ -211,7 +221,7 @@
                             img {
                                 height: 1.25em;
                                 vertical-align: middle;
-                                margin-right: 0.5em;
+                                margin-right: 0.25em;
                             }
                             &:hover + .time {
                                 display: block;
@@ -230,18 +240,17 @@
                     .answer {
                         width: 105%;
                         position: relative;
-                        margin: 1em 0;
-                        transform: translateX(-1em);
+                        margin: 0.5em 0;
+                        transform: translateX(-1.2em);
                         box-sizing: border-box;
                         padding: 0.5em 1.5em 0.5em 0.8em;
-                        border-radius: 0.8em;
+                        border-radius: 0.35em;
                         font-size: 0.8em;
                         transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                        background: white;
-                        color: #424242;
+                        background: #ffd600;
+                        color: #181515;
                         border: 1px solid transparent;
                         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
-                        font-weight: 600;
                         p {
                             margin: 0.2em 0;
                         }
@@ -252,7 +261,7 @@
                             box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
                         }
                         &.foc {
-                            background: rgb(250, 250, 250);
+                            background: #FEBE17;
                             box-shadow: none;
                             border: 1px solid rgb(230, 230, 230);
                         }
@@ -333,7 +342,6 @@
                     }
                     .rating {
                         overflow-wrap: break-word;
-                        margin: 0.25em 0;
                         .rating-stars {
                             display: inline-block;
                             padding: 0;
@@ -344,21 +352,22 @@
                             margin: 0.05em;
                             color: #424242;
                             svg {
-                                font-size: 1em;
+                                font-size: 1.5em;
                             }
                             &.off {
                                 opacity: 0.5;
                             }
                             &.on {
                                 opacity: 1;
-                                color: #00c853;
+                                color: #388e3c;
                             }
                         }
                     }
                     &.me {
                         .chat {
                             .text {
-                                background: whitesmoke;
+                                background: #2962ff;
+                                color: whitesmoke;
                                 border-bottom-right-radius: 1.2em;
                                 border-top-right-radius: 1.2em;  
                                 margin-bottom: 0.5em;
@@ -382,23 +391,23 @@
                         flex-direction: row-reverse;
                         .user {
                             position: absolute;
-                            top: -2em;
+                            top: -1.5em;
                             right: 0em;
                             color:#424242;
                             width: 100%;
                             text-align: right;
-                            opacity: 0.5;
+                            
                             span {
                                 vertical-align: middle;
                                 font-size: 0.7em;
                                 margin: 0 0.5em;
+                                opacity: 0.5;
                             }
                             img {
                                 vertical-align: middle;
-                                height: 1.8em;
+                                height: 1.2em;
                                 padding: 0;
-                                background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
-                                border-radius: 50%;
+                                opacity: 0.7;
                             }
                         }
                         .chat, .rating, .related-questions {
@@ -408,9 +417,10 @@
                                 //border: 1px solid lightgrey;
                                 border-bottom-left-radius: 1.2em;
                                 border-top-left-radius: 1.2em;
-                                background: #FEBE17;
+                                background: whitesmoke;
                                 color: black;
                                 font-weight: 600;
+                                margin: 0.15em 0;
                             }
                             .time {
                                 right: 0;
@@ -419,21 +429,20 @@
                                 background: rgb(250, 250, 250);
                             }
                             .rel-q {
-                                margin: 0.15em 0;
                                 .text {
                                     border-radius: 1.2em;
                                     line-height: 1.25;
                                     font-size: 0.8em;
                                     box-shadow: none;
                                     background: transparent;
-                                    color: #212121;
+                                    color: #3e2723;
                                     border: 1px solid rgb(231, 231, 231);
                                     border-radius: 0.5em;
                                     border-top-right-radius: 0.5em;
                                     border-bottom-right-radius: 0.5em !important;
                                     transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
                                     &:hover {
-                                        background: #e7f9eb;
+                                        background: #768fff;
                                     }
                                     a {
                                         color: #424242;

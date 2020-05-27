@@ -23,18 +23,21 @@ import IncomingMsg from '../../sounds/incoming-msg.mp3';
 const Options = [
     {
         icon: <img src={require('../../imgs/bob/chat.svg')}/>,
+        inActiveIcon: <img src={require('../../imgs/bob/_chat.svg')} />,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
         icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
+        inActiveIcon: <img src={require('../../imgs/bob/_bookmark-history.svg')} />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
     },
     {
         icon: <img src={require('../../imgs/bob/feed.svg')}/>,
+        inActiveIcon: <img src={require('../../imgs/bob/_feed.svg')}/>,
         cl: 'view-explore',
         view: (props) => <News {...props} />,
         name: 'explorer'
@@ -146,7 +149,7 @@ export default class Bob extends Component {
             />}
             {this.state.newResponseComing && <Sound 
                 url={IncomingMsg} 
-                playStatus='PLAYING' 
+                playStatus='PAUSED' 
                 onFinishedPlaying={_ => this.setState({newResponseComing: false})}
             />}
             <div className='bob-ava' >
