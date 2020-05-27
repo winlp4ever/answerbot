@@ -79,7 +79,8 @@ const RateTheAnswer = () => {
                     onClick={_ => setScore(i)}
                     className={i <= score ? 'on': 'off'}
                 >
-                   <StarsIcon />
+                   {i <= score? <img src={require('../../imgs/bob/_star.svg')} />:
+                   <img src={require('../../imgs/bob/star.svg')} />}
                 </i>)}
             </span>
             
@@ -175,7 +176,8 @@ const Answer = ({content, socket, setIns}) => {
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
-                    <img src={require('../../imgs/bob/pin.svg')}/>
+                    {pin? <img src={require('../../imgs/bob/pin.svg')}/>:
+                    <img src={require('../../imgs/bob/_pin.svg')}/>}
                 </Button>
             </div>
             <span 

@@ -130,8 +130,8 @@ const NewChat = (props) => {
             onBlur={_ => setFocus(false)}
         />
         <Button onClick={send} ref={sending}>
-            {focus? <img src={require('../../imgs/bob/_send.svg')}/>
-            : <img src={require('../../imgs/bob/send.svg')}/>}
+            {focus? <img src={require('../../imgs/bob/send.svg')}/>
+            : <img src={require('../../imgs/bob/_send.svg')}/>}
         </Button>
     </div>
 }

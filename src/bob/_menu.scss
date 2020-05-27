@@ -9,14 +9,16 @@
         padding: 0.25em 0.5em;
         
         background: #fafafa;
-        border-bottom: 1px solid rgb(238, 238, 238);
+        border-bottom: 1px solid lightgrey;
         //border-top-left-radius: 0.8em;
         //border-top-right-radius: 0.8em;
         .bob-menu-options {
             width: 100%;
             display: flex;
             flex-direction: row;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 0 0.5em;
         }
         .user-info {
             width: 250px;
@@ -72,24 +74,8 @@
                     display: block;
                 }
             }
-            &.user {
-                border-radius: unset;
-                font-family: 'Nunito', sans-serif;
-                text-transform: none;
-                letter-spacing: unset;
-                padding: 0em 0.4em 0em 0.4em;
-                border: 1px solid grey;
-                border-radius: 2em;
-                color: black;
-                margin-right: auto;
-                filter: grayscale(0%);
-                svg {
-                    font-size: 1.5em;
-                    //border: 1px solid grey;
-                    path: {
-                        border: 1px solid grey;
-                    }
-                }
+            &.user-profile {
+                position: relative;
             }
             .help-box {
                 display: none;
@@ -111,7 +97,6 @@
         }
         .close {
             min-width: 0;
-            //margin-left: 1em;
         }
     }
 }
