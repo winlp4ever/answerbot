@@ -7,6 +7,9 @@ import {getCurrentTime} from '../utils'
 
 import Button from '@material-ui/core/Button';
 
+import GotoIcon from '../../imgs/bob/goto.svg'
+import RelatedIcon from '../../imgs/bob/related.svg'
+
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false)
     const [msg, setMsg] = useState('')
@@ -41,7 +44,7 @@ const RelatedQuestions = ({qs, socket}) => {
         <span className={'text' + (viewRel? ' rel': '')}
             onClick={toggleRel}
         >
-            <img src={require('../../imgs/bob/related.svg')} />
+            <RelatedIcon />
             <b>{msg}</b>
         </span>
         {viewRel? <div>
@@ -51,7 +54,7 @@ const RelatedQuestions = ({qs, socket}) => {
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
-                    <img src={require('../../imgs/bob/goto.svg')} />
+                    <GotoIcon />
                 </span>
             </div>)}
         </div>: <div>
@@ -61,7 +64,7 @@ const RelatedQuestions = ({qs, socket}) => {
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
-                    <img src={require('../../imgs/bob/goto.svg')} />
+                    <GotoIcon />
                 </span>
             </div>)}
         </div>}
