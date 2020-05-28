@@ -9,11 +9,12 @@
 }
 .bob-welcome {
     position: relative;
-    img {
+    svg {
         position: relative;
-        width: 60%;
+        width: 8em;
+        height: 8em;
         display: block;
-        margin-left: 27%;
+        margin-left: 4.2em;
         animation: img-appear 0.3s cubic-bezier(0, 0, 0.2, 1);
         box-sizing: border-box;
         margin-top: 1em;
@@ -34,7 +35,7 @@
         margin: 0;
         animation: text-appear 0.3s cubic-bezier(0, 0, 0.2, 1); 
         font-weight: 800;
-        letter-spacing: 1px; 
+        //letter-spacing: 1px; 
         color: #424242;          
     }
     h2 {

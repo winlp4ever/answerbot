@@ -24,9 +24,6 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
     const Us = useContext(userContext);
     return <div className='bob-menu'>
         {Us.user.userid? <div className='bob-menu-options'>
-            <Button className='user-profile'>
-                <img src={require('../../imgs/bob/user.svg')} />
-            </Button>
             {options.map((o, id) => <Button 
                 key={id}
                 className={o.cl + (id == activeTab ? ' focus': '')}
@@ -35,9 +32,6 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
                 <HelpBox msg={o.name} />
                 {id == activeTab ? o.icon: o.inActiveIcon}
             </Button>)}
-            <Button className='close' onClick={toggleMode}>
-                <img src={require('../../imgs/bob/close.svg')} />
-            </Button>
         </div>: null}
     </div>
 }

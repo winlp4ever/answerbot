@@ -32,10 +32,11 @@
         background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
         border: 1px solid lightgrey;
-        img {
+        svg {
             z-index: 4;
             display: block;
             height: 3.6em;
+            width: 3.6em;
         }
         .notif-res {
             position: absolute;
@@ -56,11 +57,14 @@
         height: 540px;
         box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
         box-sizing: border-box;
-        padding: 2.5em 0 0 0;
+        padding: 0 0 0;
         border-radius: 0.8em;
         background: white;
         font-family: 'Nunito', sans-serif;
         font-size: 1.1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         &.bob-enter {
             opacity: 0;
             transform: translateX(150px);

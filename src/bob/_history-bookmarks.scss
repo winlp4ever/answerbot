@@ -1,11 +1,11 @@
 .bob {
     .history-bookmarks {
-        height: calc(540px - 3.6em);
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: end;
-        box-sizing: border-box;
-        padding: 0.25em 0.4em;
+        //box-sizing: border-box;
+        padding: 0.5em 0.4em;
         overflow-y: overlay;
         scrollbar-color: rgb(209, 209, 209) transparent;
         scrollbar-width: 0.25em;
@@ -39,8 +39,9 @@
                 font-size: 0.8em;
                 font-weight: 600;
                 color: #424242;
-                img {
+                svg {
                     height: 1em;
+                    width: 1em;
                     vertical-align: middle;
                     margin-left: 0.5em;
                 }
@@ -95,8 +96,9 @@
                 font-size: 0.8em;
                 font-weight: 600;
                 color: #424242;
-                img {
+                svg {
                     height: 1em;
+                    width: 1em;
                     vertical-align: middle;
                     margin-left: 0.5em;
                 }

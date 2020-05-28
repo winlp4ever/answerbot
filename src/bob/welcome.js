@@ -4,6 +4,8 @@ import './_welcome.scss';
 
 import Actions, {postActionMsg} from './actions';
 
+import Bob from '../../imgs/bob/_bob.svg'
+
 const Welcome = () => {
     const [msg, setMsg] = useState('')
 
@@ -15,7 +17,7 @@ const Welcome = () => {
     }, [])
 
     return <div className='bob-welcome'>
-        <img src={require('../../imgs/bob/_bob.svg')} />
+        <Bob />
         <h2>{msg}</h2>
     </div>
 }

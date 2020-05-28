@@ -2,6 +2,11 @@ import React, {Component, useState, useContext, useRef} from 'react'
 import { userContext } from '../user-context/user-context'
 import './_history-bookmarks.scss'
 
+// import svgs
+import ExpandIcon from '../../imgs/bob/expand.svg'
+import ClockIcon from '../../imgs/bob/clock.svg'
+import BmrkIcon from '../../imgs/bob/bmk.svg'
+
 const OldQ = (props) => {
     const [viewTime, setViewTime] = useState(false)
     const [focus, setFocus] = useState(false)
@@ -58,12 +63,12 @@ const History = (props) => {
 
     return <div className='bob-history'>
         <h4>
-            <img 
+            <ExpandIcon
                 onClick={toggleSpan} 
                 className={span? 'expand on': 'expand'} 
-                src={require('../../imgs/bob/expand.svg')}/>
+            />
             History
-            <img src={require('../../imgs/bob/clock.svg')}/> 
+            <ClockIcon/> 
         </h4>
         {span && <div>
             {user.history.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q}/>)}
@@ -84,12 +89,12 @@ const Bookmarks = (props) => {
     
     return <div className='bob-bookmarks'>
         <h4>
-            <img 
+            <ExpandIcon 
                 onClick={toggleSpan} 
                 className={span? 'expand on': 'expand'} 
-                src={require('../../imgs/bob/expand.svg')}/>
+            />
             Bookmarks
-            <img src={require('../../imgs/bob/bmk.svg')}/> 
+            <BmrkIcon/> 
         </h4>
         {span && <div>
             {bms.map((b, id) => <div 
