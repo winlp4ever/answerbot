@@ -18,12 +18,15 @@ import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
+import Button from '@material-ui/core/Button'
 
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
 import ChatIcon from '../../imgs/bob/chat.svg'
 import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
+import CloseIcon from '../../imgs/bob/close.svg'
+import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
 
 const Options = [
     {
@@ -170,7 +173,14 @@ export default class Bob extends Component {
                 timeout={350}
             >
                 <div className='bob maximal'>
-                    
+                    <div className='bob-taskbar'>
+                        <Button>
+                            <EllipsisIcon />
+                        </Button>
+                        <Button onClick={this.toggleMode}>
+                            <CloseIcon />
+                        </Button>
+                    </div>
                     {this.context.user.userid? <V.view {...props}/>: null}
                     <BobMenu 
                         options={Options} 

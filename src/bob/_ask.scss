@@ -89,6 +89,9 @@
                         width: 1.5em;
                         filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                         animation: none;
+                        path {
+                            fill: #424242;
+                        }
                     }
                     &.show-hints {
                         //background: #bbdefb;
@@ -112,8 +115,9 @@
                     position: absolute;
                     z-index: 10;
                     bottom: 3.6em;
-                    width: 100%;
-                    left: 0;
+                    width: 90%;
+                    left: 5%;
+                    
                     background: white;
                     box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
                     box-sizing: border-box;

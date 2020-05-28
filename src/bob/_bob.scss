@@ -82,6 +82,29 @@
             transform: translateX(150px);
             transition: 250ms all cubic-bezier(0, 0, 0.2, 1);
         }
+
+        .bob-taskbar {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding: 1em 0.5em 0.5em 0.5em;
+            button {
+                min-width: 0;
+                padding: 0.2em;
+                border-radius: 50%;
+                margin-left: 0.5em;
+                svg {
+                    width: 2.1em;
+                    height: 2.1em;
+                    path {
+                        fill: grey;
+                    }
+                }
+            }
+        }
+
         .instant-answer {
             position: absolute;
             bottom: 4em;
@@ -222,11 +245,12 @@
                 span {
                     display: block;
                 }
-                img {
+                svg {
                     animation: none;
                     display: block;
                     margin: auto;
                     height: 1.5em;
+                    width: 1.5em;
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }
                 &.show-hints {

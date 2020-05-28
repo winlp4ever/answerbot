@@ -47,6 +47,9 @@
             svg {
                 height: 1.8em ;
                 width: 1.8em ;
+                path {
+                    fill: grey;
+                }
             }
             &.focus {
                 opacity: 1;
