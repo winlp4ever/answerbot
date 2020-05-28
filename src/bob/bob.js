@@ -7,7 +7,6 @@ import io from 'socket.io-client';
 import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
-
 // import style file
 import './_bob.scss';
 
@@ -19,25 +18,34 @@ import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
+import Button from '@material-ui/core/Button'
+
+// import svgs
+import BobAva from '../../imgs/bob/bob-transparent.svg'
+import ChatIcon from '../../imgs/bob/chat.svg'
+import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
+import ExploreIcon from '../../imgs/bob/explore.svg'
+import CloseIcon from '../../imgs/bob/close.svg'
+import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
 
 const Options = [
     {
-        icon: <img src={require('../../imgs/bob/chat.svg')}/>,
-        inActiveIcon: <img src={require('../../imgs/bob/_chat.svg')} />,
+        icon: <ChatIcon/>,
+        inActiveIcon: <ChatIcon/>,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
-        icon: <img src={require('../../imgs/bob/bookmark-history.svg')}/>,
-        inActiveIcon: <img src={require('../../imgs/bob/_bookmark-history.svg')} />,
+        icon: <HistoryIcon />,
+        inActiveIcon: <HistoryIcon />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
     },
     {
-        icon: <img src={require('../../imgs/bob/feed.svg')}/>,
-        inActiveIcon: <img src={require('../../imgs/bob/_feed.svg')}/>,
+        icon: <ExploreIcon />,
+        inActiveIcon: <ExploreIcon />,
         cl: 'view-explore',
         view: (props) => <News {...props} />,
         name: 'explorer'
@@ -155,7 +163,7 @@ export default class Bob extends Component {
             <div className='bob-ava' >
                 {this.state.newResponseComing && <span className='notif-res'></span>}
                 
-                <img src={require('../../imgs/bob/bob-transparent.svg')} onClick={this.toggleMode} />
+                <BobAva onClick={this.toggleMode} />
             </div>
  
             <CSSTransition 
@@ -165,13 +173,21 @@ export default class Bob extends Component {
                 timeout={350}
             >
                 <div className='bob maximal'>
+                    <div className='bob-taskbar'>
+                        <Button>
+                            <EllipsisIcon />
+                        </Button>
+                        <Button onClick={this.toggleMode}>
+                            <CloseIcon />
+                        </Button>
+                    </div>
+                    {this.context.user.userid? <V.view {...props}/>: null}
                     <BobMenu 
                         options={Options} 
                         activeTab={this.state.tab}
                         changeTab={this.changeTab} 
                         toggleMode={this.toggleMode}
                     />
-                    {this.context.user.userid? <V.view {...props}/>: null}
                 </div>
             </CSSTransition>
         </div>

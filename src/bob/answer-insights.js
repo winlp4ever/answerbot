@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
+import A from '../../imgs/bob/A.svg'
+import ExploreIcon from '../../imgs/bob/explore.svg'
 
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
         <h4>
-            <img src={require('../../imgs/bob/A.svg')} /> 
+            <A/> 
             Réponse complète
         </h4>
         <MdRender source={src} />
@@ -16,7 +18,7 @@ const FullAnswer = ({src}) => {
 const Orientation = ({src}) => {
     return <div className='orientation'>
         <h4>
-            <img src={require('../../imgs/bob/explore.svg')} /> 
+            <ExploreIcon /> 
             Explorer
         </h4>
         {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
@@ -28,7 +30,7 @@ const AnswerInsights = ({content}) => {
         <div className='answer-insights'>
             <FullAnswer src={content.answer.answer_paragraph} />
             <div className='orientation'>
-                <h4><img src={require('../../imgs/bob/explore.svg')} /> Explorer</h4>
+                <h4><ExploreIcon /> Explorer</h4>
                 {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
             </div>
             {content.answer.source? <div className='source'>

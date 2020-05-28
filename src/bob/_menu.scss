@@ -1,22 +1,20 @@
 .bob {
     .bob-menu {
-        position: absolute;
+        position: relative;
         top: 0em;
         margin: 0;
         width: 100%;
         right: 0;
         box-sizing: border-box;
-        padding: 0.25em 0.5em;
-        
-        background: #fafafa;
-        border-bottom: 1px solid lightgrey;
+        padding: 0.5em 0.5em;
+        border-radius: 0.8em;
         //border-top-left-radius: 0.8em;
         //border-top-right-radius: 0.8em;
         .bob-menu-options {
             width: 100%;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: space-around;
             box-sizing: border-box;
             padding: 0 0.5em;
         }
@@ -47,22 +45,16 @@
             margin: auto 0.15em;
             animation: none;
             svg {
-                font-size: 1.2em;
-                
-            }
-            img {
-                height: 1.5em;
-                vertical-align: middle;
-                filter: grayscale(100%);
-                transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
-                animation: none;
-                opacity: 0.75;
+                height: 1.8em ;
+                width: 1.8em ;
+                path {
+                    fill: grey;
+                }
             }
             &.focus {
                 opacity: 1;
                 color: #004ecb;
-                img {
-                    opacity: 1;
+                svg {
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }
                 .help-box {

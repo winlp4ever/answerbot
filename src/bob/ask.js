@@ -17,6 +17,14 @@ import ExTrouble from './ex-trouble'
 import RelatedQuestions from './related-questions'
 import NewChat from './new-chat'
 
+// import svgs
+import RatingIcon from '../../imgs/bob/rating.svg'
+import StarIcon from '../../imgs/bob/star.svg'
+import _StarIcon from '../../imgs/bob/_star.svg'
+import PinIcon from '../../imgs/bob/pin.svg'
+import _PinIcon from '../../imgs/bob/_pin.svg'
+import BobOutlined from '../../imgs/bob/bob-outlined.svg'
+
 class Typing extends Component {
     state = {
         times: 0
@@ -71,7 +79,7 @@ const RateTheAnswer = () => {
 
     return <div className='rating'>
         <span className='text'>
-            <img src={require('../../imgs/bob/rating.svg')} />
+            <RatingIcon />
             <b>{evalMsg}</b>&nbsp;
             <span className='rating-stars'>
                 {[1, 2, 3, 4, 5].map(i => <i 
@@ -79,8 +87,7 @@ const RateTheAnswer = () => {
                     onClick={_ => setScore(i)}
                     className={i <= score ? 'on': 'off'}
                 >
-                   {i <= score? <img src={require('../../imgs/bob/_star.svg')} />:
-                   <img src={require('../../imgs/bob/star.svg')} />}
+                   {i <= score? <_StarIcon />:<StarIcon />}
                 </i>)}
             </span>
             
@@ -176,8 +183,7 @@ const Answer = ({content, socket, setIns}) => {
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
-                    {pin? <img src={require('../../imgs/bob/pin.svg')}/>:
-                    <img src={require('../../imgs/bob/_pin.svg')}/>}
+                    {pin? <PinIcon/>: <_PinIcon/>}
                 </Button>
             </div>
             <span 
@@ -210,7 +216,7 @@ const ChatSegment = (props) => {
             {isBob &&
                 <div>
                     <span>Bob</span>
-                    <img src={require('../../imgs/bob/bob-outlined.svg')} />
+                    <BobOutlined />
                 </div>
             }
         </div>

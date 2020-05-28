@@ -32,10 +32,11 @@
         background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
         border: 1px solid lightgrey;
-        img {
+        svg {
             z-index: 4;
             display: block;
             height: 3.6em;
+            width: 3.6em;
         }
         .notif-res {
             position: absolute;
@@ -52,15 +53,18 @@
     .bob {
         position: relative;
         margin-bottom: 0.25em;
-        width: 350px;
-        height: 500px;
+        width: 300px;
+        height: 540px;
         box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
         box-sizing: border-box;
-        padding: 2.5em 0 0 0;
-        border-radius: 0.1em;
+        padding: 0 0 0;
+        border-radius: 0.8em;
         background: white;
         font-family: 'Nunito', sans-serif;
         font-size: 1.1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
         &.bob-enter {
             opacity: 0;
             transform: translateX(150px);
@@ -78,6 +82,29 @@
             transform: translateX(150px);
             transition: 250ms all cubic-bezier(0, 0, 0.2, 1);
         }
+
+        .bob-taskbar {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding: 1em 0.5em 0.5em 0.5em;
+            button {
+                min-width: 0;
+                padding: 0.2em;
+                border-radius: 50%;
+                margin-left: 0.5em;
+                svg {
+                    width: 2.1em;
+                    height: 2.1em;
+                    path {
+                        fill: grey;
+                    }
+                }
+            }
+        }
+
         .instant-answer {
             position: absolute;
             bottom: 4em;
@@ -218,11 +245,12 @@
                 span {
                     display: block;
                 }
-                img {
+                svg {
                     animation: none;
                     display: block;
                     margin: auto;
                     height: 1.5em;
+                    width: 1.5em;
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }
                 &.show-hints {

@@ -48,7 +48,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg|ico)(\?[a-z0-9=.]+)?$/,
+                test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|ico)(\?[a-z0-9=.]+)?$/,
                 loader: 'url-loader?limit=100000' 
             },
             {
@@ -59,6 +59,10 @@ module.exports = {
             {
                 test: /\.mp3$/,
                 loader: 'file-loader'
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
             }
         ]
             

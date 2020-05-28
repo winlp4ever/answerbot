@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import {getCurrentTime} from '../utils'
 
+import SendIcon from '../../imgs/bob/send.svg';
 
 const Hints = ({hints, applyHint, autoComplete}) => {
     const [focus, setFocus] = useState(-1)
@@ -130,8 +131,7 @@ const NewChat = (props) => {
             onBlur={_ => setFocus(false)}
         />
         <Button onClick={send} ref={sending}>
-            {focus? <img src={require('../../imgs/bob/send.svg')}/>
-            : <img src={require('../../imgs/bob/_send.svg')}/>}
+            <SendIcon />
         </Button>
     </div>
 }
