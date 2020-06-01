@@ -93,13 +93,10 @@ export default class Bob extends Component {
         console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
+                console.log(msg)
                 // update user chat history
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
-
-                let dct = this.context.user;
-                dct.history.push(msg.chat);
-                this.context.updateUser(dct);
                 // update state
                 this.setState({
                     newResponseComing: true,
