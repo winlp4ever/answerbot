@@ -27,7 +27,7 @@ import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
 import CloseIcon from '../../imgs/bob/close.svg'
 import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
-import { Grid } from 'react-feather';
+import { Grid, Clock } from 'react-feather';
 
 const Options = [
     {
@@ -38,8 +38,8 @@ const Options = [
         name: 'chat'
     },
     {
-        icon: <HistoryIcon />,
-        inActiveIcon: <HistoryIcon />,
+        icon: <Clock />,
+        inActiveIcon: <Clock />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
