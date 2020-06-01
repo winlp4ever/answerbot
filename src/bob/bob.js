@@ -27,6 +27,7 @@ import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
 import CloseIcon from '../../imgs/bob/close.svg'
 import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
+import { Grid } from 'react-feather';
 
 const Options = [
     {
@@ -44,8 +45,8 @@ const Options = [
         name: 'history'
     },
     {
-        icon: <ExploreIcon />,
-        inActiveIcon: <ExploreIcon />,
+        icon: <Grid />,
+        inActiveIcon: <Grid />,
         cl: 'view-explore',
         view: (props) => <News {...props} />,
         name: 'explorer'
