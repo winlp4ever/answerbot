@@ -27,6 +27,7 @@ import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
 import CloseIcon from '../../imgs/bob/close.svg'
 import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
+import { Grid, Clock } from 'react-feather';
 
 const Options = [
     {
@@ -37,15 +38,15 @@ const Options = [
         name: 'chat'
     },
     {
-        icon: <HistoryIcon />,
-        inActiveIcon: <HistoryIcon />,
+        icon: <Clock />,
+        inActiveIcon: <Clock />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
     },
     {
-        icon: <ExploreIcon />,
-        inActiveIcon: <ExploreIcon />,
+        icon: <Grid />,
+        inActiveIcon: <Grid />,
         cl: 'view-explore',
         view: (props) => <News {...props} />,
         name: 'explorer'
@@ -92,13 +93,10 @@ export default class Bob extends Component {
         console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
+                console.log(msg)
                 // update user chat history
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
-
-                let dct = this.context.user;
-                dct.history.push(msg.chat);
-                this.context.updateUser(dct);
                 // update state
                 this.setState({
                     newResponseComing: true,

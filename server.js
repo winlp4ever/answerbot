@@ -79,6 +79,19 @@ io.on('connection', function(socket){
     })
     socket.on('bob-msg', msg => {
         io.emit('bob-msg', msg);
+        if (msg.chat.answer) if (!msg.chat.answer.fuzzy) {
+            const query = `
+                select * from bob_history_add_question ($1, $2, $3, $4);
+            `
+            const values = [msg.conversationID, msg.chat.answer.qid, msg.chat, msg.chat.original_question]
+            client.query(query, values, (err, response) => {
+                if (err) {
+                    console.log(err.stack)
+                } else {
+                    console.log('ok')
+                }
+            })
+        }
     })
     socket.on('ask-for-hints-bob', msg => {
         msg.socketid = socket.id;
@@ -210,6 +223,23 @@ app.post('/post-news', (req, res) => {
     utils.getNews(query, (ans)=> {
         console.log(ans);
         res.json(ans);
+    })
+})
+
+app.post('/post-asked-questions', (req, res) => {
+    const query = `
+        select * 
+        from bob_history
+        where userid = $1 
+        order by date desc, id desc;
+    `
+    const values = [req.body.userid]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok', questions: response.rows});
+        }
     })
 })
 

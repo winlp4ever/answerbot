@@ -1,6 +1,8 @@
-import React, {Component, useState, useContext, useRef} from 'react'
+import React, {Component, useState, useContext, useRef, useEffect} from 'react'
 import { userContext } from '../user-context/user-context'
 import './_history-bookmarks.scss'
+
+import {postForData} from '../utils'
 
 // import svgs
 import ExpandIcon from '../../imgs/bob/expand.svg'
@@ -27,14 +29,6 @@ const OldQ = (props) => {
     }
 
     const toggleViewTime = () => setViewTime(!viewTime)
-    
-    let view = false
-    if (props.q.answer) {
-        if (props.q.answer.fuzzy) view = false
-        else view = true 
-    } else view = false
-
-    if (!view) return null
     return <div 
         className='old-question' 
         onMouseEnter={toggleViewTime} 
@@ -54,13 +48,24 @@ const OldQ = (props) => {
 
 const History = (props) => {
     const [span, setSpan] = useState(false)
+    const [askedQuestions, setAskedQuestions] = useState([])
     const user = useContext(userContext).user
+
+    const _retrieveQuestions = async () => {
+        let data = await postForData('/post-asked-questions', {
+            userid: user.userid
+        })
+        if (data.status == 'ok') setAskedQuestions(data.questions)
+    }
+
+    useEffect(() => {
+        _retrieveQuestions()
+    }, [])
 
     const toggleSpan = () => {
         setSpan(!span)
-        console.log('oof')
     }
-
+    
     return <div className='bob-history'>
         <h4>
             <ExpandIcon
@@ -71,7 +76,7 @@ const History = (props) => {
             <ClockIcon/> 
         </h4>
         {span && <div>
-            {user.history.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q}/>)}
+            {askedQuestions.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q.content}/>)}
         </div>}
     </div>
 }
