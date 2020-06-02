@@ -7,6 +7,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
+const https = require('https')
+
+var privateKey  = fs.readFileSync(path.join('ssl-certs', 'key.key'), 'utf8');
+var certificate = fs.readFileSync(path.join('ssl-certs', 'cer.cer'), 'utf8');
 
 const utils = require('./utils');
 
@@ -35,8 +39,8 @@ if (mode == 'prod') {
 }
 else compiler = webpack(devConfig);
 
-const server = new http.Server(app);
-const io = require('socket.io')(server, { wsEngine: 'ws' });
+const server = new https.createServer({key: privateKey, cert: certificate}, app);
+const io = require('socket.io')(server, { wsEngine: 'ws',pingTimeout: 0, pingInterval: 500, origins: '*:*' });
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)

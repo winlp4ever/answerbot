@@ -16,7 +16,7 @@ import asyncio
 
 from functools import lru_cache
 
-sio = socketio.AsyncClient()
+sio = socketio.AsyncClient(ssl_verify=False)
 print('1')
 questions_queue = deque()
 hints_queue = deque()
@@ -244,7 +244,7 @@ async def run():
                 'socketid': msg['socketid']
             }
 
-        await sio.connect('http://localhost:5000')
+        await sio.connect('https://localhost:5000')
         await sio.wait()
     except (Exception, psycopg2.DatabaseError) as error :
         print (error)
