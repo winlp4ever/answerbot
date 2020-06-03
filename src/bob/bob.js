@@ -65,7 +65,7 @@ export default class Bob extends Component {
         insight: null,
         isTyping: false
     }
-    socket = io({
+    socket = io('http://localhost:5500', {
         transports: ['websocket']
     })
 
