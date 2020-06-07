@@ -3,9 +3,11 @@ import {userContext} from '../user-context/user-context'
 
 import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import {getCurrentTime} from '../utils'
+import {useInterval, getCurrentTime} from '../utils'
 
 import SendIcon from '../../imgs/bob/send.svg';
+
+var cnt = 0
 
 const Hints = ({hints, applyHint, autoComplete}) => {
     const [focus, setFocus] = useState(-1)
@@ -34,10 +36,22 @@ const NewChat = (props) => {
     const [viewHints, setViewHints] = useState(true)
     const [autoComplete, setAutoComplete] = useState(0)
     const [focus, setFocus] = useState(false)
+    const [askForHints, setAskForHints] = useState(false)
 
     const input = useRef(null)
     const sending = useRef(null)
     const user = useContext(userContext).user
+
+    useInterval(() => {
+        if (askForHints) {
+            props.socket.emit('ask-for-hints-bob', {
+                typing: newchat,
+                conversationID: user.userid,
+                timestamp: new Date().getTime()
+            })
+            setAskForHints(false)
+        }
+    }, 100)
 
     const viewHideHints = () => {
         setViewHints(!viewHints)
@@ -47,11 +61,7 @@ const NewChat = (props) => {
     const handleChange = (e) => {
         setNewchat(e.target.value)
         if (e.target.value.length == 7) setViewHints(true)
-        props.socket.emit('ask-for-hints-bob', {
-            typing: e.target.value,
-            conversationID: user.userid,
-            timestamp: new Date().getTime()
-        })
+        if (!askForHints) setAskForHints(true)
     }
 
     const handleAutoComplete = () => {

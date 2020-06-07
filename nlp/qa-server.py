@@ -19,7 +19,7 @@ from functools import lru_cache
 
 print('Setting up ')
 
-sio = socketio.Server(cors_allowed_origins='*')
+sio = socketio.Server(cors_allowed_origins='*', async_mode='eventlet')
 app = socketio.WSGIApp(sio)
 
 questions_queue = deque()
