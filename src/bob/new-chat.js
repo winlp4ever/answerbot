@@ -25,7 +25,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             onClick={_ => applyHint(h.text)}
         >
             <span 
-                dangerouslySetInnerHTML={{__html: h.text}} 
+                dangerouslySetInnerHTML={{__html: (h.rep != "-" ? h.text: `<a>@${h.text}</a>`)}} 
             />
             <span className='similarity-score'>{`${parseInt((h.score-1.25)*4/3 * 100)}%`}</span>
         </div>)}

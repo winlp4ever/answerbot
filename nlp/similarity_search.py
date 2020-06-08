@@ -18,11 +18,9 @@ class SimiSearch:
         q: question that needs searching for similar questions
         topk: nb of top results returned
         """
-        
-        tks = self.tk.tokenize([q])
         embedding_start = time.time()
         
-        query_vector = self.bc.encode(tks)
+        query_vector = self.bc.encode([q])
            
         query_vector = query_vector[0].tolist()
         embedding_time = time.time() - embedding_start

@@ -65,7 +65,7 @@ export default class Bob extends Component {
         insight: null,
         isTyping: false
     }
-    socket = io('http://localhost:5500', {
+    socket = io({
         transports: ['websocket']
     })
 
@@ -112,12 +112,6 @@ export default class Bob extends Component {
                 chats_.push(msg.chat);
                 this.setState({chats: chats_, hints: [], isTyping: true});
                 this._scrollToBottom();
-            }
-        })
-        this.socket.on('bob-hints', msg => {
-            if (msg.conversationID == this.context.user.userid) {
-                console.log('hints response time: ', new Date().getTime() - msg.timestamp)
-                this.setState({hints: msg.hints})
             }
         })
     }
