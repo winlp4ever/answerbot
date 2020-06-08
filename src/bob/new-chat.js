@@ -3,7 +3,7 @@ import {userContext} from '../user-context/user-context'
 
 import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import {useInterval, getCurrentTime} from '../utils'
+import {useInterval, getCurrentTime, postForData} from '../utils'
 
 import SendIcon from '../../imgs/bob/send.svg';
 
@@ -15,6 +15,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     const toggleHint = (i) => {
         setFocus(i)
     }
+
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 
@@ -24,7 +25,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             onClick={_ => applyHint(h.text)}
         >
             <span 
-                dangerouslySetInnerHTML={{__html: h.rep? h.text: '<a>@mon code ne marche pas</a>'}} 
+                dangerouslySetInnerHTML={{__html: h.text}} 
             />
             <span className='similarity-score'>{`${parseInt((h.score-1.25)*4/3 * 100)}%`}</span>
         </div>)}
@@ -37,18 +38,20 @@ const NewChat = (props) => {
     const [autoComplete, setAutoComplete] = useState(0)
     const [focus, setFocus] = useState(false)
     const [askForHints, setAskForHints] = useState(false)
+    const [hints, setHints] = useState([])
 
     const input = useRef(null)
     const sending = useRef(null)
     const user = useContext(userContext).user
 
-    useInterval(() => {
+    useInterval(async () => {
         if (askForHints) {
-            props.socket.emit('ask-for-hints-bob', {
+            let hs = await postForData('http://localhost:5600/post-hints', {
                 typing: newchat,
                 conversationID: user.userid,
                 timestamp: new Date().getTime()
             })
+            setHints(hs.hints)
             setAskForHints(false)
         }
     }, 100)
@@ -124,9 +127,9 @@ const NewChat = (props) => {
     if (!user.userid) return null;
     return <div className={'new-chat' + (focus? ' focus': '')}>
         {
-            (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
+            (viewHints & newchat != '' & newchat != ' ' & hints.length > 0)?
              <Hints 
-                hints={props.hints} 
+                hints={hints} 
                 applyHint={applyHint} 
                 autoComplete={autoComplete}
             />: null
