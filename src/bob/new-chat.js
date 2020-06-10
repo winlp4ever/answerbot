@@ -46,7 +46,7 @@ const NewChat = (props) => {
 
     useInterval(async () => {
         if (askForHints) {
-            let hs = await postForData('http://localhost:5600/post-hints', {
+            let hs = await postForData('https://bobtva.theaiinstitute.ai:5600/post-hints', {
                 typing: newchat,
                 conversationID: user.userid,
                 timestamp: new Date().getTime()
