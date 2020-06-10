@@ -6,7 +6,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import {useInterval, getCurrentTime, postForData} from '../utils'
 
 import SendIcon from '../../imgs/bob/send.svg';
-
+import io from 'socket.io-client'
 var cnt = 0
 
 const Hints = ({hints, applyHint, autoComplete}) => {
@@ -32,6 +32,8 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     </div>
 }
 
+const socket = io()
+
 const NewChat = (props) => {
     const [newchat, setNewchat] = useState('')
     const [viewHints, setViewHints] = useState(true)
@@ -44,14 +46,22 @@ const NewChat = (props) => {
     const sending = useRef(null)
     const user = useContext(userContext).user
 
+    useEffect(() => {
+        socket.on('bob-hints', msg => {
+            if (msg.conversationID == user.userid) {
+                setHints(msg.hints)
+            }
+        })
+        return () => socket.off('*')
+    }, [])
+
     useInterval(async () => {
         if (askForHints) {
-            let hs = await postForData('https://bobtva.theaiinstitute.ai:5600/post-hints', {
-                typing: newchat,
+            socket.emit('ask-for-hints-bob', {
                 conversationID: user.userid,
+                typing: newchat,
                 timestamp: new Date().getTime()
             })
-            setHints(hs.hints)
             setAskForHints(false)
         }
     }, 100)
