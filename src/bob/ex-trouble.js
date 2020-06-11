@@ -3,11 +3,12 @@ import {postForData} from '../utils';
 
 import Actions, {postActionMsg} from './actions'
 import './_ex-trouble.scss'
+import ErrIcon from '../../imgs/bob/err.svg'
 
 const ErrMsg = ({msg}) => {
     if (msg) 
         return <span className='err-msg'>
-            <img src={require('../../imgs/bob/err.svg')} />
+            <ErrIcon />
             {msg}
         </span>
     return null
@@ -36,7 +37,7 @@ const ExTrouble = ({content}) => {
             <span 
                 className='err-msg' 
             > 
-                <img src={require('../../imgs/bob/err.svg')} />
+                <ErrIcon/>
                 {content.text}
             </span>
         </div>: <div className='err-msgs'>
