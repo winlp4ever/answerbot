@@ -5,6 +5,7 @@ import {userContext} from '../user-context/user-context'
 import Button from '@material-ui/core/Button'
 import StarsIcon from '@material-ui/icons/Stars'
 import Sound from 'react-sound'
+import {CSSTransition} from 'react-transition-group';
 
 import './_ask.scss'
 import MdRender from '../markdown-render/markdown-render'
@@ -99,11 +100,12 @@ const RateTheAnswer = () => {
 
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
+    const helpTimeout = useRef(null);
+
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u)
     const [foc, setFoc] = useState(false)
-    const [onceTime, setOnceTime] = useState(true)
     const [showHelp, setShowHelp] = useState(false)
     const [msg, setMsg] = useState('')
     const [showAnswer, setShowAnswer] = useState(false)
@@ -128,10 +130,6 @@ const Answer = ({content, socket, setIns}) => {
         _retrieveMsg()
     }, [])
 
-    useEffect(() => {
-        if (showHelp) setTimeout(()=> setShowHelp(false), 1200)
-    }, [showHelp])
-
     const handleClick = () => {
         if (foc) setIns(null)
         else setIns(content)
@@ -142,16 +140,15 @@ const Answer = ({content, socket, setIns}) => {
         if (!foc) {
             setIns(null)
         }
-        setShowHelp(false)
     }
 
     const handleMouseEnter = () => {
         if (!foc) {
             setIns(content)
-        }
-        if (!foc & onceTime) {
             setShowHelp(true)
-            setOnceTime(false)
+            clearTimeout(helpTimeout.current)
+            helpTimeout.current = setTimeout(() => setShowHelp(false), 1000)
+            
         }
     }
 
@@ -179,7 +176,16 @@ const Answer = ({content, socket, setIns}) => {
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
         >
-            {showHelp? <div className='help-info'>Cliquer a focus!</div>: null}
+            
+            <CSSTransition 
+                in={showHelp} 
+                unmountOnExit 
+                classNames='help-info' 
+                timeout={250}
+            >
+                <div className='help-info'>Cliquer a focus!</div>
+            </CSSTransition>
+            
             <div className='taskbar'>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
@@ -196,6 +202,7 @@ const Answer = ({content, socket, setIns}) => {
         {showAnswer && <RateTheAnswer />}
     </div>
 }
+
 
 const ChatSegment = (props) => {
     // get user context
