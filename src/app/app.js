@@ -33,6 +33,7 @@ export default class App extends Component {
             bookmarks: {}
         },
         activeTab: 0,
+        colorMode: 0
     }
 
     componentDidMount() {}
