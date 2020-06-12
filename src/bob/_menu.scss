@@ -6,7 +6,7 @@
         width: 100%;
         right: 0;
         box-sizing: border-box;
-        padding: 0.5em 0.5em;
+        padding: 1em 0.5em;
         border-radius: 0.8em;
         //border-top-left-radius: 0.8em;
         //border-top-right-radius: 0.8em;
@@ -44,6 +44,8 @@
             transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
             margin: auto 0.15em;
             animation: none;
+            box-shadow: 3px 3px 6px #cecece, 
+            -3px -3px 6px #ffffff;
             svg {
                 height: 1.5em ;
                 width: 1.5em ;
@@ -55,6 +57,8 @@
             &.focus {
                 opacity: 1;
                 color: #004ecb;
+                box-shadow: inset 3px 3px 6px #cecece, 
+                inset -3px -3px 6px #ffffff;
                 svg {
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                 }

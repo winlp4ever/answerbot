@@ -21,6 +21,10 @@ import Cookies from 'js-cookie';
 let PARAMS = new URLSearchParams(window.location.search)
 
 console.log(PARAMS)
+
+const DARKTHEME = 1
+const LIGHTTHEME = 0
+
 export default class App extends Component {
     state = {
         user: {
@@ -30,7 +34,8 @@ export default class App extends Component {
             exerciseid: parseInt(PARAMS.get('exercice')) || 0,
             level: 'Master2',
             history: [],
-            bookmarks: {}
+            bookmarks: {},
+            colorMode: 0
         },
         activeTab: 0,
         colorMode: 0
@@ -42,6 +47,8 @@ export default class App extends Component {
         this.setState({user: info});
     }
 
+    updateColorMode = (md) => this.setState({colorMode: md})
+
     componentWillUnmount = () => {};
 
     selectTab = (i) => {
@@ -49,14 +56,14 @@ export default class App extends Component {
     }
 
     render() {
-        const value = {
+        const user = {
             user: this.state.user,
             updateUser: this.updateUser
         }
 
         return (
-            <userContext.Provider value={value}>
-                <Bob />
+            <userContext.Provider value={user}>
+                <Bob colorMode={this.state.user.colorMode}/>
             </userContext.Provider>
         )
     }
