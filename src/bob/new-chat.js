@@ -5,9 +5,11 @@ import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import {useInterval, getCurrentTime, postForData} from '../utils'
 
-import SendIcon from '../../imgs/bob/send.svg';
+import SendIcon from '../../imgs/bob/send.svg'
 import io from 'socket.io-client'
 var cnt = 0
+
+import './_new-chat.scss'
 
 const Hints = ({hints, applyHint, autoComplete}) => {
     const [focus, setFocus] = useState(-1)
