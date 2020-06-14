@@ -48,22 +48,15 @@ const NewChat = (props) => {
     const sending = useRef(null)
     const user = useContext(userContext).user
 
-    useEffect(() => {
-        socket.on('bob-hints', msg => {
-            if (msg.conversationID == user.userid) {
-                setHints(msg.hints)
-            }
-        })
-        return () => socket.off('*')
-    }, [])
-
     useInterval(async () => {
         if (askForHints) {
-            socket.emit('ask-for-hints-bob', {
+            let data = await postForData('https://localhost:5600/post-hints', {
                 conversationID: user.userid,
                 typing: newchat,
                 timestamp: new Date().getTime()
             })
+
+            setHints(data.hints)
             setAskForHints(false)
         }
     }, 100)
