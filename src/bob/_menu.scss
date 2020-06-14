@@ -50,7 +50,7 @@
                 height: 1.5em ;
                 width: 1.5em ;
                 stroke-width: 1px;
-                stroke: grey;
+                stroke: #424242;
                 //fill: #424242;
                 
             }
@@ -60,7 +60,9 @@
                 inset -3px -3px 6px #ffffff;
                 svg {
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
-                    stroke: #004ecb;
+                    stroke: #2979ff;
+                    stroke-width: 1px;
+                    fill: #004ecb;
                 }
                 .help-box {
                     color: #808080;
