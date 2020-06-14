@@ -100,8 +100,8 @@ const RateTheAnswer = () => {
 
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
-    const helpTimeout = useRef(null);
-
+    const helpEnter = useRef(null)
+    const helpTimeout = useRef(null)
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u)
@@ -140,15 +140,20 @@ const Answer = ({content, socket, setIns}) => {
         if (!foc) {
             setIns(null)
         }
+        setShowHelp(false)
+        clearTimeout(helpEnter.current)
+        clearTimeout(helpTimeout.current)
     }
 
     const handleMouseEnter = () => {
         if (!foc) {
             setIns(content)
-            setShowHelp(true)
-            clearTimeout(helpTimeout.current)
-            helpTimeout.current = setTimeout(() => setShowHelp(false), 1000)
-            
+            clearTimeout(helpEnter.current)
+            helpEnter.current = setTimeout(() => {
+                setShowHelp(true)
+                clearTimeout(helpTimeout.current)
+                helpTimeout.current = setTimeout(() => setShowHelp(false), 1000)
+            }, 1000) 
         }
     }
 
