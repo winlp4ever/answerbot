@@ -122,7 +122,7 @@ async def run():
             msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
             sol_id = -1
 
-            if qs and qs[0]['score'] > 0.95:
+            if qs and qs[0]['score'] > 1.95:
                 print(qs[0]['id'])
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 

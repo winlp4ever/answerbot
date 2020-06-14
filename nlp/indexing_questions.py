@@ -26,7 +26,24 @@ def main():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) # use psycopg2.extras.DictCursor to return row as dict object
 
     # retrieve all questions
-    cur.execute("SELECT * FROM question where question_valid=1;")
+    cur.execute('''
+        select refqs.id as refid, refqs.question_fuzzy as isfuzzy, coalesce(qas.nb_related, 0) as nb_related, allqs.*
+        from 
+            question as allqs
+        inner join 
+            question as refqs 
+        on (allqs.id = refqs.id and allqs.question_equivalent = 0 and refqs.question_equivalent = 0)
+        or allqs.question_equivalent = refqs.id
+        full outer join (
+            select id_origin, count(id_target) as nb_related
+            from question_relations
+            group by id_origin
+        ) as qas
+        on refqs.id = qas.id_origin
+
+        where (refqs.question_fuzzy = 0 or (refqs.question_fuzzy=1 and nb_related > 0))
+        and refqs.question_valid = 1
+    ''')
     q = cur.fetchone()
     cnt = 0
     while q:
@@ -34,7 +51,8 @@ def main():
             'id': q['id'],
             'text': q['question_text'],
             'vectorisation': q['vectorisation'],
-            'rep': q['question_tsv']
+            'rep': q['question_tsv'],
+            'isfuzzy': q['isfuzzy']
         }
         es.index(index='qa', body=doc, id=q['id'])
         cnt += 1
