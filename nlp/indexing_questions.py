@@ -8,10 +8,7 @@ import psycopg2
 import psycopg2.extras
 import uuid
 
-
-
 es = Elasticsearch()
-
 
 def main():
     # delete the old index in case it already exists
