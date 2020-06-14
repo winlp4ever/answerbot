@@ -168,10 +168,7 @@ export default class Bob extends Component {
             >
                 <div className='bob maximal'>
                     <div className='bob-taskbar'>
-                        <ColorSwitch />
-                        <Button>
-                            <EllipsisIcon />
-                        </Button>
+                        
                         <Button onClick={this.toggleMode}>
                             <CloseIcon />
                         </Button>

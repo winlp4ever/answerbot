@@ -87,12 +87,12 @@
             display: flex;
             width: 100%;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: center;
             box-sizing: border-box;
             padding: 1em 0.5em 0.5em 0.5em;
             button {
                 min-width: 0;
-                padding: 0.5em;
+                padding: 0.3em;
                 border-radius: 50%;
                 margin-left: 0.5em;
                 box-shadow: 3px 3px 6px #cecece, 
