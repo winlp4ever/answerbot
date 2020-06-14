@@ -92,10 +92,8 @@ export default class Bob extends Component {
     }
 
     componentDidMount () {
-        console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
-                console.log(msg)
                 // update user chat history
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
@@ -135,6 +133,7 @@ export default class Bob extends Component {
     }
 
     render() {
+        if (!document.referrer.includes("3wa.fr")) return null
         let props = {
             socket: this.socket,
             chats: this.state.chats,
