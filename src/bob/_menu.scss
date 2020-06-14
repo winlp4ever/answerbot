@@ -55,12 +55,12 @@
                 
             }
             &.focus {
-                opacity: 1;
-                color: #004ecb;
+                opacity: 1;                
                 box-shadow: inset 3px 3px 6px #cecece, 
                 inset -3px -3px 6px #ffffff;
                 svg {
                     filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                    stroke: #004ecb;
                 }
                 .help-box {
                     color: #808080;

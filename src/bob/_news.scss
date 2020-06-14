@@ -17,7 +17,7 @@
             overflow-y: scroll;
             
             box-sizing: border-box;
-            padding: 0.25em 0.4em;
+            padding: 0.25em 0.75em;
             overflow-y: overlay;
             scrollbar-color: rgb(209, 209, 209) transparent;
             scrollbar-width: 0.25em;
@@ -105,7 +105,8 @@
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                 border-radius: 0.8em;
                 color: #424242;
-                background: whitesmoke;
+                box-shadow: 5px 5px 10px #cecece, 
+                -5px -5px 10px #ffffff;
                 animation: news-appear 0.25s cubic-bezier(0, 0, 0.2, 1);
                 h3 {
                     display: block;

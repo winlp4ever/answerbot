@@ -1,19 +1,22 @@
 .answer-insights-container {
     position: relative;
     box-sizing: border-box;
-    padding: 0.5em 0;
+    padding: 0.5em 0.25em;
     height: 540px;
     width: 300px;
     border-radius: 0.8em;
     margin-right: 1em;
     z-index: 100;
-    background: white;
+    background: #374785;
     box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
     font-size: 0.8em;
     line-height: 1.4;
-    color: #424242;
+    color: white;
     animation: hints-appear 0.35s cubic-bezier(0, 0, 0.2, 1);
-    
+    a {
+        color: whitesmoke;
+        text-decoration: underline;
+    }
     &:before {
         content: '';
         position: absolute;
@@ -23,7 +26,7 @@
         bottom: 250px;
         border-top: solid 1em transparent;
         border-bottom: solid 0.6em transparent;
-        border-left: solid 0.6em white;
+        border-left: solid 0.6em #374785;
         //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
     }
     .answer-insights {
