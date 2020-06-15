@@ -32,7 +32,7 @@ def main():
             question as allqs
         inner join 
             question as refqs 
-        on (allqs.id = refqs.id and allqs.question_equivalent = 0 and refqs.question_equivalent = 0)
+        on (allqs.id = refqs.id and (allqs.question_equivalent = 0 or refqs.question_equivalent = 4584))
         or allqs.question_equivalent = refqs.id
         full outer join (
             select id_origin, count(id_target) as nb_related
@@ -52,7 +52,6 @@ def main():
             'text': q['question_text'],
             'vectorisation': q['vectorisation'],
             'rep': q['question_tsv'],
-            'isfuzzy': q['isfuzzy']
         }
         es.index(index='qa', body=doc, id=q['id'])
         cnt += 1
