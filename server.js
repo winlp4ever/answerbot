@@ -67,6 +67,8 @@ var count = 0;
 var users = JSON.parse(fs.readFileSync(path.join(usersPath, 'users.json'))).users;
 var chats = {};
 
+
+
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
@@ -108,20 +110,20 @@ io.on('connection', function(socket){
         let now = new Date().getTime()
         console.log('py->node', now - msg.timestamp)
     })
-
     // 3wa websocket
-    let io_3wa = require('socket.io-client')('http://learning.3wa.pixelsass.fr/bob-ia', 
+    let io_3wa = require('socket.io-client')('https://apprendre-html.3wa.fr/bob-ia', 
+    {
+        extraHeaders:
         {
-            extraHeaders:
-            {
-                token:'eaqYvt4a8emwgQwdXzpwELcRYnZxwnTJ8YABjLJg4W6Pw2ruz9Z2gsuVn2bRkaNm'
-            }
-        })
+            token:'eaqYvt4a8emwgQwdXzpwELcRYnZxwnTJ8YABjLJg4W6Pw2ruz9Z2gsuVn2bRkaNm'
+        }
+    })
 
     io_3wa.on('event_login', msg => {
+        console.log(msg)
         let query = `
-            insert into activities (studentid, activitytype, record) 
-            values ($1, 'login', '{}')
+            insert into activities (studentid, activitytype, record, date) 
+            values ($1, 'login', '{}', NOW()::date)
         `
         let values = [msg]
         client.query(query, values, (err, response) => {
@@ -132,6 +134,7 @@ io.on('connection', function(socket){
             }
         })
     })
+
     io_3wa.on('event_submit', msg => {
         console.log(msg)
         let query = `
