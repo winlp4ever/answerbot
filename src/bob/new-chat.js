@@ -59,7 +59,7 @@ const NewChat = (props) => {
         if (viewHints) {
             clearTimeout(askForHints.current)
             askForHints.current = setTimeout(async () => {
-                let data = await postForData('https://localhost:5600/post-hints', {
+                let data = await postForData('https://bobtva.theaiinstitute.ai:5600/post-hints', {
                     conversationID: user.userid,
                     typing: nc,
                     timestamp: new Date().getTime()
