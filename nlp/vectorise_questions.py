@@ -25,8 +25,7 @@ questions = cur.fetchall()
 processed = 0
 total = 0
 for idx, text in questions:
-    tks = tk.tokenize([text])[0]
-    embeddings = mod.encode([tks])[0].tolist()
+    embeddings = mod.encode([text])[0].tolist()
     cur.execute("update question set dimensions=%s, vectorisation=%s where id=%s", [len(embeddings), embeddings, idx])
     print('done for question with %d - total processed questions: %d' % (idx, processed))
     processed += 1

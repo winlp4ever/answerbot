@@ -122,7 +122,7 @@ async def run():
             msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
             sol_id = -1
 
-            if qs and qs[0]['score'] > 1.9:
+            if qs and qs[0]['score'] > 1.8:
                 print(qs[0]['id'])
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
@@ -196,6 +196,7 @@ async def run():
                             break
                         ans = cur.fetchone()
                     msg['answer'] = res
+                    print(res)
                     msg['text'] = res['answer_paragraph'][:90]
                     sol_id = res['qid']
                     if len(res['answer_paragraph']) > 90 and not msg['text'].endswith('..'):

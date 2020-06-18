@@ -84,8 +84,8 @@ io.on('connection', function(socket){
         io.emit('new-chat', msg);
     })
     socket.on('bob-msg', msg => {
-        io.emit('bob-msg', msg);
-        if (msg.chat.answer) if (!msg.chat.answer.fuzzy) {
+        io.emit('bob-msg', msg)
+        if (msg.chat.answer) if (msg.chat.type == 'answer') if (!msg.chat.answer.fuzzy) {
             const query = `
                 select * from bob_history_add_question ($1, $2, $3, $4);
             `
@@ -120,7 +120,6 @@ io.on('connection', function(socket){
     })
 
     io_3wa.on('event_login', msg => {
-        console.log(msg)
         let query = `
             insert into activities (studentid, activitytype, record, date) 
             values ($1, 'login', '{}', NOW()::date)
@@ -136,7 +135,6 @@ io.on('connection', function(socket){
     })
 
     io_3wa.on('event_submit', msg => {
-        console.log(msg)
         let query = `
             insert into activities (studentid, activitytype, record, status, exerciseid, date)
             values ($1, 'submit', $2, $3, $4, NOW()::date)

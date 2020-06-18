@@ -10,7 +10,7 @@ import { InlineMath, BlockMath } from 'react-katex';
 
 class MdRender extends Component{
     state = {
-        escapeHtml: false, // enable html rendering
+        escapeHtml: true, // enable html rendering
         plugins: [
             RemarkMathPlugin,
         ],

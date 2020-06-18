@@ -41,25 +41,12 @@ const NewChat = (props) => {
     const [viewHints, setViewHints] = useState(true)
     const [autoComplete, setAutoComplete] = useState(0)
     const [focus, setFocus] = useState(false)
-    const [askForHints, setAskForHints] = useState(false)
     const [hints, setHints] = useState([])
 
+    const askForHints = useRef(null)
     const input = useRef(null)
     const sending = useRef(null)
     const user = useContext(userContext).user
-
-    useInterval(async () => {
-        if (askForHints) {
-            let data = await postForData('https://bobtva.theaiinstitute.ai:5600/post-hints', {
-                conversationID: user.userid,
-                typing: newchat,
-                timestamp: new Date().getTime()
-            })
-
-            setHints(data.hints)
-            setAskForHints(false)
-        }
-    }, 100)
 
     const viewHideHints = () => {
         setViewHints(!viewHints)
@@ -68,6 +55,18 @@ const NewChat = (props) => {
 
     const handleChange = (e) => {
         setNewchat(e.target.value)
+        let nc = e.target.value
+        if (viewHints) {
+            clearTimeout(askForHints.current)
+            askForHints.current = setTimeout(async () => {
+                let data = await postForData('https://localhost:5600/post-hints', {
+                    conversationID: user.userid,
+                    typing: nc,
+                    timestamp: new Date().getTime()
+                }, 100)
+                setHints(data.hints)
+            })
+        }
         if (e.target.value.length == 7) setViewHints(true)
         if (!askForHints) setAskForHints(true)
     }
