@@ -112,6 +112,30 @@
                     }
                 }
             }
+            .question-request {
+                box-sizing: border-box;
+                padding: 0.5em 1.5em;
+                font-size: 0.7em;
+                margin: 0.35em;
+                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+                border-radius: 0.5em;
+                white-space: pre-line;
+                span {
+                    display: block;
+                }
+                .timestamp {
+                    text-align: center;
+                    font-weight: 700;
+                    border-bottom: 1px solid lightgrey;
+                }
+                .status {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    padding: 0.2em 0.5em;
+                    font-weight: 700;
+                    border-radius: 0.5em;
+                }
+            }
             .old-question {
                 position: relative;
                 line-height: 1.2;

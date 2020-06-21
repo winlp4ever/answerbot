@@ -193,6 +193,23 @@ app.post('/post-news', (req, res) => {
     })
 })
 
+app.post('/post-asked-requests', (req, res) => {
+    const query = `
+        select *
+        from ask_teachers
+        where userid = $1
+        order by date desc
+    `
+    const values = [req.body.userid]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok', questions: response.rows});
+        }
+    })
+})
+
 app.post('/post-asked-questions', (req, res) => {
     const query = `
         select * 
