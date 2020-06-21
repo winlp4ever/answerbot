@@ -1,0 +1,96 @@
+.bob-container {
+    .bob {
+        .ask-req {
+            float: right;
+            text-transform: none;
+            letter-spacing: unset;
+            text-align: right;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.8em;
+            font-weight: 700;
+            background: white;
+            margin-top: 0.2em;
+            line-height: 1.3;
+            border-radius: 1.2em;
+            border: 1px solid #448aff;
+            padding: 0.2em 1em;
+            svg {
+                stroke: #2962ff;
+                height: 1em;
+                width: 1em;
+            }
+        }
+        .ask-request {
+            box-sizing: border-box;
+            padding: 0.5em;
+            display: block;
+            width: 105%;
+            border: 1px solid transparent;
+            border-radius: 0.5em;
+            background: white;
+            transform: translateX(-1.2em);
+            margin-top: 0.5em;
+            box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+            font-size: 0.8em;
+            text-align: right;
+            color: #424242;
+            transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
+            h4 {
+                display: block;
+                text-align: center;
+                margin: 0;
+                border-bottom: 1px solid lightgrey;
+            }
+            textarea {
+                font-family: 'Roboto', sans-serif;
+                font-size: 0.9em;
+                margin-top: 0.5em;
+                resize: none;
+                transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                outline: none;
+                border: none;
+                width: 100%;
+            }
+            .send-or-cancel {
+                text-align: center;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                button {
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 700;
+                    text-transform: none;
+                    box-sizing: border-box;
+                    padding: 0.2em 0.7em;
+                    letter-spacing: unset;
+                    border-radius: unset;
+                    width: 50%;
+                    span {
+                        display: inline-block;
+                        height: 100%;
+                    }
+                    svg {
+                        display: inline-block;
+                        vertical-align: middle;
+                        height: 100%;
+                        width: 0.9em;
+                    }
+                    &.send {
+                        border-right: 1px solid lightgrey;
+                        svg {
+                            stroke: #2e7d32;
+                        }
+                    }
+                    &.cancel {
+                        svg {
+                            stroke: #c62828;
+                        }
+                    }
+                }
+            }
+            &.focus {
+                border: 1px solid #448aff;
+            }
+        }
+    }
+}

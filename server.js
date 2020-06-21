@@ -110,44 +110,6 @@ io.on('connection', function(socket){
         let now = new Date().getTime()
         console.log('py->node', now - msg.timestamp)
     })
-    // 3wa websocket
-    let io_3wa = require('socket.io-client')('https://apprendre-html.3wa.fr/bob-ia', 
-    {
-        extraHeaders:
-        {
-            token:'eaqYvt4a8emwgQwdXzpwELcRYnZxwnTJ8YABjLJg4W6Pw2ruz9Z2gsuVn2bRkaNm'
-        }
-    })
-
-    io_3wa.on('event_login', msg => {
-        let query = `
-            insert into activities (studentid, activitytype, record, date) 
-            values ($1, 'login', '{}', NOW()::date)
-        `
-        let values = [msg]
-        client.query(query, values, (err, response) => {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                console.log('ok')
-            }
-        })
-    })
-
-    io_3wa.on('event_submit', msg => {
-        let query = `
-            insert into activities (studentid, activitytype, record, status, exerciseid, date)
-            values ($1, 'submit', $2, $3, $4, NOW()::date)
-        `
-        let values = [msg.id_user, JSON.stringify(msg), msg.status, msg.id_exercice]
-        client.query(query, values, (err, response) => {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                console.log('ok')
-            }
-        })
-    })
 });
 
 // normal routes with POST/GET 
@@ -248,8 +210,19 @@ app.post('/post-asked-questions', (req, res) => {
     })
 })
 
-app.post('/post-err-code', (req, res) => {
-    
+app.post('/ask-teachers', (req, res) => {
+    const query = `
+        insert into ask_teachers 
+        values ($1, $2, 'pending', null, now()::date, $3)
+    `
+    const values = [req.body.uuid, req.body.q, req.body.userid]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok', questions: response.rows});
+        }
+    })
 })
 
 // on terminating the process

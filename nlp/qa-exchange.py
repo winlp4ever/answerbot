@@ -214,37 +214,6 @@ async def run():
                 'conversationID': old_msg['conversationID']
             }
 
-
-        def get_hints(msg):
-            question = msg['typing']
-            global sim
-            global conversations
-            convID = msg['conversationID']
-            if convID not in conversations:
-                conversations[convID] = msg['timestamp']
-            else:
-                if msg['timestamp'] < conversations[convID]:
-                    return {
-                        'hints': [],
-                        'conversationID': msg['conversationID'],
-                        'timestamp': msg['timestamp'],
-                        'socketid': msg['socketid']
-                    }
-                conversations[convID] = msg['timestamp']
-            try:
-                st = time.time()
-                qs = simQuestions(question)
-                print('search-time : %f' % (time.time()-st))
-            except Exception as e:
-                print(e)
-                qs = []
-            return {
-                'hints': qs,
-                'conversationID': msg['conversationID'],
-                'timestamp': msg['timestamp'],
-                'socketid': msg['socketid']
-            }
-
         await sio.connect('https://localhost:5000')
         await sio.wait()
     except (Exception, psycopg2.DatabaseError) as error :

@@ -9,6 +9,7 @@ import './_answer.scss'
 import MdRender from '../markdown-render/markdown-render'
 import Actions, {postActionMsg} from './actions'
 import RelatedQuestions from './related-questions'
+import AskRequest from './ask-request'
 
 // import svgs
 import RatingIcon from '../../imgs/bob/rating.svg'
@@ -154,6 +155,7 @@ const Answer = ({content, socket, setIns}) => {
         </div>}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
         {showAnswer && <RateTheAnswer />}
+        <AskRequest q={content.original_question}/>
     </div>
 }
 
