@@ -133,7 +133,7 @@ export default class Bob extends Component {
     }
 
     render() {
-        if (!document.referrer.includes("3wa.fr")) return null
+        //if (!document.referrer.includes("3wa.fr")) return null
         let props = {
             socket: this.socket,
             chats: this.state.chats,
