@@ -34,10 +34,11 @@ sudo service elasticsearch status
 
 * Open another terminal, type `python nlp/qa-exchange.py`
 
-* Go to `http://localhost:5000/?exercice=1&user=3113` to see results (pay attention to the existence of query params)
+* Go to `https://localhost:5000/?exercice=1&user=3113` to see results (pay attention to the existence of query params)
 
 Before launching the program, make sure to have elasticsearch already running in background (see final lines of _prequisites_ part)
 
+* Run all the tests with `npm test`
 
 
 
