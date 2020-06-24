@@ -59,7 +59,7 @@
         box-sizing: border-box;
         padding: 0 0 0;
         border-radius: 0.8em;
-        background: white;
+        background: #f2f2f2;
         font-family: 'Nunito', sans-serif;
         font-size: 1.1em;
         display: flex;
@@ -87,21 +87,26 @@
             display: flex;
             width: 100%;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: center;
             box-sizing: border-box;
             padding: 1em 0.5em 0.5em 0.5em;
             button {
                 min-width: 0;
-                padding: 0.2em;
+                padding: 0.3em;
                 border-radius: 50%;
                 margin-left: 0.5em;
+                box-shadow: 3px 3px 6px #cecece, 
+                -3px -3px 6px #ffffff;
                 svg {
-                    width: 2.1em;
-                    height: 2.1em;
+                    width: 1.5em;
+                    height: 1.5em;
                     path {
                         fill: grey;
                     }
                 }
+            }
+            .color-switch {
+                margin-right: auto;
             }
         }
 
@@ -165,7 +170,7 @@
                 right: -0.6em;
                 border-top: 1.2em solid transparent;
                 border-bottom: 0.3em solid transparent;
-                border-left: 0.6em solid white;
+                border-left: 0.6em solid #f2f2f2;
             }
         }
     }

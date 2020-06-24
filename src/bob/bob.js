@@ -1,12 +1,15 @@
 // import react
 import React, {Component, useState, useContext, useEffect, useRef} from 'react';
 import {userContext} from '../user-context/user-context';
+import {colorMode} from '../app/app';
 
 // third party imports
 import io from 'socket.io-client';
 import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
+import Button from '@material-ui/core/Button'
+
 // import style file
 import './_bob.scss';
 
@@ -18,8 +21,7 @@ import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
-import Button from '@material-ui/core/Button'
-
+import ColorSwitch from './toggleColorMode'
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
 import ChatIcon from '../../imgs/bob/chat.svg'
@@ -90,10 +92,8 @@ export default class Bob extends Component {
     }
 
     componentDidMount () {
-        console.log(document.referrer)
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
-                console.log(msg)
                 // update user chat history
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
@@ -112,12 +112,6 @@ export default class Bob extends Component {
                 chats_.push(msg.chat);
                 this.setState({chats: chats_, hints: [], isTyping: true});
                 this._scrollToBottom();
-            }
-        })
-        this.socket.on('bob-hints', msg => {
-            if (msg.conversationID == this.context.user.userid) {
-                console.log('hints response time: ', new Date().getTime() - msg.timestamp)
-                this.setState({hints: msg.hints})
             }
         })
     }
@@ -139,6 +133,7 @@ export default class Bob extends Component {
     }
 
     render() {
+        //if (!document.referrer.includes("3wa.fr")) return null
         let props = {
             socket: this.socket,
             chats: this.state.chats,
@@ -148,7 +143,7 @@ export default class Bob extends Component {
             isTyping: this.state.isTyping
         }
         let V = Options[this.state.tab]
-        return <div className='bob-container'>
+        return <div className={'bob-container' + (this.props.colorMode == 0 ? ' light': ' dark')}>
             {this.state.insight && <AnswerInsights 
                 content={this.state.insight} 
                 setContent={this._setInsight}
@@ -172,9 +167,7 @@ export default class Bob extends Component {
             >
                 <div className='bob maximal'>
                     <div className='bob-taskbar'>
-                        <Button>
-                            <EllipsisIcon />
-                        </Button>
+                        
                         <Button onClick={this.toggleMode}>
                             <CloseIcon />
                         </Button>

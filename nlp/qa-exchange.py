@@ -16,7 +16,7 @@ import asyncio
 
 from functools import lru_cache
 
-sio = socketio.AsyncClient()
+sio = socketio.AsyncClient(ssl_verify=False)
 print('1')
 questions_queue = deque()
 hints_queue = deque()
@@ -122,7 +122,7 @@ async def run():
             msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
             sol_id = -1
 
-            if qs and qs[0]['score'] > 0.95:
+            if qs and qs[0]['score'] > 1.8:
                 print(qs[0]['id'])
                 cur = ps_connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
@@ -185,7 +185,8 @@ async def run():
                         answer_temp
                     on question_answer_temp.answer_temp_id = answer_temp.id
                     where answer_temp.answer_valid = '1' 
-                    order by answer_temp.answer_teacher_manual_review desc, answer_rank, answer_temp.id asc;
+                    and answer_temp.answer_teacher_manual_review = true
+                    order by answer_rank, answer_temp.id asc;
                 ''', [str(qs[0]['id'])])
                 ans = cur.fetchone()
                 if ans:
@@ -196,6 +197,7 @@ async def run():
                             break
                         ans = cur.fetchone()
                     msg['answer'] = res
+                    print(res)
                     msg['text'] = res['answer_paragraph'][:90]
                     sol_id = res['qid']
                     if len(res['answer_paragraph']) > 90 and not msg['text'].endswith('..'):
@@ -213,38 +215,7 @@ async def run():
                 'conversationID': old_msg['conversationID']
             }
 
-
-        def get_hints(msg):
-            question = msg['typing']
-            global sim
-            global conversations
-            convID = msg['conversationID']
-            if convID not in conversations:
-                conversations[convID] = msg['timestamp']
-            else:
-                if msg['timestamp'] < conversations[convID]:
-                    return {
-                        'hints': [],
-                        'conversationID': msg['conversationID'],
-                        'timestamp': msg['timestamp'],
-                        'socketid': msg['socketid']
-                    }
-                conversations[convID] = msg['timestamp']
-            try:
-                st = time.time()
-                qs = simQuestions(question)
-                print('search-time : %f' % (time.time()-st))
-            except Exception as e:
-                print(e)
-                qs = []
-            return {
-                'hints': qs,
-                'conversationID': msg['conversationID'],
-                'timestamp': msg['timestamp'],
-                'socketid': msg['socketid']
-            }
-
-        await sio.connect('http://localhost:5000')
+        await sio.connect('https://localhost:5000')
         await sio.wait()
     except (Exception, psycopg2.DatabaseError) as error :
         print (error)

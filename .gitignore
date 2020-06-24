@@ -7,3 +7,4 @@ db-credentials
 nlp/**/*.ipynb
 azure-credentials/*
 .vscode/*
+ssl-certs

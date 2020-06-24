@@ -1,0 +1,152 @@
+.bob-container {
+    .bob {
+        .answer {
+            width: 105%;
+            position: relative;
+            margin: 0.5em 0;
+            transform: translateX(-1.2em);
+            box-sizing: border-box;
+            padding: 0.5em 1.5em 0.5em 0.8em;
+            border-radius: 0.35em;
+            font-size: 0.8em;
+            transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
+            background: #ffd600;
+            color: #181515;
+            border: 1px solid transparent;
+            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+            p {
+                margin: 0.2em 0;
+            }
+            pre {
+                margin: 0.2em 0;
+            }
+            &:hover {
+                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+            }
+            &.foc {
+                background: #FEBE17;
+                box-shadow: none;
+                border: 1px solid rgb(230, 230, 230);
+            }
+            .answer-text {
+                display: block;
+                box-sizing: border-box;
+                line-height: 1.2;
+                white-space: pre-wrap;
+                overflow-wrap: break-word;
+                max-width: 100%;
+            }
+            .click-url {
+                position: absolute;
+                right: 0.5em;
+                bottom: 0.2em;
+                display: inline-block;
+                margin: 0.2em 0 auto auto;
+                min-width: 0;
+                padding: 0.2em;
+                box-shadow: none;
+                text-transform: none;
+                font-family: 'Nunito', sans-serif;
+                letter-spacing: 0;
+                color: #2979ff;
+            }
+            .help-info-enter {
+                opacity: 0;
+                transform: translateY(4em);
+            }
+
+            .help-info-enter-active {
+                opacity: 1;
+                transform: none;
+                transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
+            }
+
+            .help-info-exit {
+                opacity: 1;
+                transform: none;
+            }
+
+            .help-info-exit-active {
+                opacity: 0;
+                transform: translateY(4em);
+                transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
+            }
+
+            .help-info {
+                position: absolute;
+                top: -3em;
+                right: 50%;
+                transform: translateX(50%);
+                box-sizing: border-box;
+                color: whitesmoke;
+                background: #43a047;
+                border-radius: 0.5em;
+                padding: 1em;
+                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -0.5em;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-top: 0.5em solid #43a047;
+                    border-right: 0.8em solid transparent;
+                    border-left: 0.8em solid transparent;
+                }
+            }
+            .taskbar {
+                position: absolute;
+                right: 0em;
+                top: 0em;
+                width: 100%;
+                text-align: right;
+                .pin, .pinned {
+                    min-width: 0;
+                    padding: 0.2em;
+                    margin: 0.2em 0.2em;
+                    border-radius: 50%;
+                    background: #fff8e1;
+                    svg {
+                        width: 1.2em;
+                        height: 1.2em;
+                    }
+                    &.pin {
+                        background: white;
+                        svg {
+                            filter: grayscale(100%);
+                        }
+                    }
+                }
+            }
+            &.pinned {
+                background: #fffde7;
+                &:hover {
+                    background: #fffde7;
+                }
+            }
+        }
+        .rating {
+            overflow-wrap: break-word;
+            .rating-stars {
+                display: inline-block;
+                padding: 0;
+            }
+            i {
+                vertical-align: middle;
+                padding: 0.05em;
+                margin: 0.05em;
+                color: #424242;
+                svg {
+                    font-size: 1.5em;
+                }
+                &.off {
+                    opacity: 0.5;
+                }
+                &.on {
+                    opacity: 1;
+                    color: #388e3c;
+                }
+            }
+        }
+    }
+}

@@ -7,6 +7,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
+const https = require('https')
+
+var privateKey  = fs.readFileSync(path.join('ssl-certs', 'key.key'), 'utf8');
+var certificate = fs.readFileSync(path.join('ssl-certs', 'cer.cer'), 'utf8');
 
 const utils = require('./utils');
 
@@ -35,8 +39,8 @@ if (mode == 'prod') {
 }
 else compiler = webpack(devConfig);
 
-const server = new http.Server(app);
-const io = require('socket.io')(server, { wsEngine: 'ws' });
+const server = new https.createServer({key: privateKey, cert: certificate}, app);
+const io = require('socket.io')(server, { wsEngine: 'ws',pingTimeout: 0, pingInterval: 500, origins: '*:*' });
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
@@ -63,6 +67,8 @@ var count = 0;
 var users = JSON.parse(fs.readFileSync(path.join(usersPath, 'users.json'))).users;
 var chats = {};
 
+
+
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
@@ -78,8 +84,8 @@ io.on('connection', function(socket){
         io.emit('new-chat', msg);
     })
     socket.on('bob-msg', msg => {
-        io.emit('bob-msg', msg);
-        if (msg.chat.answer) if (!msg.chat.answer.fuzzy) {
+        io.emit('bob-msg', msg)
+        if (msg.chat.answer) if (msg.chat.type == 'answer') if (!msg.chat.answer.fuzzy) {
             const query = `
                 select * from bob_history_add_question ($1, $2, $3, $4);
             `
@@ -103,45 +109,6 @@ io.on('connection', function(socket){
         io.to(msg.socketid).emit('bob-hints', msg);
         let now = new Date().getTime()
         console.log('py->node', now - msg.timestamp)
-    })
-
-    // 3wa websocket
-    let io_3wa = require('socket.io-client')('http://learning.3wa.pixelsass.fr/bob-ia', 
-        {
-            extraHeaders:
-            {
-                token:'eaqYvt4a8emwgQwdXzpwELcRYnZxwnTJ8YABjLJg4W6Pw2ruz9Z2gsuVn2bRkaNm'
-            }
-        })
-
-    io_3wa.on('event_login', msg => {
-        let query = `
-            insert into activities (studentid, activitytype, record) 
-            values ($1, 'login', '{}')
-        `
-        let values = [msg]
-        client.query(query, values, (err, response) => {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                console.log('ok')
-            }
-        })
-    })
-    io_3wa.on('event_submit', msg => {
-        console.log(msg)
-        let query = `
-            insert into activities (studentid, activitytype, record, status, exerciseid, date)
-            values ($1, 'submit', $2, $3, $4, NOW()::date)
-        `
-        let values = [msg.id_user, JSON.stringify(msg), msg.status, msg.id_exercice]
-        client.query(query, values, (err, response) => {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                console.log('ok')
-            }
-        })
     })
 });
 
@@ -226,6 +193,23 @@ app.post('/post-news', (req, res) => {
     })
 })
 
+app.post('/post-asked-requests', (req, res) => {
+    const query = `
+        select *
+        from ask_teachers
+        where userid = $1
+        order by date desc
+    `
+    const values = [req.body.userid]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok', questions: response.rows});
+        }
+    })
+})
+
 app.post('/post-asked-questions', (req, res) => {
     const query = `
         select * 
@@ -243,8 +227,19 @@ app.post('/post-asked-questions', (req, res) => {
     })
 })
 
-app.post('/post-err-code', (req, res) => {
-    
+app.post('/ask-teachers', (req, res) => {
+    const query = `
+        insert into ask_teachers 
+        values ($1, $2, 'pending', null, now()::date, $3)
+    `
+    const values = [req.body.uuid, req.body.q, req.body.userid]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok', questions: response.rows});
+        }
+    })
 })
 
 // on terminating the process

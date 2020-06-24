@@ -3,13 +3,6 @@
     100% {opacity: 1; transform: none;}
 }
 
-@keyframes help-appear {
-    0% {opacity: 0; transform: translateY(2em), translateX(50%);}
-    25% {opacity: 1; transform: translateX(50%); }
-    75% {opacity: 1; transform: translateX(50%); }
-    100% {opacity: 0; transform: translateY(2em), translateX(50%);}
-}
-
 @keyframes chat-appear {
     0% {opacity: 0; transform: translateY(2em)}
     100% {opacity: 1; transform: none;}
@@ -29,139 +22,7 @@
             flex-direction: column;
             justify-content: end;
             width: 100%;
-            .new-chat {
-                position: relative;
-                right: 0;
-                display: flex;
-                flex-direction: row;
-                box-sizing: border-box;
-                padding: 0.5em 1em;
-                background: transparent;
-                justify-content: space-between;
-                border-radius: 1.5em;
-                transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                border: none;
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 0em;
-                    right: 5%;
-                    background: rgb(238, 238, 238);
-                    width: 90%;
-                    height: 1px;
-                }
-                textarea {
-                    position: relative;
-                    margin: 0 0.3em;
-                    display: block;
-                    width: 85%;
-                    box-sizing: border-box;
-                    padding: 0.5em 0.25em;
-                    outline: none;
-                    background: inherit;
-                    font: {
-                        family: 'Nunito', sans-serif;
-                        size: 0.8em;
-                    }
-                    resize: unset;
-                    border: none;
-                    transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
-                    line-height: 1.6;
-                }
-                button {
-                    position: relative;
-                    bottom: 0;
-                    min-width: 0;
-                    border-radius: 50%;
-                    
-                    display: block;
-                    margin: auto 0;
-                    padding: 0.5em;
-                    animation: none;
-                    span {
-                        display: block;
-                    }
-                    svg {
-                        display: block;
-                        margin: auto;
-                        height: 1.5em;
-                        width: 1.5em;
-                        filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
-                        animation: none;
-                        path {
-                            fill: #424242;
-                        }
-                    }
-                    &.show-hints {
-                        //background: #bbdefb;
-                        position: relative;
-                        transition: 0.35s all cubic-bezier(0, 0, 0.2, 1);
-        
-                        &.not-show {
-                            background: white;
-                            img {
-                                filter: grayscale(100%);
-                            }
-                        }
-                        &.hinting {
-                            //background: linear-gradient()
-                            background: #bbdefb
-                            
-                        }
-                    }
-                }
-                .question-hints {
-                    position: absolute;
-                    z-index: 10;
-                    bottom: 3.6em;
-                    width: 90%;
-                    left: 5%;
-                    
-                    background: white;
-                    box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
-                    box-sizing: border-box;
-                    padding: 0.5em 0.5em;
-                    border-radius: 0.35em;
-                    animation: hints-appear 0.35s cubic-bezier(0, 0, 0.2, 1);
-                    transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
-                    .hint {
-                        font-size: 0.7em;
-                        line-height: 1.5;
-                        box-sizing: border-box;
-                        padding: 0.2em 0.5em;
-                        border-radius: 0.5em;
-                        border:1px solid transparent;
-                        transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
-                        span {
-                            //display: inline-block;
-                            //box-sizing: border-box;
-                            padding: 0.2em;
-                            &.similarity-score {
-                                color: #00c853;
-                            }
-                        }
-                        &.focus {
-                            background: #e3f2fd;
-                            color: #2962ff;
-                        }
-                        &.auto-complete {
-                            border:1px solid lightgrey;
-                        }
-                    }
-                    &:before {
-                        content: '';
-                        position: absolute;
-                        left: 1em;
-                        width: 0;
-                        height: 0;
-                        bottom: -0.6em;
-                        border-left: solid 0.25em transparent;
-                        border-right: solid 1.5em transparent;
-                        border-top: solid 0.6em white;
-                        //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-                    }
-                }
-            }
+            
             .old-chats {
                 display: block;
                 position: relative;
@@ -169,7 +30,7 @@
                 padding: 0.5em 0.4em;
                 height: 100%;
                 margin: 0 0.15em;
-                overflow-y: overlay;
+                overflow-y: scroll;
                 scrollbar-color: rgb(209, 209, 209) transparent;;
                 scrollbar-width: 5px;
                 &::-webkit-scrollbar {
@@ -241,133 +102,7 @@
                             background: #424242;
                         }
                     }
-                    .answer {
-                        width: 105%;
-                        position: relative;
-                        margin: 0.5em 0;
-                        transform: translateX(-1.2em);
-                        box-sizing: border-box;
-                        padding: 0.5em 1.5em 0.5em 0.8em;
-                        border-radius: 0.35em;
-                        font-size: 0.8em;
-                        transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-                        background: #ffd600;
-                        color: #181515;
-                        border: 1px solid transparent;
-                        box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
-                        p {
-                            margin: 0.2em 0;
-                        }
-                        pre {
-                            margin: 0.2em 0;
-                        }
-                        &:hover {
-                            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-                        }
-                        &.foc {
-                            background: #FEBE17;
-                            box-shadow: none;
-                            border: 1px solid rgb(230, 230, 230);
-                        }
-                        .answer-text {
-                            display: block;
-                            box-sizing: border-box;
-                            line-height: 1.2;
-                            white-space: pre-wrap;
-                            overflow-wrap: break-word;
-                            max-width: 100%;
-                        }
-                        .click-url {
-                            position: absolute;
-                            right: 0.5em;
-                            bottom: 0.2em;
-                            display: inline-block;
-                            margin: 0.2em 0 auto auto;
-                            min-width: 0;
-                            padding: 0.2em;
-                            box-shadow: none;
-                            text-transform: none;
-                            font-family: 'Nunito', sans-serif;
-                            letter-spacing: 0;
-                            color: #2979ff;
-                        }
-                        .help-info {
-                            position: absolute;
-                            top: -3em;
-                            right: 50%;
-                            transform: translateX(50%);
-                            box-sizing: border-box;
-                            color: whitesmoke;
-                            background: #43a047;
-                            border-radius: 0.5em;
-                            padding: 1em;
-                            animation: help-appear 1.2s cubic-bezier(0, 0, 0.2, 1);
-                            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
-                            &:after {
-                                content: '';
-                                position: absolute;
-                                bottom: -0.5em;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                border-top: 0.5em solid #43a047;
-                                border-right: 0.8em solid transparent;
-                                border-left: 0.8em solid transparent;
-                            }
-                        }
-                        .taskbar {
-                            position: absolute;
-                            right: 0em;
-                            top: 0em;
-                            width: 100%;
-                            text-align: right;
-                            .pin, .pinned {
-                                min-width: 0;
-                                padding: 0.2em;
-                                margin: 0.2em 0.2em;
-                                border-radius: 50%;
-                                background: #fff8e1;
-                                svg {
-                                    width: 1.2em;
-                                    height: 1.2em;
-                                }
-                                &.pin {
-                                    background: white;
-                                    svg {
-                                        filter: grayscale(100%);
-                                    }
-                                }
-                            }
-                        }
-                        &.pinned {
-                            background: #fffde7;
-                            &:hover {
-                                background: #fffde7;
-                            }
-                        }
-                    }
-                    .rating {
-                        overflow-wrap: break-word;
-                        .rating-stars {
-                            display: inline-block;
-                            padding: 0;
-                        }
-                        i {
-                            vertical-align: middle;
-                            padding: 0.05em;
-                            margin: 0.05em;
-                            color: #424242;
-                            svg {
-                                font-size: 1.5em;
-                            }
-                            &.off {
-                                opacity: 0.5;
-                            }
-                            &.on {
-                                opacity: 1;
-                                color: #388e3c;
-                            }
-                        }
-                    }
+                    
                     &.me {
                         .chat {
                             .text {
@@ -423,7 +158,7 @@
                                 //border: 1px solid lightgrey;
                                 border-bottom-left-radius: 1.2em;
                                 border-top-left-radius: 1.2em;
-                                background: whitesmoke;
+                                background: rgb(216, 216, 216);
                                 color: black;
                                 font-weight: 600;
                                 margin: 0.15em 0;
@@ -442,7 +177,7 @@
                                     box-shadow: none;
                                     background: transparent;
                                     color: #3e2723;
-                                    border: 1px solid rgb(231, 231, 231);
+                                    border: 1px solid lightgrey;
                                     border-radius: 0.5em;
                                     border-top-right-radius: 0.5em;
                                     border-bottom-right-radius: 0.5em !important;

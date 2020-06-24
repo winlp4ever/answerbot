@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import RefreshRoundedIcon from '@material-ui/icons/RefreshRounded';
 import { CSSTransition } from 'react-transition-group';
 
+import NewsFeedIcon from '../../imgs/bob/newsfeed.svg'
+
 const Feed = ({news}) => {
     return <CSSTransition classNames='news' in={true} timeout={250}>
         <div className={'news' + (news.image? ' with-img': '')}>
@@ -45,7 +47,7 @@ const News = () => {
         <Button onClick={fetchNews} className='refresh'><RefreshRoundedIcon/></Button>
         <CSSTransition in={news.length == 0} unmountOnExit classNames='newsfeeds-illus' timeout={250}>
             <div className='newsfeeds-illus'>
-                <img src={require('../../imgs/bob/newsfeed.svg')} />
+                <NewsFeedIcon />
                 <span>Keep up-to-date with latest news in web dev!</span>
             </div>
         </CSSTransition>

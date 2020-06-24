@@ -3,9 +3,13 @@ import {userContext} from '../user-context/user-context'
 
 import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import {getCurrentTime} from '../utils'
+import {useInterval, getCurrentTime, postForData} from '../utils'
 
-import SendIcon from '../../imgs/bob/send.svg';
+import SendIcon from '../../imgs/bob/send.svg'
+import io from 'socket.io-client'
+var cnt = 0
+
+import './_new-chat.scss'
 
 const Hints = ({hints, applyHint, autoComplete}) => {
     const [focus, setFocus] = useState(-1)
@@ -13,6 +17,7 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     const toggleHint = (i) => {
         setFocus(i)
     }
+
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 
@@ -22,19 +27,23 @@ const Hints = ({hints, applyHint, autoComplete}) => {
             onClick={_ => applyHint(h.text)}
         >
             <span 
-                dangerouslySetInnerHTML={{__html: h.rep? h.text: '<a>@mon code ne marche pas</a>'}} 
+                dangerouslySetInnerHTML={{__html: (h.rep != '-' ? h.text: `<a>@${h.text}</a>`)}} 
             />
             <span className='similarity-score'>{`${parseInt((h.score-1.25)*4/3 * 100)}%`}</span>
         </div>)}
     </div>
 }
 
+const socket = io()
+
 const NewChat = (props) => {
     const [newchat, setNewchat] = useState('')
     const [viewHints, setViewHints] = useState(true)
     const [autoComplete, setAutoComplete] = useState(0)
     const [focus, setFocus] = useState(false)
+    const [hints, setHints] = useState([])
 
+    const askForHints = useRef(null)
     const input = useRef(null)
     const sending = useRef(null)
     const user = useContext(userContext).user
@@ -46,12 +55,20 @@ const NewChat = (props) => {
 
     const handleChange = (e) => {
         setNewchat(e.target.value)
+        let nc = e.target.value
+        if (viewHints) {
+            clearTimeout(askForHints.current)
+            askForHints.current = setTimeout(async () => {
+                let data = await postForData('https://bobtva.theaiinstitute.ai:5600/post-hints', {
+                    conversationID: user.userid,
+                    typing: nc,
+                    timestamp: new Date().getTime()
+                }, 100)
+                setHints(data.hints)
+            })
+        }
         if (e.target.value.length == 7) setViewHints(true)
-        props.socket.emit('ask-for-hints-bob', {
-            typing: e.target.value,
-            conversationID: user.userid,
-            timestamp: new Date().getTime()
-        })
+        if (!askForHints) setAskForHints(true)
     }
 
     const handleAutoComplete = () => {
@@ -99,6 +116,7 @@ const NewChat = (props) => {
             sending.current.click()
         }
         else if (keycode == 9) {
+            console.log('hmm')
             e.preventDefault()
             if (autoComplete >= props.hints.length) setAutoComplete(0)
             else {
@@ -114,9 +132,9 @@ const NewChat = (props) => {
     if (!user.userid) return null;
     return <div className={'new-chat' + (focus? ' focus': '')}>
         {
-            (viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0)?
+            (viewHints & newchat != '' & newchat != ' ' & hints.length > 0)?
              <Hints 
-                hints={props.hints} 
+                hints={hints} 
                 applyHint={applyHint} 
                 autoComplete={autoComplete}
             />: null

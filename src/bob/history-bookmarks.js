@@ -9,6 +9,24 @@ import ExpandIcon from '../../imgs/bob/expand.svg'
 import ClockIcon from '../../imgs/bob/clock.svg'
 import BmrkIcon from '../../imgs/bob/bmk.svg'
 
+const StatusColors = {
+    pending: '#ffeb3b',
+    answered: '#82b1ff'
+}
+
+const QuestionReq = ({q}) => {
+    return <div className='question-request' >
+        <span className='timestamp'>{q.date.substr(0, 10)}</span>
+        <span className='status' style={{
+            background: StatusColors[q.status]
+        }}>{q.status}</span>
+        <div className='question'><b>You: </b>
+            {q.question}
+        </div>
+        {(q.status == 'answered') && <span className='answer'>{q.answer}</span>}
+    </div>
+}
+
 const OldQ = (props) => {
     const [viewTime, setViewTime] = useState(false)
     const [focus, setFocus] = useState(false)
@@ -48,14 +66,19 @@ const OldQ = (props) => {
 
 const History = (props) => {
     const [span, setSpan] = useState(false)
+    const [askedRequests, setAskedRequests] = useState([])
     const [askedQuestions, setAskedQuestions] = useState([])
     const user = useContext(userContext).user
 
     const _retrieveQuestions = async () => {
-        let data = await postForData('/post-asked-questions', {
+        let bqs = await postForData('/post-asked-questions', {
             userid: user.userid
         })
-        if (data.status == 'ok') setAskedQuestions(data.questions)
+        if (bqs.status == 'ok') setAskedQuestions(bqs.questions)
+        let tqs = await postForData('/post-asked-requests', {
+            userid: user.userid
+        })
+        if (tqs.status == 'ok') setAskedRequests(tqs.questions)
     }
 
     useEffect(() => {
@@ -76,7 +99,17 @@ const History = (props) => {
             <ClockIcon/> 
         </h4>
         {span && <div>
-            {askedQuestions.map((q, id) => <OldQ key={id} insight={props.insight} setInsight={props.setInsight} q={q.content}/>)}
+            <div>
+                {askedRequests.map((q, id) => <QuestionReq 
+                    key={id}
+                    q={q}
+                />)}
+                {askedQuestions.map((q, id) => <OldQ 
+                    key={id} 
+                    insight={props.insight} 
+                    setInsight={props.setInsight} 
+                    q={q.content}/>)}
+            </div>
         </div>}
     </div>
 }
