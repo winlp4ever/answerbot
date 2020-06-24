@@ -57,7 +57,7 @@ Merci,`)
                     className='send'
                 >
                     <span>
-                        Send
+                        Envoyer
                     </span>
                 </Button>
                 <Button 
@@ -66,7 +66,7 @@ Merci,`)
                     className='cancel'
                 >
                     <span>
-                        Cancel
+                        Annuler
                     </span>
                 </Button>
             </div>
