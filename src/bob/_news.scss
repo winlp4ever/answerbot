@@ -20,8 +20,9 @@
             padding: 0.25em 0.75em;
             overflow-y: scroll;
             scrollbar-color: rgb(209, 209, 209) transparent;
-            scrollbar-width: 0.25em;
+            scrollbar-width: thin;
             margin: 0 0.15em;
+
             &::-webkit-scrollbar {
                 width: 0.25em;
             }
