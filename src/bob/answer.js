@@ -138,7 +138,7 @@ const Answer = ({content, socket, setIns}) => {
                 classNames='help-info' 
                 timeout={250}
             >
-                <div className='help-info'>Cliquer a focus!</div>
+                <div className='help-info'>Cliquez pour fixer!</div>
             </CSSTransition>
             
             <div className='taskbar'>
