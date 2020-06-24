@@ -116,6 +116,7 @@ const NewChat = (props) => {
             sending.current.click()
         }
         else if (keycode == 9) {
+            console.log('hmm')
             e.preventDefault()
             if (autoComplete >= props.hints.length) setAutoComplete(0)
             else {
