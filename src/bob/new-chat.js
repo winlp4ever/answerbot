@@ -72,9 +72,9 @@ const NewChat = (props) => {
     }
 
     const handleAutoComplete = () => {
-        if (viewHints & autoComplete >= 0 & autoComplete < props.hints.length) {
-            setNewchat(props.hints[autoComplete].text)
-            input.current.value = props.hints[autoComplete].text
+        if (viewHints & autoComplete >= 0 & autoComplete < hints.length) {
+            setNewchat(hints[autoComplete].text)
+            input.current.value = hints[autoComplete].text
         }
     }
 
@@ -116,9 +116,8 @@ const NewChat = (props) => {
             sending.current.click()
         }
         else if (keycode == 9) {
-            console.log('hmm')
             e.preventDefault()
-            if (autoComplete >= props.hints.length) setAutoComplete(0)
+            if (autoComplete >= hints.length) setAutoComplete(0)
             else {
                 setAutoComplete(autoComplete + 1)
                 handleAutoComplete()

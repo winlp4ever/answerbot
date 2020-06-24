@@ -43,7 +43,7 @@
         white-space: pre-line;
         overflow-wrap: break-word;
         -ms-overflow-style: none;
-        scrollbar-width: 0;
+        scrollbar-width: none;
         &::-webkit-scrollbar {
             display: none;
         }
@@ -53,7 +53,7 @@
             padding: 0.25em 0.4em;
             margin: 0 0.15em;
             scrollbar-color: rgb(209, 209, 209) transparent;
-            scrollbar-width: 6px;
+            scrollbar-width: thin;
             &::-webkit-scrollbar {
                 width: 0.25em;
             }
