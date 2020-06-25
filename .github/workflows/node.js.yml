@@ -30,13 +30,13 @@ jobs:
     - name: Write credentials files
       run: |
         mkdir -p aws-credentials
-        sudo sh -c "echo $AWS_CREDENTIALS >> aws-credentials/accessKeys.json"
+        sudo sh -c 'echo "$AWS_CREDENTIALS" >> aws-credentials/accessKeys.json'
         mkdir -p azure-credentials
-        sudo sh -c "echo $AZURE_CONFIG_JS >> azure-credentials/config.js"
-        sudo sh -c "echo $AZURE_CONFIG_JSON >> azure-credentials/config.json"
+        sudo sh -c 'echo "$AZURE_CONFIG_JS" >> azure-credentials/config.js'
+        sudo sh -c 'echo "$AZURE_CONFIG_JSON" >> azure-credentials/config.json'
         mkdir -p db-credentials
-        sudo sh -c "echo $DB_CONFIG_JS >> db-credentials/config.js"
-        sudo sh -c "echo $DB_CONFIG_JSON >> db-credentials/config.json" 
+        sudo sh -c 'echo "$DB_CONFIG_JS" >> db-credentials/config.js'
+        sudo sh -c 'echo "$DB_CONFIG_JSON" >> db-credentials/config.json'
       env:
         AWS_CREDENTIALS: ${{ secrets.AWS_CREDENTIALS }}
         AZURE_CONFIG_JS: ${{ secrets.AZURE_CONFIG_JS }}
