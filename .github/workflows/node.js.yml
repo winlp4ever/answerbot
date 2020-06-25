@@ -28,6 +28,12 @@ jobs:
         sudo sh -c "echo "extra/cer.cer" >> /etc/ca-certificates.conf" 
         sudo update-ca-certificates
     - name: Write credentials files
+      env:
+        AWS_CREDENTIALS: ${{ secrets.AWS_CREDENTIALS }}
+        AZURE_CONFIG_JS: ${{ secrets.AZURE_CONFIG_JS }}
+        AZURE_CONFIG_JSON: ${{ secrets.AZURE_CONFIG_JSON }}
+        DB_CONFIG_JS: ${{ secrets.DB_CONFIG_JS }}
+        DB_CONFIG_JSON: ${{ secrets.DB_CONFIG_JSON }}
       run: |
         mkdir -p aws-credentials
         sudo sh -c 'echo "$AWS_CREDENTIALS" >> aws-credentials/accessKeys.json'
@@ -38,12 +44,6 @@ jobs:
         mkdir -p db-credentials
         sudo sh -c 'echo "$DB_CONFIG_JS" >> db-credentials/config.js'
         sudo sh -c 'echo "$DB_CONFIG_JSON" >> db-credentials/config.json'
-      env:
-        AWS_CREDENTIALS: ${{ secrets.AWS_CREDENTIALS }}
-        AZURE_CONFIG_JS: ${{ secrets.AZURE_CONFIG_JS }}
-        AZURE_CONFIG_JSON: ${{ secrets.AZURE_CONFIG_JSON }}
-        DB_CONFIG_JS: ${{ secrets.DB_CONFIG_JS }}
-        DB_CONFIG_JSON: ${{ secrets.DB_CONFIG_JSON }}
         
 
     - name: Node.js tests
