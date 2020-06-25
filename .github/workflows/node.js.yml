@@ -31,7 +31,7 @@ jobs:
       run: |
         mkdir -p aws-credentials
         sudo sh -c 'echo "$AWS_CREDENTIALS" >> aws-credentials/accessKeys.json'
-        sudo type aws-credentials/accessKeys.json
+        cat aws-credentials/accessKeys.json
         mkdir -p azure-credentials
         sudo sh -c 'echo "$AZURE_CONFIG_JS" >> azure-credentials/config.js'
         sudo sh -c 'echo "$AZURE_CONFIG_JSON" >> azure-credentials/config.json'
