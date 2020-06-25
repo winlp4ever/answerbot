@@ -22,10 +22,10 @@ jobs:
     - name: Create SSL Certificate & key
       run: |
         mkdir -p ssl-certs
-        openssl req -x509 -nodes -newkey rsa:2048 -keyout ssl-certs/key.key -out ssl-certs/cer.crt -days 3650 -subj "/C=US/ST=Utah/L=Lehi/O=AII/OU=IT/CN=localhost"
+        openssl req -x509 -nodes -newkey rsa:2048 -keyout ssl-certs/key.key -out ssl-certs/cer.cer -days 3650 -subj "/C=US/ST=Utah/L=Lehi/O=AII/OU=IT/CN=localhost"
         sudo mkdir -p /usr/share/ca-certificates/extra
-        sudo cp ssl-certs/cer.crt /usr/share/ca-certificates/extra/cer.crt
-        sudo sh -c "echo "extra/cer.crt" >> /etc/ca-certificates.conf" 
+        sudo cp ssl-certs/cer.cer /usr/share/ca-certificates/extra/cer.cer
+        sudo sh -c "echo "extra/cer.cer" >> /etc/ca-certificates.conf" 
         sudo update-ca-certificates 
     - name: Node.js tests
       run: npm i && npm run build --if-present && npm test
