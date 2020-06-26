@@ -47,6 +47,7 @@ jobs:
         echo "$DB_CONFIG_JS" > db-credentials/config.js
         echo "$DB_CONFIG_JSON" > db-credentials/config.json
         
-
+    - name: Node.js install packages
+      run: npm i
     - name: Node.js tests
-      run: npm i && npm test
+      run: npm test
