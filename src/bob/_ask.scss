@@ -32,7 +32,8 @@
                 margin: 0 0.15em;
                 overflow-y: scroll;
                 scrollbar-color: rgb(209, 209, 209) transparent;;
-                scrollbar-width: 5px;
+                scrollbar-width: thin;
+                overflow-x: hidden;
                 &::-webkit-scrollbar {
                     width: 0.25em;
                 }
