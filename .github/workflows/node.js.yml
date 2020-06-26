@@ -19,14 +19,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 14
-    
-    - name: Cache
-      uses: actions/cache@v2.0.0
-      with:
-        # A list of files, directories, and wildcard patterns to cache and restore
-        path: node_modules
-        # An explicit key for restoring and saving the cache
-        key: _cache
+
       
     - name: Create SSL Certificate & key
       run: |
@@ -57,7 +50,7 @@ jobs:
         echo "$DB_CONFIG_JSON" > db-credentials/config.json
         
     - name: Node.js install packages
-      run: npm i
+      run: rm -rf package-lock.json && npm i
     
     - name: Node.js tests
       run: npm test
