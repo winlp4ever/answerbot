@@ -35,15 +35,18 @@ jobs:
         DB_CONFIG_JS: ${{ secrets.DB_CONFIG_JS }}
         DB_CONFIG_JSON: ${{ secrets.DB_CONFIG_JSON }}
       run: |
-        mkdir -p aws-credentials
-        sudo sh -c 'echo "$AWS_CREDENTIALS" >> aws-credentials/accessKeys.json'
+        mkdir -p aws-credentials && touch aws-credentials/accessKeys.json
+        sudo chmod -R 757 aws-credentials/accessKeys.json
+        echo "$AWS_CREDENTIALS" > aws-credentials/accessKeys.json
         cat aws-credentials/accessKeys.json
-        mkdir -p azure-credentials
-        sudo sh -c 'echo "$AZURE_CONFIG_JS" >> azure-credentials/config.js'
-        sudo sh -c 'echo "$AZURE_CONFIG_JSON" >> azure-credentials/config.json'
-        mkdir -p db-credentials
-        sudo sh -c 'echo "$DB_CONFIG_JS" >> db-credentials/config.js'
-        sudo sh -c 'echo "$DB_CONFIG_JSON" >> db-credentials/config.json'
+        mkdir -p azure-credentials && touch azure-credentials/config.js && touch azure-credentials/config.json
+        sudo chmod -R 757 azure-credentials/config.js && sudo chmod -R 757 azure-credentials/config.json
+        echo "$AZURE_CONFIG_JS" > azure-credentials/config.js
+        echo "$AZURE_CONFIG_JSON" > azure-credentials/config.json
+        mkdir -p db-credentials && touch db-credentials/config.js && touch db-credentials/config.json
+        sudo chmod -R 757 db-credentials/config.js && sudo chmod -R 757 db-credentials/config.json
+        echo "$DB_CONFIG_JS" > db-credentials/config.js
+        echo "$DB_CONFIG_JSON" > db-credentials/config.json
         
 
     - name: Node.js tests
