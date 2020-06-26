@@ -38,7 +38,6 @@ jobs:
         mkdir -p aws-credentials && touch aws-credentials/accessKeys.json
         sudo chmod -R 757 aws-credentials/accessKeys.json
         echo "$AWS_CREDENTIALS" > aws-credentials/accessKeys.json
-        cat aws-credentials/accessKeys.json
         mkdir -p azure-credentials && touch azure-credentials/config.js && touch azure-credentials/config.json
         sudo chmod -R 757 azure-credentials/config.js && sudo chmod -R 757 azure-credentials/config.json
         echo "$AZURE_CONFIG_JS" > azure-credentials/config.js
