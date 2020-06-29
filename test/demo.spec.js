@@ -1,4 +1,4 @@
-const renderer = require('react-test-renderer');
+import renderer from 'react-test-renderer';
 
 describe('My Test Suite', () => {
     it('My Test Case', () => {
