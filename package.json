@@ -5,16 +5,24 @@
   "scripts": {
     "build": "node server.js prod",
     "start": "nodemon server.js dev --ignore 'node_modules/*' --ignore 'public/*' --ignore 'src/*' --watch server.js --ignore 'src/*'",
-    "test": "jest --config ./jest.config.json"
+    "test": "jest --config ./jest.config.json --no-cache"
   },
   "keywords": [],
   "author": "leh (le ha-quang)",
   "license": "ISC",
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": ["@babel/plugin-transform-modules-commonjs"]
+      }
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs":"^7.10.1",
     "@svgr/webpack": "^5.4.0",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
