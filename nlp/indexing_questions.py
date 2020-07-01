@@ -41,7 +41,7 @@ def main():
         ) as qas
         on refqs.id = qas.id_origin
 
-        where (refqs.question_fuzzy = 0 or (refqs.question_fuzzy=1 and nb_related > 0))
+        where (refqs.question_fuzzy = 0)
         and refqs.question_valid = 1
     ''')
     q = cur.fetchone()

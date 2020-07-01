@@ -94,7 +94,7 @@ export default class Bob extends Component {
     componentDidMount () {
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
-                // update user chat history
+                console.log(msg)
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 // update state

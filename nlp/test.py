@@ -1,9 +1,10 @@
-import flashtext
+import requests
 
-text = 'comment faire un tableau en css'
+url = 'http://localhost:5005/model/parse'
+obj = {
+	"text": "hello"
+}
 
-kw_extractor = yake.KeywordExtractor()
-keywords = kw_extractor.extract_keywords(text)
+x = requests.post(url,json=obj)
 
-for kw in keywords:
-	print(kw)
+print(x.json())
