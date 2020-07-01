@@ -49,7 +49,6 @@ def main():
             and question_teacher_manual_review = true
         ) as cs
         on (question.question_equivalent = cs.id or question.id = cs.id) 
-        where question.question_text like '%inline block%'
     ''')
     q = cur.fetchone()
     cnt = 0
