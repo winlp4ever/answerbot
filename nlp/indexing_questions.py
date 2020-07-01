@@ -27,22 +27,29 @@ def main():
 
     # retrieve all questions
     cur.execute('''
-        select refqs.id as refid, refqs.question_fuzzy as isfuzzy, coalesce(qas.nb_related, 0) as nb_related, allqs.*
-        from 
-            question as allqs
-        inner join 
-            question as refqs 
-        on (allqs.id = refqs.id and (allqs.question_equivalent = 0 or refqs.question_equivalent = 4584))
-        or allqs.question_equivalent = refqs.id
-        full outer join (
-            select id_origin, count(id_target) as nb_related
-            from question_relations
-            group by id_origin
-        ) as qas
-        on refqs.id = qas.id_origin
-
-        where (refqs.question_fuzzy = 0)
-        and refqs.question_valid = 1
+        SELECT question.*
+        from question 
+        inner join (
+            SELECT distinct question_id
+            from question_answer_temp 
+            inner join answer_temp
+            on answer_temp.id = question_answer_temp.answer_temp_id 
+            inner join question 
+            on question_answer_temp.question_id = question.id
+            
+            where answer_temp.answer_valid = '1' and answer_teacher_manual_review = true
+        ) as qs 
+        on question.id = qs.question_id
+        inner join (
+            select id
+            from question
+            where question_equivalent = 0
+            and question_fuzzy = 0
+            and question_valid = 1
+            and question_teacher_manual_review = true
+        ) as cs
+        on (question.question_equivalent = cs.id or question.id = cs.id) 
+        where question.question_text like '%inline block%'
     ''')
     q = cur.fetchone()
     cnt = 0
