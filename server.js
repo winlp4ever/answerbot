@@ -85,7 +85,7 @@ io.on('connection', function(socket){
     })
     socket.on('bob-msg', msg => {
         io.emit('bob-msg', msg)
-        if (msg.chat.answer) if (msg.chat.type == 'answer') if (!msg.chat.answer.fuzzy) {
+        if (msg.chat.type == 'answer') if (msg.chat.answer) {
             const query = `
                 select * from bob_history_add_question ($1, $2, $3, $4);
             `
