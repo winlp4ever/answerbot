@@ -1,0 +1,5 @@
+apps:
+  - script   : npm start
+    name     : 'AppFront'
+  - script   : nlp/qa-exchange.py
+    name     : 'AppBack'
