@@ -48,10 +48,7 @@ jobs:
       run: rm -rf package-lock.json && npm i
     
     - name: Node.js tests
-      run: pm2 restart test-ecosystem.yml
-    
-    - name: Stop services in test mode
-      run: pm2 del test-ecosystem.yml
+      run: npm test
       
     - name: Deploy new version
       run: pm2 reload prod-ecosystem.yml
