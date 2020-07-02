@@ -1,5 +1,5 @@
 apps:
-  - script   : npm build
+  - script   : npm run-script build
     name     : 'AppFront'
   - script   : nlp/qa-exchange.py
     name     : 'AppBack'
