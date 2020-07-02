@@ -1,0 +1,28 @@
+html {
+    display: block;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: auto;
+    height: auto;
+    background: transparent;
+    font: {
+        size: 17px;
+        family: 'Nunito', sans-serif;
+    }
+}
+
+#main {
+    margin-left: auto;
+    padding: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #1e88e5;
+}

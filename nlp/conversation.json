@@ -1,0 +1,17 @@
+{
+    "greet": {
+        "phrases": [
+            "Bonjour"
+        ]
+    },
+    "ask_name": {
+        "phrases": [
+            "Je m'appelle Bob, votre assistant professeur"
+        ]
+    },
+    "knowledge_ask": {
+        "phrases": [
+            ""
+        ]
+    } 
+}

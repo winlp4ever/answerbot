@@ -1,0 +1,7 @@
+{
+    "users": {
+        "Wall-Q": {"password": "2311", "color": "#d50000", "email": "", "userid": 1, "level": "Licence3", "history": [], "bookmarks": {}},
+        "anakin": {"password": "2", "color": "#ef5350", "email": "", "userid": 2, "level": "Master2", "history": [], "bookmarks": {}},
+        "yufi": {"password": "3", "color": "#ef5350", "email": "", "userid": 3, "level": "Master1", "history": [], "bookmarks": {}}
+    }
+}

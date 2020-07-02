@@ -1,0 +1,20 @@
+.markdown-render {
+    position: relative;
+    word-wrap: break-word;
+    transition: all 0.2s;
+    img {
+        margin: auto;
+        max-width: 100%;
+    }
+    
+    h2 {
+        display: inline-block;
+        border-bottom: 1px solid lightgrey;
+    }
+    pre {
+        padding: 0.5em !important;
+        border-radius: 0.5em;
+        overflow-wrap: break-word;
+        white-space: pre-line;
+    }
+}

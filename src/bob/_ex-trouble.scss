@@ -1,0 +1,20 @@
+.bob {
+    .ex-trouble {
+        .err-msg {
+            display: block;
+            font-size: 0.8em;
+            text-align: right;
+            box-sizing: border-box;
+            padding: 0.25em 0.5em;
+            border-radius: 0.25em;
+            border: 1px solid rgb(221, 221, 221);
+            color: #b71c1c;
+            margin-top: 0.25em;
+            svg {
+                height: 1.5em;
+                width: 1.5em;
+                vertical-align: middle;
+            }
+        }
+    }
+}
