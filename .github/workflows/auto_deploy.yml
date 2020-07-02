@@ -52,3 +52,6 @@ jobs:
       
     - name: Deploy new version
       run: pm2 reload prod-ecosystem.yml
+    
+    - name: Check that server is online
+      run: curl https://localhost:5000/?exercice=1&user=3113
