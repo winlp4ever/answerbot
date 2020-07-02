@@ -5,7 +5,7 @@ from nltk.tokenize.stanford import StanfordTokenizer
 import re
 import os
 
-SNLP_TAGGER_JAR = "/home/redlcamille/workspace/bob/nlp/stanford-postagger.jar"
+SNLP_TAGGER_JAR = "./stanford-postagger.jar"
 
 
 def tokenize(tknzr, sentence, to_lower=True):
