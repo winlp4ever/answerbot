@@ -14,7 +14,6 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 14
-
       
     - name: Create SSL Certificate & key
       run: |
@@ -43,7 +42,13 @@ jobs:
         sudo chmod -R 757 db-credentials/config.js && sudo chmod -R 757 db-credentials/config.json
         echo "$DB_CONFIG_JS" > db-credentials/config.js
         echo "$DB_CONFIG_JSON" > db-credentials/config.json
-        
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f nlp/requirements.txt ]; then pip install -r nlp/requirements.txt; fi
+    
     - name: Node.js install packages
       run: rm -rf package-lock.json && npm i
     
