@@ -3,12 +3,12 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: end;
+        justify-content: start;
         //box-sizing: border-box;
         padding: 0.5em 0.4em;
         overflow-y: scroll;
         scrollbar-color: rgb(209, 209, 209) transparent;
-        scrollbar-width: 0.25em;
+        scrollbar-width: thin;
         margin: 0.15em;
         &::-webkit-scrollbar {
             width: 0.25em;

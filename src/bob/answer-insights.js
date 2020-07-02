@@ -4,6 +4,7 @@ import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
 import A from '../../imgs/bob/A.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
+import {CSSTransition} from 'react-transition-group'
 
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
@@ -26,18 +27,26 @@ const Orientation = ({src}) => {
 }
 
 const AnswerInsights = ({content}) => {
-    return <div className='answer-insights-container'>
-        <div className='answer-insights'>
-            <FullAnswer src={content.answer.answer_paragraph} />
-            <div className='orientation'>
-                <h4><ExploreIcon />Explorer</h4>
-                {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
+    if (content == undefined) return null
+    return <CSSTransition
+        in={(content != undefined)} 
+        classNames='answer-insights-container' 
+        timeout={250}
+    >
+        <div className='answer-insights-container'>
+            <div className='answer-insights'>
+                <FullAnswer src={content.answer.answer_paragraph} />
+                <div className='orientation'>
+                    <h4><ExploreIcon />Explorer</h4>
+                    {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
+                </div>
+                {content.answer.source? <div className='source'>
+                    <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
+                </div>: null}
             </div>
-            {content.answer.source? <div className='source'>
-                <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
-            </div>: null}
         </div>
-    </div>
+    </CSSTransition>
+    
 }
 
 export default AnswerInsights;

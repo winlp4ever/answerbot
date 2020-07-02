@@ -1,5 +1,4 @@
 import React, {Component, useState, useContext, useEffect, useRef} from 'react'
-import ReactDOM, { findDOMNode } from 'react-dom'
 import {userContext} from '../user-context/user-context'
 
 import Button from '@material-ui/core/Button'
@@ -17,6 +16,7 @@ import StarIcon from '../../imgs/bob/star.svg'
 import _StarIcon from '../../imgs/bob/_star.svg'
 import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
+import {ArrowLeftCircle, Bookmark} from 'react-feather'
 
 const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
@@ -129,7 +129,6 @@ const Answer = ({content, socket, setIns}) => {
             className={'answer' + (foc? ' foc': '')} 
             onMouseEnter={handleMouseEnter} 
             onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
         >
             
             <CSSTransition 
@@ -138,15 +137,21 @@ const Answer = ({content, socket, setIns}) => {
                 classNames='help-info' 
                 timeout={250}
             >
-                <div className='help-info'>Cliquez pour fixer!</div>
+                <div className='help-info'>Cliquez la flèche pour fixer!</div>
             </CSSTransition>
             
             <div className='taskbar'>
+                <Button className={'open-next-to' + (foc ? ' clicked': '')} 
+                    onClick={handleClick}
+                >
+                    <ArrowLeftCircle />
+                </Button>
                 <Button className={pin? 'pinned' : 'pin'} 
                     onClick={togglePin}>
-                    {pin? <PinIcon/>: <_PinIcon/>}
+                    <Bookmark/>
                 </Button>
             </div>
+            
             <span 
                 className='answer-text' 
             > 
