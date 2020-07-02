@@ -15,6 +15,7 @@ from datetime import datetime
 import requests
 
 import asyncio
+import requests
 
 from functools import lru_cache
 
@@ -28,6 +29,19 @@ template = {
     'type': 'chat',
     'text': '',
 }
+
+messages = {
+    "greet": {
+        "phrases": "Bonjour"
+    },
+    "ask_name": {
+        "phrases": "Je m'appelle Bob, votre assistant professeur"
+    },
+    "bot_challenge": {
+        "phrases": "Je suis un bot, évidemment"
+    } 
+}
+
 
 class Responder:
     def __init__(self, mx_conns=2000, config_fp='db-credentials/config.json'):
@@ -52,8 +66,76 @@ class Responder:
             self.pg.closeall
         print("PostgreSQL connection pool is closed")
 
-    def getAnswer(self, old_msg):
+    def detectIntent(self, old_msg):
+        q = old_msg['chat']['text']
+        url = 'http://localhost:5005/model/parse'
+        obj = {
+            "text": q
+        }
+        data = requests.post(url,json=obj).json()["intent"]
+        if data["confidence"] < 0.5:
+            return {
+                'chat':
+                {
+                    'text': "Merci de re-poser la question/chat d'une manière plus précise",
+                    'type': 'chat',
+                    'user': bob
+                },
+                'conversationID': old_msg['conversationID']
+            }
+        if data['name'] == 'exercise_ask':
+            return self.getQuestionAid(old_msg)
+        if data["name"] in ('greet', 'ask_name', 'bot_challenge'):
+            return { 
+                'chat': 
+                {
+                    'text': messages[data['name']]["phrases"],
+                    'type': 'chat',
+                    'user': bob
+                },
+                'conversationID': old_msg['conversationID']
+            }
+        return self.getAnswer(old_msg)
+    
+    def getQuestionAid(self, old_msg):
+        question = old_msg['chat']['text']
+        cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        msg = template.copy()
+        msg['original_question'] = question
+        tm = datetime.fromtimestamp(time.time())
+        msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
+        cur.execute('''
+            select * from activities 
+            where activitytype = 'submit' 
+            and status = false 
+            and exerciseid = %d
+            and studentid = %d
+            order by id desc, date desc
+        ''' % (old_msg['chat']['user']['exerciseid'], old_msg['conversationID']))
+        res = cur.fetchone()
+        if res:
+            msg['answer'] = res['record']
+            msg['text'] = res['record']['message']
+            msg['type'] = 'exercise-err-message'
+            msg['original_question'] = question
+        else:
+            cur.execute('''
+                select error_code_message, error_code_count
+                from error_codes
+                where id_exercise = %d
+                order by error_code_count desc
+            ''' % old_msg['chat']['user']['exerciseid'])
+            res = cur.fetchall()
+            msg['answer'] = res[:4] if res else []
+            msg['type'] = 'exercise-common-errs'
+            msg['original_question'] = question
+        cur.close()
+        return {
+            'chat': msg,
+            'conversationID': old_msg['conversationID']
+        }
 
+    def getAnswer(self, old_msg):
         question = old_msg['chat']['text']
         qs = self.sim.findSimQuestions(question, 5)
         print(qs)
@@ -67,39 +149,6 @@ class Responder:
         if qs and qs[0]['score'] > 1.8:
             print(qs[0]['id'])
             cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-            if not qs[0]['rep']:
-                # question type mon code ne marche pas
-                cur.execute('''
-                    select * from activities 
-                    where activitytype = 'submit' 
-                    and status = false 
-                    and exerciseid = %d
-                    and studentid = %d
-                    order by id desc, date desc
-                ''' % (old_msg['chat']['user']['exerciseid'], old_msg['conversationID']))
-                res = cur.fetchone()
-                if res:
-                    msg['answer'] = res['record']
-                    msg['text'] = res['record']['message']
-                    msg['type'] = 'exercise-err-message'
-                    msg['original_question'] = question
-                else:
-                    cur.execute('''
-                        select error_code_message, error_code_count
-                        from error_codes
-                        where id_exercise = %d
-                        order by error_code_count desc
-                    ''' % old_msg['chat']['user']['exerciseid'])
-                    res = cur.fetchall()
-                    msg['answer'] = res[:4] if res else []
-                    msg['type'] = 'exercise-common-errs'
-                    msg['original_question'] = question
-                cur.close()
-                return {
-                    'chat': msg,
-                    'conversationID': old_msg['conversationID']
-                }
             cur.execute('''
                 select answer_temp.*, q.*
                 from 

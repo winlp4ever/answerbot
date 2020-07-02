@@ -43,7 +43,7 @@ async def run():
 
         @sio.on('ask-bob')
         async def on_message(msg):
-            await sio.emit('bob-msg', rep.getAnswer(msg))
+            await sio.emit('bob-msg', rep.detectIntent(msg))
 
         @sio.event
         def disconnect():
