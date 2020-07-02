@@ -30,8 +30,8 @@ f.close()
 conversations = {}
 
 async def run():
+    rep = Responder()
     try:
-        rep = Responder()
         # load azure credentials
         f = open('azure-credentials/config.json')
         azureConfig = json.load(f)
