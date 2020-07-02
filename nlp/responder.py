@@ -73,7 +73,7 @@ class Responder:
             "text": q
         }
         data = requests.post(url,json=obj).json()["intent"]
-        if data["confidence"] < 0.5:
+        if data["confidence"] < 0.7:
             return {
                 'chat':
                 {
