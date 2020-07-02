@@ -4,15 +4,15 @@
             width: 105%;
             position: relative;
             margin: 0.5em 0;
-            transform: translateX(-1.2em);
+            transform: translateX(-0.8em);
             box-sizing: border-box;
             padding: 0.5em 1.5em 0.5em 0.8em;
             border-radius: 0.35em;
             font-size: 0.8em;
             transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
-            background: #ffd600;
+            background: white;
             color: #181515;
-            border: 1px solid transparent;
+            border: 1px solid lightgrey;
             box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
             p {
                 margin: 0.2em 0;
@@ -24,9 +24,9 @@
                 box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
             }
             &.foc {
-                background: #FEBE17;
+                background: whitesmoke;
                 box-shadow: none;
-                border: 1px solid rgb(230, 230, 230);
+                //border: 1px solid rgb(230, 230, 230);
             }
             .answer-text {
                 display: block;

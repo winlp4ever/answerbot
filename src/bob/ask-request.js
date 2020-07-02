@@ -6,7 +6,7 @@ import {userContext} from '../user-context/user-context'
 import { v4 as uuidv4 } from 'uuid'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Button from '@material-ui/core/Button'
-import { Check, X } from 'react-feather'
+import { Check, X, Inbox } from 'react-feather'
 import TeacherIcon from '../../imgs/bob/teacher.svg'
 import './_ask-request.scss'
 
@@ -37,7 +37,7 @@ Merci,`)
     if (!wantToSend) return <Button 
         className='text ask-req' 
         onClick={toggleMode}
-        startIcon={<TeacherIcon />}
+        startIcon={<Inbox />}
     >
         Demandez aux profs
     </Button>
