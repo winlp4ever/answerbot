@@ -27,26 +27,19 @@ const Orientation = ({src}) => {
 }
 
 const AnswerInsights = ({content}) => {
-    if (content == undefined) return null
-    return <CSSTransition
-        in={(content != undefined)} 
-        classNames='answer-insights-container' 
-        timeout={250}
-    >
-        <div className='answer-insights-container'>
+    return <div className='answer-insights-container'>
+        {content != null && 
             <div className='answer-insights'>
-                <FullAnswer src={content.answer.answer_paragraph} />
-                <div className='orientation'>
-                    <h4><ExploreIcon />Explorer</h4>
-                    {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
-                </div>
-                {content.answer.source? <div className='source'>
-                    <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
-                </div>: null}
-            </div>
-        </div>
-    </CSSTransition>
-    
+            <FullAnswer src={content.answer.answer_paragraph} />
+            {content.answer.orientation ? <div className='orientation'>
+                <h4><ExploreIcon />Explorer</h4>
+                <span>{content.answer.orientation}</span>
+            </div>: null}
+            {content.answer.source? <div className='source'>
+                <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
+            </div>: null}
+        </div>}
+    </div>
 }
 
 export default AnswerInsights;

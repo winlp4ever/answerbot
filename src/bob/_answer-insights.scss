@@ -1,5 +1,5 @@
 .answer-insights-container-enter {
-    transform: translateX(2em);
+    transform: translateX(2em), scale(0.75);
     opacity: 0;
     transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
 }
@@ -13,7 +13,7 @@
     transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
 }
 .answer-insights-container-exit-active {
-    transform: translateX(2em);
+    transform: translateX(2em), scale(0.75);
     opacity: 0;
 }
 .answer-insights-container {
@@ -35,7 +35,7 @@
         padding-left: 1.5em;
     }
     a {
-        color: whitesmoke;
+        color: #0d47a1;
         text-decoration: underline;
     }
     &:before {
@@ -61,6 +61,7 @@
         overflow-wrap: break-word;
         -ms-overflow-style: none;
         scrollbar-width: none;
+        transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
         &::-webkit-scrollbar {
             display: none;
         }
@@ -116,7 +117,7 @@
                 width: 100%;
                 top: 0;
                 right: 0;
-                background: lightgrey;
+                background: grey;
             }
         }
         
