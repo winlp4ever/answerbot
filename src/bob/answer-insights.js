@@ -36,6 +36,7 @@ const AnswerInsights = ({content}) => {
                 <span>{content.answer.orientation}</span>
             </div>: null}
             {content.answer.source? <div className='source'>
+                <h4><ExploreIcon />Explorer</h4>
                 <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
             </div>: null}
         </div>}
