@@ -10,20 +10,42 @@ import ClockIcon from '../../imgs/bob/clock.svg'
 import BmrkIcon from '../../imgs/bob/bmk.svg'
 
 const StatusColors = {
-    pending: '#ffeb3b',
+    opened: '#ffeb3b',
     answered: '#82b1ff'
 }
 
 const QuestionReq = ({q}) => {
+    const [answer, setAnswer] = useState('')
+
+    const retrieveAnswer = async () => {
+        console.log('yay this is qid')
+        console.log(q.id)
+        let data = await postForData('/post-req-answer', {
+            qid: q.id
+        })
+        if (data.status == 0) {
+            setAnswer(data.answer.text)
+        }
+    }
+
+    useEffect(() => {
+        if (q.status == 'answered') {
+            retrieveAnswer()
+        }
+    }, [])
+
     return <div className='question-request' >
         <span className='timestamp'>{q.date.substr(0, 10)}</span>
         <span className='status' style={{
             background: StatusColors[q.status]
         }}>{q.status}</span>
         <div className='question'><b>You: </b>
-            {q.question}
+            {q.text}
         </div>
-        {(q.status == 'answered') && <span className='answer'>{q.answer}</span>}
+        {(q.status == 'answered') && 
+        <div className='prof-answer'><b>Prof: </b>
+            {answer}
+        </div>}
     </div>
 }
 
@@ -78,7 +100,7 @@ const History = (props) => {
         let tqs = await postForData('/post-asked-requests', {
             userid: user.userid
         })
-        if (tqs.status == 'ok') setAskedRequests(tqs.questions)
+        if (tqs.status == 0) setAskedRequests(tqs.questions)
     }
 
     useEffect(() => {

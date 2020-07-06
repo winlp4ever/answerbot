@@ -9,6 +9,8 @@ const favicon = require('serve-favicon');
 const http = require('http');
 const https = require('https')
 
+const request = require('request')
+
 var privateKey  = fs.readFileSync(path.join('ssl-certs', 'key.key'), 'utf8');
 var certificate = fs.readFileSync(path.join('ssl-certs', 'cer.cer'), 'utf8');
 
@@ -194,19 +196,46 @@ app.post('/post-news', (req, res) => {
 })
 
 app.post('/post-asked-requests', (req, res) => {
-    const query = `
-        select *
-        from ask_teachers
-        where userid = $1
-        order by date desc
-    `
-    const values = [req.body.userid]
-    client.query(query, values, (err, response) => {
-        if (err) {
-            res.json({status: err.stack});
-        } else {
-            res.json({status: 'ok', questions: response.rows});
+    request.post('http://localhost:6700/post-user-questions', {
+        json: {
+            userid: req.body.userid,
         }
+        }, (error, response, body) => {
+        if (error) {
+            console.error(error)
+            res.json({status: 1, err: error.stack})
+            return
+        }
+        console.log(`statusCode: ${response.statusCode}`)
+        console.log(body)
+        res.json({status: 0, questions: body.questions})
+    })
+})
+
+app.post('/post-req-answer', (req, res) => {
+    request.post('http://localhost:6700/post-answers', {
+        json: {
+            qid: req.body.qid
+        }
+        }, (error, response, body) => {
+        if (error) {
+            console.error(error)
+            res.json({status: 1, err: error.stack})
+            return
+        }
+        request.post('http://localhost:6700/post-answer', {
+            json: {
+                aid: body.answers[0].id
+            }
+            }, (error_, response_, body_) => {
+            if (error_) {
+                console.error(error_)
+                res.json({status: 1, err: error_.stack})
+                return
+            }
+            
+            res.json({status: 0, answer: body_.answer})
+        })
     })
 })
 
@@ -228,17 +257,20 @@ app.post('/post-asked-questions', (req, res) => {
 })
 
 app.post('/ask-teachers', (req, res) => {
-    const query = `
-        insert into ask_teachers 
-        values ($1, $2, 'pending', null, now()::date, $3)
-    `
-    const values = [req.body.uuid, req.body.q, req.body.userid]
-    client.query(query, values, (err, response) => {
-        if (err) {
-            res.json({status: err.stack});
-        } else {
-            res.json({status: 'ok', questions: response.rows});
+    request.post('http://localhost:6700/new-question', {
+            json: {
+                userid: req.body.userid,
+                question: req.body.q
+            }
+        }, (error, response, body) => {
+        if (error) {
+            console.error(error)
+            res.json({status: 1, err: error.stack})
+            return
         }
+        console.log(`statusCode: ${response.statusCode}`)
+        console.log(body)
+        res.json({status: 0})
     })
 })
 
