@@ -16,7 +16,7 @@ import StarIcon from '../../imgs/bob/star.svg'
 import _StarIcon from '../../imgs/bob/_star.svg'
 import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
-import {ArrowLeftCircle, Bookmark} from 'react-feather'
+import {ArrowLeftCircle, Bookmark, Star} from 'react-feather'
 
 const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
@@ -40,7 +40,7 @@ const RateTheAnswer = () => {
                     onClick={_ => setScore(i)}
                     className={i <= score ? 'on': 'off'}
                 >
-                   {i <= score? <_StarIcon />:<StarIcon />}
+                   {i <= score? <Star className='filled'/>:<Star />}
                 </i>)}
             </span>
             
@@ -130,7 +130,6 @@ const Answer = ({content, socket, setIns}) => {
             onMouseEnter={handleMouseEnter} 
             onMouseLeave={handleMouseLeave}
         >
-            
             <CSSTransition 
                 in={showHelp} 
                 unmountOnExit 

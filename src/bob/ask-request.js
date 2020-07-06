@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Button from '@material-ui/core/Button'
 import { Check, X, Inbox } from 'react-feather'
-import TeacherIcon from '../../imgs/bob/teacher.svg'
 import './_ask-request.scss'
 
 const AskRequest = (props) => {

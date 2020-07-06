@@ -144,11 +144,18 @@ export default class Bob extends Component {
         }
         let V = Options[this.state.tab]
         return <div className={'bob-container' + (this.props.colorMode == 0 ? ' light': ' dark')}>
-            
+            <CSSTransition 
+                in={this.state.insight != null} 
+                unmountOnExit 
+                classNames='answer-insights-container' 
+                timeout={250}
+            >
                 <AnswerInsights 
                     content={this.state.insight} 
                     setContent={this._setInsight}
                 />
+            </CSSTransition>
+                
             {this.state.newResponseComing && <Sound 
                 url={IncomingMsg} 
                 playStatus='PAUSED' 

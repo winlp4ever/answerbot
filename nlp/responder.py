@@ -222,6 +222,8 @@ class Responder:
                 question 
             on qs.question_id = question.id
             where question_relations.id_origin=%s
+            and question_fuzzy = 0
+            and question_valid = 1
         ''', [str(id)])
         res = cur.fetchall()
         cur.close()
