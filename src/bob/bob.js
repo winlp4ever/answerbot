@@ -21,14 +21,10 @@ import HistoryBookmarks from './history-bookmarks';
 import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
-import ColorSwitch from './toggleColorMode'
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
 import ChatIcon from '../../imgs/bob/chat.svg'
-import HistoryIcon from '../../imgs/bob/bookmark-history.svg'
-import ExploreIcon from '../../imgs/bob/explore.svg'
 import CloseIcon from '../../imgs/bob/close.svg'
-import EllipsisIcon from '../../imgs/bob/ellipsis.svg'
 import { Grid, Clock } from 'react-feather';
 
 const Options = [
@@ -86,7 +82,7 @@ export default class Bob extends Component {
     _scrollToBottom = () => {
         if ($(".old-chats").length > 0) {
             $(".old-chats").animate({
-                scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+                scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 150
             }, 500);
         }
     }

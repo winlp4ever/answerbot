@@ -6,7 +6,7 @@
             margin: 0.2em 0;
             transform: translateX(-0.8em);
             box-sizing: border-box;
-            padding: 2.25em 0.8em 0.5em 0.8em;
+            padding: 0.8em 0.8em;
             border-radius: 0.35em;
             font-size: 0.8em;
             transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
@@ -22,6 +22,10 @@
             }
             &:hover {
                 box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                .taskbar {
+                    visibility: visible;
+                    opacity: 0.75;
+                }
             }
             &.foc {
                 background: #ffcb74;
@@ -38,6 +42,21 @@
                 max-width: 100%;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 700;
+                word-wrap: break-word;
+                button {
+                    min-width: 0;
+                    padding: 0;
+                    display: inline;
+                    border: none;
+                    font-family: inherit;
+                    font-size: inherit;
+                    background: transparent;
+                    font-weight: inherit;
+                    text-transform: none;
+                    letter-spacing: unset;
+                    color: #1976d2;
+                    margin: 0;
+                }
             }
             .click-url {
                 position: absolute;
@@ -103,9 +122,18 @@
             .taskbar {
                 position: absolute;
                 left: 0.5em;
-                top: 0.35em;
-                width: 100%;
-                text-align: left;
+                top: -1.5em;
+                //width: 100%;
+                text-align: right;
+                box-sizing: border-box;
+                border-radius: 0.2em;
+                border: 1px solid grey;
+                padding: 0em 0.5em;
+                z-index: 100;
+                background: #f2f2f2;
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
                 .pin, .pinned {
                     min-width: 0;
                     padding: 0.2em;
