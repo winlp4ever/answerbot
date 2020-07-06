@@ -4,8 +4,9 @@
 }
 
 @keyframes chat-appear {
-    0% {opacity: 0; transform: translateY(2em)}
-    100% {opacity: 1; transform: none;}
+    0% {opacity: 0; transform: scale(0)}
+    50% {opacity: 0.75; transform: scale(1.1);}
+    100% {opacity: 1; transform: scale(1);}
 }
 
 @keyframes hinting {
@@ -79,7 +80,8 @@
                             overflow-wrap: break-word;
                             transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
                             line-height: 1.25;
-                            animation: chat-appear 0.25s cubic-bezier(0, 0, 0.2, 1);
+                            animation: chat-appear 0.5s cubic-bezier(0, 0, 0.2, 1);
+                            transform-origin: bottom left;
                         }
                         .text {
                             display: inline-block;
@@ -92,6 +94,7 @@
                             &:hover + .time {
                                 display: block;
                             }
+                            //animation: chat-appear 2s cubic-bezier(0, 0, 0.2, 1);
                         }
                         .time {
                             position: absolute;
@@ -163,6 +166,7 @@
                                 color: black;
                                 font-weight: 600;
                                 margin: 0.15em 0;
+                                transform-origin: bottom right;
                             }
                             .time {
                                 right: 0;
