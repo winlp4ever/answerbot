@@ -1,0 +1,5 @@
+apps:
+  - script   : node -- server.js prod
+    name     : 'AppFront'
+  - script   : nlp/qa-exchange.py
+    name     : 'AppBack'

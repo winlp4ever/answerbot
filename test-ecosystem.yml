@@ -1,0 +1,3 @@
+apps:
+  - script   : npm test
+    name     : 'TEST_App'
