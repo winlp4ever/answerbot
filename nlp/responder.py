@@ -124,17 +124,32 @@ class Responder:
             msg['text'] = res['record']['message']
             msg['type'] = 'exercise-err-message'
             msg['original_question'] = question
-        else:
-            cur.execute('''
-                select error_code_message, error_code_count
-                from error_codes
-                where id_exercise = %d
-                order by error_code_count desc
-            ''' % old_msg['chat']['user']['exerciseid'])
-            res = cur.fetchall()
-            msg['answer'] = res[:4] if res else []
-            msg['type'] = 'exercise-common-errs'
-            msg['original_question'] = question
+            cur.close()
+            return {
+                'chat': msg,
+                'conversationID': old_msg['conversationID']
+            }
+        cur.close()
+        return self.getCommonError(old_msg)
+            
+        
+    def getCommonError(self, old_msg):
+        question = old_msg['chat']['text']
+        cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        msg = template.copy()
+        msg['original_question'] = question
+        tm = datetime.fromtimestamp(time.time())
+        msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
+        cur.execute('''
+            select error_code_message, error_code_count
+            from error_codes
+            where id_exercise = %d
+            order by error_code_count desc
+        ''' % old_msg['chat']['user']['exerciseid'])
+        res = cur.fetchall()
+        msg['answer'] = res[:4] if res else []
+        msg['type'] = 'exercise-common-errs'
+        msg['original_question'] = question
         cur.close()
         return {
             'chat': msg,

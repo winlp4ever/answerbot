@@ -21,8 +21,13 @@ const ExTrouble = ({content}) => {
     const _retrieveMsg = async () => {
         if (content.type == 'exercise-err-message')
             setMsg(await postActionMsg(Actions.SHOWHELP))
-        else 
-            setMsg(await postActionMsg(Actions.SHOWCOMMONERRORS))
+        else {
+            if (content.answer.length == 0) 
+                setMsg("Malheureusement on a pas encore de donnée pour cet exercice pour vous aider")
+            else
+                setMsg(await postActionMsg(Actions.SHOWCOMMONERRORS))
+
+        }
     }
 
     useEffect(() => {
