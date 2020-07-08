@@ -39,7 +39,13 @@ messages = {
     },
     "bot_challenge": {
         "phrases": "Je suis un bot, évidemment"
-    } 
+    },
+    "being_impolite": {
+        "phrases": "Hmm ... -_0 *_*"
+    },
+    "how_are_you": {
+        "phrases": "Je vais bien, merci."
+    }
 }
 
 
@@ -85,7 +91,7 @@ class Responder:
             }
         if data['name'] == 'exercise_ask':
             return self.getQuestionAid(old_msg)
-        if data["name"] in ('greet', 'ask_name', 'bot_challenge'):
+        if data["name"] in ('greet', 'ask_name', 'bot_challenge', 'being_impolite', 'how_are_you'):
             return { 
                 'chat': 
                 {
