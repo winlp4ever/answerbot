@@ -3,17 +3,19 @@
         .answer {
             width: 105%;
             position: relative;
-            margin: 0.2em 0;
             transform: translateX(-0.8em);
-            box-sizing: border-box;
-            padding: 0.8em 0.8em;
-            border-radius: 0.35em;
-            font-size: 0.8em;
-            transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
             background: #fbd46d;
+            font-size: 0.8em;
             color: black;
             border: 1px solid rgb(182, 182, 182);
+            border-radius: 0.35em;
+            box-sizing: border-box;
             box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+            padding: 0.2em;
+            margin: 0.2em 0;
+            display: flex;
+            flex-direction: row;
+            transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
             p {
                 margin: 0.2em 0;
             }
@@ -22,10 +24,6 @@
             }
             &:hover {
                 box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-                .taskbar {
-                    visibility: visible;
-                    opacity: 0.75;
-                }
             }
             &.foc {
                 background: #ffcb74;
@@ -36,13 +34,18 @@
             .answer-text {
                 display: block;
                 box-sizing: border-box;
+                padding: 0.25em 0.5em;
                 line-height: 1.2;
                 white-space: pre-wrap;
                 overflow-wrap: break-word;
+                word-break: break-all;
                 max-width: 100%;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 700;
-                word-wrap: break-word;
+                p {
+                    word-break: break-word !important;
+                    display: inline-block;
+                }
                 button {
                     min-width: 0;
                     padding: 0;
@@ -120,23 +123,21 @@
                 }
             }
             .taskbar {
-                position: absolute;
-                left: 0.5em;
-                top: -1.5em;
                 //width: 100%;
-                text-align: right;
+                text-align: center;
                 box-sizing: border-box;
-                border-radius: 0.2em;
-                border: 1px solid grey;
-                padding: 0em 0.5em;
+                border-right: 1px solid black;
+                padding: 0em 0.25em;
                 z-index: 100;
-                background: #f2f2f2;
-                visibility: hidden;
-                opacity: 0;
-                transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                button {
+                    min-width: 0;
+                }
                 .pin, .pinned {
                     min-width: 0;
-                    padding: 0.2em;
+                    padding: 0.1em;
                     margin: 0.2em;
                     border-radius: 50%;
                     //background: #fff8e1;
@@ -154,7 +155,8 @@
                 }
                 .open-next-to {
                     min-width: 0;
-                    padding: 0.2em;
+                    padding: 0.1em;
+                    margin: 0.2em;
                     border-radius: 50%;
                     //background: white;
                     svg {

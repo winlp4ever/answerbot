@@ -96,14 +96,15 @@ const Answer = ({content, socket, setIns}) => {
         >
             
             <div className='taskbar'>
+                
+                <Button className={pin? 'pinned' : 'pin'} 
+                    onClick={togglePin}>
+                    <Bookmark/>
+                </Button>
                 <Button className={'open-next-to' + (foc ? ' clicked': '')} 
                     onClick={handleClick}
                 >
                     <ArrowLeftCircle />
-                </Button>
-                <Button className={pin? 'pinned' : 'pin'} 
-                    onClick={togglePin}>
-                    <Bookmark/>
                 </Button>
             </div>
             
