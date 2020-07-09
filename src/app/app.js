@@ -22,7 +22,7 @@ let PARAMS = new URLSearchParams(window.location.search)
 
 console.log(PARAMS)
 
-const DARKTHEME = 1
+const DARKTHEME = 0
 const LIGHTTHEME = 0
 
 export default class App extends Component {
