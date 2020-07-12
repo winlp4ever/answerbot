@@ -27,36 +27,32 @@ f = open('db-credentials/config.json')
 dbconfig = json.load(f)
 f.close()
 
-conversations = {}
-
 async def run():
     rep = Responder()
-    try:
-        # load azure credentials
-        f = open('azure-credentials/config.json')
-        azureConfig = json.load(f)
-        f.close()
+    # load azure credentials
+    f = open('azure-credentials/config.json')
+    azureConfig = json.load(f)
+    f.close()
 
-        @sio.event
-        def connect():
-            print('connection established')
+    @sio.event
+    def connect():
+        print('connection established')
 
-        @sio.on('ask-bob')
-        async def on_message(msg):
-            await sio.emit('bob-msg', rep.detectIntent(msg))
+    @sio.on('ask-bob')
+    async def on_message(msg):
+        await sio.emit('bob-msg', rep.detectIntent(msg))
 
-        @sio.event
-        def disconnect():
-            print('disconnected from server')
+    @sio.event
+    def disconnect():
+        print('disconnected from server')
 
 
-        await sio.connect('https://localhost:5000')
-        await sio.wait()
-    except (Exception, psycopg2.DatabaseError) as error :
-        print (error)
+    await sio.connect('https://localhost:5000')
+    await sio.wait()
+    
 
-    finally:
-        rep.close()
+    sio.disconnect()
+    rep.close()
 
 
 #asyncio.run(run())

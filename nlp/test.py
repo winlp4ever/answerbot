@@ -1,8 +1,8 @@
 import requests
 
-url = 'http://localhost:5005/model/parse'
+url = 'http://localhost:6800/ask-bob'
 obj = {
-	"text": "hello"
+	"qid": "5601"
 }
 
 x = requests.post(url,json=obj)
