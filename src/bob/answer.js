@@ -50,13 +50,10 @@ const RateTheAnswer = () => {
 
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
-    const helpEnter = useRef(null)
-    const helpTimeout = useRef(null)
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u)
     const [foc, setFoc] = useState(false)
-    const [showHelp, setShowHelp] = useState(false)
     const [msg, setMsg] = useState('')
     const [showAnswer, setShowAnswer] = useState(false)
 
@@ -86,38 +83,7 @@ const Answer = ({content, socket, setIns}) => {
         setFoc(!foc)
     }
 
-    const handleMouseLeave = () => {
-        if (!foc) {
-            setIns(null)
-        }
-        setShowHelp(false)
-        clearTimeout(helpEnter.current)
-        clearTimeout(helpTimeout.current)
-    }
-
-    const handleMouseEnter = () => {
-        if (!foc) {
-            setIns(content)
-            clearTimeout(helpEnter.current)
-            helpEnter.current = setTimeout(() => {
-                setShowHelp(true)
-                clearTimeout(helpTimeout.current)
-                helpTimeout.current = setTimeout(() => setShowHelp(false), 1000)
-            }, 1000) 
-        }
-    }
-
     const togglePin = () => {
-        if (pin) {
-            let dct = Us.user
-            delete dct.bookmarks[content.datetime]
-            Us.updateUser(dct)
-        }
-        else {
-            let dct = Us.user
-            dct.bookmarks[content.datetime] = content
-            Us.updateUser(dct)
-        }
         setPin(!pin)
     }
 
@@ -127,27 +93,18 @@ const Answer = ({content, socket, setIns}) => {
         </div>
         {showAnswer && <div 
             className={'answer' + (foc? ' foc': '')} 
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
         >
-            <CSSTransition 
-                in={showHelp} 
-                unmountOnExit 
-                classNames='help-info' 
-                timeout={250}
-            >
-                <div className='help-info'>Cliquez la flèche pour fixer!</div>
-            </CSSTransition>
             
             <div className='taskbar'>
+                
+                <Button className={pin? 'pinned' : 'pin'} 
+                    onClick={togglePin}>
+                    <Bookmark/>
+                </Button>
                 <Button className={'open-next-to' + (foc ? ' clicked': '')} 
                     onClick={handleClick}
                 >
                     <ArrowLeftCircle />
-                </Button>
-                <Button className={pin? 'pinned' : 'pin'} 
-                    onClick={togglePin}>
-                    <Bookmark/>
                 </Button>
             </div>
             
@@ -155,6 +112,7 @@ const Answer = ({content, socket, setIns}) => {
                 className='answer-text' 
             > 
                 <MdRender source={content.text} />
+                <Button className='see-more' onClick={handleClick}>...voir plus</Button>
             </span>
         </div>}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>

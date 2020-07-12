@@ -1,0 +1,62 @@
+name: Deploy App
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: prod
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14
+      
+    - name: Create SSL Certificate & key
+      run: |
+        mkdir -p ssl-certs
+        openssl req -x509 -nodes -newkey rsa:2048 -keyout ssl-certs/key.key -out ssl-certs/cer.cer -days 3650 -subj "/C=US/ST=Utah/L=Lehi/O=AII/OU=IT/CN=localhost"
+        sudo mkdir -p /usr/share/ca-certificates/extra
+        sudo cp ssl-certs/cer.cer /usr/share/ca-certificates/extra/cer.cer
+        sudo sh -c "echo "extra/cer.cer" >> /etc/ca-certificates.conf" 
+        sudo update-ca-certificates
+    - name: Write credentials files
+      env:
+        AWS_CREDENTIALS: ${{ secrets.AWS_CREDENTIALS }}
+        AZURE_CONFIG_JS: ${{ secrets.AZURE_CONFIG_JS }}
+        AZURE_CONFIG_JSON: ${{ secrets.AZURE_CONFIG_JSON }}
+        DB_CONFIG_JS: ${{ secrets.DB_CONFIG_JS }}
+        DB_CONFIG_JSON: ${{ secrets.DB_CONFIG_JSON }}
+      run: |
+        mkdir -p aws-credentials && touch aws-credentials/accessKeys.json
+        sudo chmod -R 757 aws-credentials/accessKeys.json
+        echo "$AWS_CREDENTIALS" > aws-credentials/accessKeys.json
+        mkdir -p azure-credentials && touch azure-credentials/config.js && touch azure-credentials/config.json
+        sudo chmod -R 757 azure-credentials/config.js && sudo chmod -R 757 azure-credentials/config.json
+        echo "$AZURE_CONFIG_JS" > azure-credentials/config.js
+        echo "$AZURE_CONFIG_JSON" > azure-credentials/config.json
+        mkdir -p db-credentials && touch db-credentials/config.js && touch db-credentials/config.json
+        sudo chmod -R 757 db-credentials/config.js && sudo chmod -R 757 db-credentials/config.json
+        echo "$DB_CONFIG_JS" > db-credentials/config.js
+        echo "$DB_CONFIG_JSON" > db-credentials/config.json
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f nlp/requirements.txt ]; then pip install -r nlp/requirements.txt; fi
+    
+    - name: Node.js install packages
+      run: rm -rf package-lock.json && npm i
+    
+    - name: Node.js tests
+      run: npm test
+      
+    - name: Deploy new version
+      run: pm2 reload prod-ecosystem.yml
+    
+    - name: Check that server is online
+      run: curl https://localhost:5000/?exercice=1&user=3113

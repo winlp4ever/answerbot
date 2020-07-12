@@ -3,6 +3,8 @@ import {userContext} from '../user-context/user-context'
 
 import Button from '@material-ui/core/Button'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
+
 import {useInterval, getCurrentTime, postForData} from '../utils'
 
 import SendIcon from '../../imgs/bob/send.svg'
@@ -43,10 +45,17 @@ const NewChat = (props) => {
     const [focus, setFocus] = useState(false)
     const [hints, setHints] = useState([])
 
+    // matomo tracker
+    const { trackPageView, trackEvent } = useMatomo()
+
     const askForHints = useRef(null)
     const input = useRef(null)
     const sending = useRef(null)
     const user = useContext(userContext).user
+
+    useEffect(() => {
+        trackPageView()
+    }, [])
 
     const viewHideHints = () => {
         setViewHints(!viewHints)
@@ -107,6 +116,8 @@ const NewChat = (props) => {
         })
         setNewchat('')
         input.current.value = ''
+
+        trackEvent({ category: 'send-question', action: 'click-event' })
     }
 
     const handleKeyDown = (e) => {
