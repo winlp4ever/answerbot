@@ -6,6 +6,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 
 // import other cpns
 import Auth from '../user-auth/user-auth';
@@ -13,10 +14,12 @@ import { userContext } from '../user-context/user-context';
 import Bob from '../bob/bob';
 
 // third party imports
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import ViewHeadlineRoundedIcon from '@material-ui/icons/ViewHeadlineRounded';
-import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Cookies from 'js-cookie';
+
+// matomo tracker
+const instance = createInstance({
+    urlBase: 'https://a.docmadi.net/',
+})
 
 let PARAMS = new URLSearchParams(window.location.search)
 
@@ -62,9 +65,12 @@ export default class App extends Component {
         }
 
         return (
-            <userContext.Provider value={user}>
-                <Bob colorMode={this.state.user.colorMode}/>
-            </userContext.Provider>
+            <MatomoProvider value={instance}>
+                <userContext.Provider value={user}>
+                    <Bob colorMode={this.state.user.colorMode}/>
+                </userContext.Provider>
+            </MatomoProvider>
+            
         )
     }
 }
