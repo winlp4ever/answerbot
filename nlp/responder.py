@@ -100,8 +100,8 @@ class Responder:
             and studentid = %d
             order by id desc, date desc
         ''' % (msg['chat']['user']['exerciseid'], msg['conversationID'])).fetchone()
-        res = dict(res)
         if res:
+            res = dict(res)
             reply['answer'] = res['record']
             reply['text'] = res['record']['message']
             reply['type'] = 'exercise-err-message'
@@ -110,7 +110,7 @@ class Responder:
                 'chat': reply,
                 'conversationID': msg['conversationID']
             }
-        return self.getCommonError(msg)
+        return self.getCommonError(msg, db)
             
         
     def getCommonError(self, msg, db):
@@ -125,7 +125,7 @@ class Responder:
             where id_exercise = %d
             order by error_code_count desc
         ''' % msg['chat']['user']['exerciseid']).fetchall()[:4]
-        reply['answer'] = [dict(r) for r in res]
+        reply['answer'] = [dict(r) for r in res] if res else []
         reply['type'] = 'exercise-common-errs'
         reply['original_question'] = question
         return {
@@ -145,9 +145,9 @@ class Responder:
         sol_id = -1
 
         if qs and qs[0]['score'] > 1.8:
-            ans = db.session.execute('select * from get_answer(%s)' % [str(qs[0]['id'])]).fetchone()
-            ans = dict(ans)
+            ans = db.session.execute('select * from get_answer(%s)' % str(qs[0]['id'])).fetchone()
             if ans:
+                ans = dict(ans)
                 res = ans.copy()        
                 reply['answer'] = res
                 print(res)
@@ -159,7 +159,7 @@ class Responder:
             # close the database
         
         print('responded.')
-        reply['related_questions'] = self.getRelatedQuestions(sol_id)
+        reply['related_questions'] = self.getRelatedQuestions(sol_id, db)
         reply['type'] = 'answer'
         return {
             'chat': reply,
@@ -183,6 +183,6 @@ class Responder:
             where question_relations.id_origin=%s
             and question_fuzzy = 0
             and question_valid = 1
-        ''', [str(id)]).fetchall()     
-        res = [dict(r) for r in res]   
+        ''' % str(id)).fetchall()     
+        res = [dict(r) for r in res] if res else []
         return res

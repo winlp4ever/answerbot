@@ -82,25 +82,34 @@ io.on('connection', function(socket){
 
     // chatbot
     socket.on('ask-bob', msg => {
-        io.emit('ask-bob', msg);
         io.emit('new-chat', msg);
+        request.post('http://localhost:6800/ask-bob', 
+        {
+            json: msg
+        }, 
+        (error, response, body) => {
+            if (error) {
+                console.error(error)
+                res.json({status: 1, err: error.stack})
+                return
+            }
+            io.emit('bob-msg', body);
+            if (body.chat.type == 'answer') if (body.chat.answer) {
+                const query = `
+                    select * from bob_history_add_question ($1, $2, $3, $4);
+                `
+                const values = [body.conversationID, body.chat.answer.qid, body.chat, body.chat.original_question]
+                client.query(query, values, (err, res) => {
+                    if (err) {
+                        console.log(err.stack)
+                    } else {
+                        console.log('ok')
+                    }
+                })
+            }
+        })
     })
-    socket.on('bob-msg', msg => {
-        io.emit('bob-msg', msg)
-        if (msg.chat.type == 'answer') if (msg.chat.answer) {
-            const query = `
-                select * from bob_history_add_question ($1, $2, $3, $4);
-            `
-            const values = [msg.conversationID, msg.chat.answer.qid, msg.chat, msg.chat.original_question]
-            client.query(query, values, (err, response) => {
-                if (err) {
-                    console.log(err.stack)
-                } else {
-                    console.log('ok')
-                }
-            })
-        }
-    })
+    
     socket.on('ask-for-hints-bob', msg => {
         msg.socketid = socket.id;
         io.emit('ask-for-hints-bob', msg);

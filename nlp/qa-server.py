@@ -17,7 +17,6 @@ res = Responder()
 @app.route('/ask-bob', methods=['POST'])
 def respond():
     if request.headers['Content-Type'] == 'application/json':
-        #print(request.json['qid'])
         return jsonify(res.detectIntent(request.json, db))
 
 
