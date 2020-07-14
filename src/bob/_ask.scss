@@ -76,7 +76,7 @@
                             padding: 0.35em 1em;
                             border-radius: 0.25em;
                             font-size: 0.8em;
-                            max-width: 75%;
+                            max-width: 100%;
                             overflow-wrap: break-word;
                             transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
                             line-height: 1.25;
@@ -112,20 +112,10 @@
                             .text {
                                 background: #2962ff;
                                 color: whitesmoke;
-                                border-bottom-right-radius: 1.2em;
-                                border-top-right-radius: 1.2em;  
+                                border-bottom-right-radius: 0.8em;
+                                border-bottom-left-radius: 0.8em;
+                                border-top-right-radius: 0.8em;  
                                 margin-bottom: 0.5em;
-                            }
-                            &:first-child {
-                                .text {
-                                    border-top-left-radius: 1.2em;
-                                }
-                            }
-                            &:last-child {
-                                .text {
-                                    border-bottom-left-radius: 1.2em;
-                                    
-                                }
                             }
                         } 
                     }
@@ -159,14 +149,11 @@
                             text-align: right;
                             .text {
                                 background: inherit;
-                                //border: 1px solid lightgrey;
-                                border-bottom-left-radius: 1.2em;
-                                border-top-left-radius: 1.2em;
-                                background: rgb(216, 216, 216);
                                 color: black;
                                 font-weight: 600;
                                 margin: 0.15em 0;
                                 transform-origin: bottom right;
+
                             }
                             .time {
                                 right: 0;
@@ -176,17 +163,15 @@
                             }
                             .rel-q {
                                 .text {
-                                    border-radius: 1.2em;
                                     line-height: 1.25;
                                     font-size: 0.8em;
                                     box-shadow: none;
                                     background: transparent;
                                     color: #3e2723;
                                     border: 1px solid lightgrey;
-                                    border-radius: 0.5em;
-                                    border-top-right-radius: 0.5em;
-                                    border-bottom-right-radius: 0.5em !important;
+                                    border-radius: 0.8em;
                                     transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                                    background: white;
                                     &:hover {
                                         background: white;
                                     }
@@ -200,16 +185,6 @@
                                     height: 0.8em;
                                 }
                                 
-                            }
-                            &:first-child {
-                                .text {
-                                    border-top-right-radius: 1.2em;
-                                }
-                            }
-                            &:last-child {
-                                .text {
-                                    border-bottom-right-radius: 1.2em;
-                                }
                             }
                         }
                     }
