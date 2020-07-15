@@ -146,38 +146,19 @@
                 button {
                     min-width: 0;
                 }
-                .pin, .pinned {
+                .pin, .pinned, .open-next-to {
                     min-width: 0;
-                    padding: 0.1em;
+                    padding: 0.25em;
                     margin: 0.2em;
                     border-radius: 50%;
                     //background: #fff8e1;
                     svg {
                         stroke-width: 1px;
-                        width: 1.3em;
-                        height: 1.3em;
+                        width: 1.1em;
+                        height: 1.1em;
                         transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
                     }
                     &.pin {
-                        svg {
-                            stroke-width: 2px;
-                        }
-                    }
-                }
-                .open-next-to {
-                    min-width: 0;
-                    padding: 0.1em;
-                    margin: 0.2em;
-                    border-radius: 50%;
-                    //background: white;
-                    svg {
-                        color: #424242;
-                        width: 1.3em;
-                        height: 1.3em;
-                        stroke-width: 1px;
-                        transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
-                    }
-                    &.clicked {
                         svg {
                             stroke-width: 2px;
                         }
