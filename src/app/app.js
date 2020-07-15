@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 // matomo tracker
 const instance = createInstance({
     urlBase: 'https://a.theaiinstitute.ai/',
+    siteId: 8
 })
 
 let PARAMS = new URLSearchParams(window.location.search)
