@@ -46,7 +46,7 @@ const NewChat = (props) => {
     const [hints, setHints] = useState([])
 
     // matomo tracker
-    const { trackPageView, trackEvent } = useMatomo()
+    const { trackPageView, trackEvent, trackSiteSearch } = useMatomo()
 
     const askForHints = useRef(null)
     const input = useRef(null)
@@ -117,7 +117,8 @@ const NewChat = (props) => {
         setNewchat('')
         input.current.value = ''
 
-        trackEvent({ category: 'send-question', action: 'click-event' })
+        trackEvent({ category: 'send-question', action: 'click-event'})
+        trackSiteSearch({ category: 'question', keyword: newchat })
     }
 
     const handleKeyDown = (e) => {

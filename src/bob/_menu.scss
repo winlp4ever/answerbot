@@ -6,63 +6,44 @@
         width: 100%;
         right: 0;
         box-sizing: border-box;
-        padding: 1em 0.5em;
-        border-radius: 0.8em;
-        //border-top-left-radius: 0.8em;
-        //border-top-right-radius: 0.8em;
+        //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+        //border-radius: 0.8em;
+        //border-bottom-left-radius: 0.8em;
+        //border-bottom-right-radius: 0.8em;
+        //overflow: hidden;
         .bob-menu-options {
+            //background: white;
             width: 100%;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             box-sizing: border-box;
-            padding: 0 0.5em;
-        }
-        .user-info {
-            width: 250px;
-            position: absolute;
-            bottom: 0em;
-            transform: translateY(100%);
-            left: 0.5em;
-            border-radius: 0.5em;
-            z-index: 100;
-            overflow: hidden;
-            background: white;
-            border: 1px solid lightgrey;
-            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
-            button {
-                border-radius: 0.2em;
-                padding: 0.2em;
-            }
+            padding: 1em 1em;
         }
         button {
             position: relative;
-            color: #bdbdbd;
+            color: #9e9ea7;
             min-width: 0;
-            padding: 0.5em;
-            border-radius: 1.5em;
+            padding: 0.6em;
+            border-radius: 2em;
             transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
             margin: auto 0.15em;
             animation: none;
-            box-shadow: 3px 3px 6px #cecece, 
-            -3px -3px 6px #ffffff;
             svg {
-                height: 1.5em ;
-                width: 1.5em ;
-                stroke-width: 1px;
-                stroke: grey;
+                height: 0.9em ;
+                width: 0.9em ;
+                //stroke-width: 1.5px;
+                //stroke: grey;
                 //fill: #424242;
                 
             }
             &.focus {
+                
+                background: #e8a566;
                 opacity: 1;                
-                box-shadow: inset 3px 3px 6px #cecece, 
-                inset -3px -3px 6px #ffffff;
                 svg {
-                    filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
-                    stroke: #2979ff;
-                    stroke-width: 1px;
-                    fill: #004ecb;
+                    //filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                    fill: whitesmoke;
                 }
                 .help-box {
                     color: #808080;

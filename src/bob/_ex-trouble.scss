@@ -6,14 +6,21 @@
             text-align: right;
             box-sizing: border-box;
             padding: 0.25em 0.5em;
+            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
             border-radius: 0.25em;
-            border: 1px solid rgb(221, 221, 221);
-            color: #b71c1c;
+            //border: 1px solid rgb(221, 221, 221);
+            color: white;
             margin-top: 0.25em;
+            background: #d55036;
+            line-height: 1.5;
             svg {
-                height: 1.5em;
-                width: 1.5em;
+                stroke: white;
+                //fill: white;
+                height: 1.2em;
+                width: 1.2em;
                 vertical-align: middle;
+                margin-bottom: 0.25em;
+                margin-right: 0.25em;
             }
         }
     }

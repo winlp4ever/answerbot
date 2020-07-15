@@ -30,7 +30,7 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
                 onClick={_ => changeTab(id)}
             >
                 <HelpBox msg={o.name} />
-                {id == activeTab ? o.icon: o.inActiveIcon}
+                {o.icon}
             </Button>)}
         </div>: null}
     </div>

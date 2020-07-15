@@ -76,7 +76,7 @@
                             padding: 0.35em 1em;
                             border-radius: 0.25em;
                             font-size: 0.8em;
-                            max-width: 75%;
+                            max-width: 100%;
                             overflow-wrap: break-word;
                             transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
                             line-height: 1.25;
@@ -90,6 +90,7 @@
                                 width: 1em;
                                 vertical-align: middle;
                                 margin-right: 0.25em;
+                                margin-bottom: 0.25em;
                             }
                             &:hover + .time {
                                 display: block;
@@ -110,22 +111,13 @@
                     &.me {
                         .chat {
                             .text {
-                                background: #2962ff;
+                                background: #4f6cdf;
                                 color: whitesmoke;
-                                border-bottom-right-radius: 1.2em;
-                                border-top-right-radius: 1.2em;  
+                                border-bottom-right-radius: 0.8em;
+                                border-bottom-left-radius: 0.8em;
+                                border-top-right-radius: 0.8em;  
                                 margin-bottom: 0.5em;
-                            }
-                            &:first-child {
-                                .text {
-                                    border-top-left-radius: 1.2em;
-                                }
-                            }
-                            &:last-child {
-                                .text {
-                                    border-bottom-left-radius: 1.2em;
-                                    
-                                }
+                                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
                             }
                         } 
                     }
@@ -155,38 +147,39 @@
                                 opacity: 0.7;
                             }
                         }
+                        .chat {
+                            span {
+                                padding-right: 0;
+                            }
+                        }
                         .chat, .rating, .related-questions {
                             text-align: right;
                             .text {
-                                background: inherit;
-                                //border: 1px solid lightgrey;
-                                border-bottom-left-radius: 1.2em;
-                                border-top-left-radius: 1.2em;
-                                background: rgb(216, 216, 216);
-                                color: black;
-                                font-weight: 600;
+                                background: transparent;
+                                color: #212121;
+                                //font-weight: 600;
                                 margin: 0.15em 0;
                                 transform-origin: bottom right;
+                                padding-right: 0;
+
                             }
                             .time {
                                 right: 0;
                             }
                             .rel {
-                                background: rgb(250, 250, 250);
+                                //background: rgb(250, 250, 250);
                             }
                             .rel-q {
                                 .text {
-                                    border-radius: 1.2em;
-                                    line-height: 1.25;
+                                    line-height: 1.5;
                                     font-size: 0.8em;
-                                    box-shadow: none;
+                                    box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.05), 0 0.6px 1.8px 0 rgba(0,0,0,.04);
                                     background: transparent;
                                     color: #3e2723;
-                                    border: 1px solid lightgrey;
-                                    border-radius: 0.5em;
-                                    border-top-right-radius: 0.5em;
-                                    border-bottom-right-radius: 0.5em !important;
+                                    //border: 1px solid lightgrey;
+                                    border-radius: 0.25em;
                                     transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                                    background: #f0f1f3;
                                     &:hover {
                                         background: white;
                                     }
@@ -200,16 +193,6 @@
                                     height: 0.8em;
                                 }
                                 
-                            }
-                            &:first-child {
-                                .text {
-                                    border-top-right-radius: 1.2em;
-                                }
-                            }
-                            &:last-child {
-                                .text {
-                                    border-bottom-right-radius: 1.2em;
-                                }
                             }
                         }
                     }
