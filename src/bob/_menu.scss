@@ -6,13 +6,13 @@
         width: 100%;
         right: 0;
         box-sizing: border-box;
-        box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+        //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
         //border-radius: 0.8em;
         //border-bottom-left-radius: 0.8em;
         //border-bottom-right-radius: 0.8em;
-        overflow: hidden;
+        //overflow: hidden;
         .bob-menu-options {
-            background: white;
+            //background: white;
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -22,28 +22,28 @@
         }
         button {
             position: relative;
-            color: #bdbdbd;
+            color: #9e9ea7;
             min-width: 0;
-            padding: 0.5em;
-            border-radius: 1.5em;
+            padding: 0.6em;
+            border-radius: 2em;
             transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
             margin: auto 0.15em;
             animation: none;
             svg {
-                height: 1.5em ;
-                width: 1.5em ;
-                stroke-width: 1.5px;
-                stroke: grey;
+                height: 0.9em ;
+                width: 0.9em ;
+                //stroke-width: 1.5px;
+                //stroke: grey;
                 //fill: #424242;
                 
             }
             &.focus {
+                
+                background: #e8a566;
                 opacity: 1;                
                 svg {
-                    filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
-                    stroke: #2979ff;
-                    stroke-width: 1.5px;
-                    fill: #004ecb;
+                    //filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                    fill: whitesmoke;
                 }
                 .help-box {
                     color: #808080;

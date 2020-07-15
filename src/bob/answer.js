@@ -16,7 +16,7 @@ import StarIcon from '../../imgs/bob/star.svg'
 import _StarIcon from '../../imgs/bob/_star.svg'
 import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
-import {ArrowLeftCircle, Bookmark, Star} from 'react-feather'
+import {Maximize2, Bookmark, Star} from 'react-feather'
 
 const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
@@ -104,7 +104,7 @@ const Answer = ({content, socket, setIns}) => {
                 <Button className={'open-next-to' + (foc ? ' clicked': '')} 
                     onClick={handleClick}
                 >
-                    <ArrowLeftCircle />
+                    <Maximize2 />
                 </Button>
             </div>
             

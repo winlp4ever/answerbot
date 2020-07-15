@@ -4,13 +4,13 @@
             width: 105%;
             position: relative;
             transform: translateX(-0.8em);
-            background: white;
+            background: #f3c295;
             font-size: 0.8em;
-            color: black;
-            //border: 1px solid rgb(182, 182, 182);
+            color: #424242;
+            //border: 1px solid transparent;
             border-radius: 0.8em;
             box-sizing: border-box;
-            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
             padding: 0.5em;
             margin: 0.2em 0;
             display: flex;
@@ -23,12 +23,15 @@
                 margin: 0.2em 0;
             }
             &:hover {
-                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                .taskbar {
+                    opacity: 0.5;
+                }
             }
             &.foc {
                 background: white;
-                box-shadow: none;
-                box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+                //box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+                //border: 1px solid lightgrey;
             }
             
             .answer-text {
@@ -42,6 +45,7 @@
                 max-width: 100%;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 700;
+                
                 p {
                     word-break: break-word !important;
                     display: inline-block;
@@ -124,14 +128,21 @@
             }
             .taskbar {
                 //width: 100%;
+                position: absolute;
+                top: 0.25em;
+                right: 0.5em;
+                background: whitesmoke;
                 text-align: center;
                 box-sizing: border-box;
-                border-right: 1px solid lightgrey;
+                border-radius: 0.25em 0.5em;
                 padding: 0em 0.25em;
                 z-index: 100;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+                opacity: 0;
+                transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+                &:hover {
+                    opacity: 1;
+                }
                 button {
                     min-width: 0;
                 }

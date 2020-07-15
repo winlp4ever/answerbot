@@ -9,7 +9,9 @@ import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
 import Button from '@material-ui/core/Button'
-
+import HistoryRoundedIcon from '@material-ui/icons/HistoryRounded';
+import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
+import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 // import style file
 import './_bob.scss';
 
@@ -23,28 +25,24 @@ import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
-import ChatIcon from '../../imgs/bob/chat.svg'
 import CloseIcon from '../../imgs/bob/close.svg'
-import { Grid, Clock } from 'react-feather';
+import { Minus } from 'react-feather';
 
 const Options = [
     {
-        icon: <ChatIcon/>,
-        inActiveIcon: <ChatIcon/>,
+        icon: <QuestionAnswerRoundedIcon/>,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
-        icon: <Clock />,
-        inActiveIcon: <Clock />,
+        icon: <HistoryRoundedIcon />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
     },
     {
-        icon: <Grid />,
-        inActiveIcon: <Grid />,
+        icon: <DashboardRoundedIcon />,
         cl: 'view-explore',
         view: (props) => <News {...props} />,
         name: 'explorer'
@@ -173,7 +171,7 @@ export default class Bob extends Component {
                     <div className='bob-taskbar'>
                         
                         <Button onClick={this.toggleMode}>
-                            <CloseIcon />
+                            <Minus />
                         </Button>
                     </div>
                     {this.context.user.userid? <V.view {...props}/>: null}

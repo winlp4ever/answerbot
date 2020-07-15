@@ -3,7 +3,7 @@ import {postForData} from '../utils';
 
 import Actions, {postActionMsg} from './actions'
 import './_ex-trouble.scss'
-import ErrIcon from '../../imgs/bob/err.svg'
+import {AlertTriangle} from 'react-feather'
 
 const ErrMsg = ({msg}) => {
     if (msg) 
@@ -42,7 +42,7 @@ const ExTrouble = ({content}) => {
             <span 
                 className='err-msg' 
             > 
-                <ErrIcon/>
+                <AlertTriangle/>
                 {content.text}
             </span>
         </div>: <div className='err-msgs'>
