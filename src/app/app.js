@@ -34,7 +34,7 @@ export default class App extends Component {
         user: {
             username: '',
             email: '',
-            userid: parseInt(PARAMS.get('user')) || 0,
+            userid: parseInt(PARAMS.get('user')) || -1,
             exerciseid: parseInt(PARAMS.get('exercice')) || 0,
             level: 'Master2',
             history: [],
@@ -60,6 +60,8 @@ export default class App extends Component {
     }
 
     render() {
+        if (this.state.user.userid == -1) return null;
+
         const user = {
             user: this.state.user,
             updateUser: this.updateUser
@@ -70,8 +72,7 @@ export default class App extends Component {
                 <userContext.Provider value={user}>
                     <Bob colorMode={this.state.user.colorMode}/>
                 </userContext.Provider>
-            </MatomoProvider>
-            
+            </MatomoProvider>  
         )
     }
 }
