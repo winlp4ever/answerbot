@@ -46,7 +46,7 @@ const ExTrouble = ({content}) => {
                 {content.text}
             </span>
         </div>: <div className='err-msgs'>
-            {content.answer.map((m, id) => <ErrMsg msg={m.error_code_message} key={id}/>
+            {content.answer.map((m, id) => <AlertTriangle msg={m.error_code_message} key={id}/>
             )}
         </div>}
     </div>
