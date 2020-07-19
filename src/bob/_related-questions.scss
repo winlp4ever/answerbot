@@ -1,0 +1,42 @@
+.related-questions {
+    .rel {
+        //background: rgb(250, 250, 250);
+    }
+    .rel-q {
+        .text {
+            margin: 0;
+            min-width: 0;
+            padding: 0.2em 0.5em;
+            text-transform: none;
+            letter-spacing: unset;
+            line-height: 1.25;
+            font-size: 0.9em;
+            background: transparent;
+            color: #3e2723;
+            transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
+            span {
+                padding: 0 !important;
+            }
+            &:hover {
+                a {
+                    color: #1976d2;
+                }
+            }
+            a {
+                color: inherit;
+            }
+        }
+        svg {
+            margin: 0 0.2em;
+            width: 0.8em;
+            height: 0.8em;
+        }
+    }
+    .see-more {
+        //font-weight: 600;
+        letter-spacing: unset;
+        text-transform: unset;
+        color: #0d47a1 !important;
+        font-size: 1em;
+    }
+}
