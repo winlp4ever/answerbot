@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import GotoIcon from '../../imgs/bob/goto.svg'
 import RelatedIcon from '../../imgs/bob/related.svg'
 
+import './_related-questions.scss'
+
 const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false)
     const [msg, setMsg] = useState('')
@@ -49,24 +51,28 @@ const RelatedQuestions = ({qs, socket}) => {
         </span>
         {viewRel? <div>
             {qs.map((q, id) => <div className='rel-q' key={id}>
-                <span 
+                <Button 
                     className='text' 
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
                     <GotoIcon />
-                </span>
+                </Button>
             </div>)}
         </div>: <div>
             {qs.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
-                <span 
+                <Button 
                     className='text' 
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
                     <GotoIcon />
-                </span>
+                </Button>
             </div>)}
+            <Button className='text see-more'
+                onClick={toggleRel} >
+                Voir plus ...
+            </Button>
         </div>}
     </div>
 }

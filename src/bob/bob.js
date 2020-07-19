@@ -25,29 +25,37 @@ import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
-import CloseIcon from '../../imgs/bob/close.svg'
+import ChatIcon from '../../imgs/bob/chat.svg'
+import BookmarkHistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import { Minus } from 'react-feather';
+
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const Options = [
     {
-        icon: <QuestionAnswerRoundedIcon/>,
+        icon: <ChatIcon/>,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
-        icon: <HistoryRoundedIcon />,
+        icon: <BookmarkHistoryIcon />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
-    },
-    {
-        icon: <DashboardRoundedIcon />,
-        cl: 'view-explore',
-        view: (props) => <News {...props} />,
-        name: 'explorer'
-    },
+    }
 ]
+
+const PageTrack = (props) => {
+    const { trackPageView } = useMatomo()
+
+    useEffect(() => {
+        let st = performance.now()
+        trackPageView()
+        return () => {}
+    }, [])
+    return null
+}
 
 export default class Bob extends Component {
     static contextType = userContext;
@@ -88,7 +96,6 @@ export default class Bob extends Component {
     componentDidMount () {
         this.socket.on('bob-msg', msg => {
             if (msg.conversationID == this.context.user.userid) {
-                console.log(msg)
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 // update state
@@ -168,6 +175,7 @@ export default class Bob extends Component {
                 timeout={350}
             >
                 <div className='bob maximal'>
+                    <PageTrack />
                     <div className='bob-taskbar'>
                         
                         <Button onClick={this.toggleMode}>

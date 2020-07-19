@@ -74,10 +74,22 @@ var chats = {};
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
-    console.log(`${count} user connected with id: ${socket.id}`);
+    console.log({
+        connection_id: socket.id,
+        type: 'new-connection'
+    })
+    console.log({
+        total: count
+    })
     socket.on('disconnect', function(){
         count --;
-        console.log(`1 user disconnected, rest ${count}`);
+        console.log({
+            connection_id: socket.id, 
+            type: 'disconnect'
+        });
+        console.log({
+            total: count
+        })
     });
 
     // chatbot
@@ -249,6 +261,8 @@ app.post('/post-req-answer', (req, res) => {
 })
 
 app.post('/post-asked-questions', (req, res) => {
+    // if userid == -1, which means it's an anonymous user, then return
+    if (req.body.userid == -1) return
     const query = `
         select * 
         from bob_history

@@ -15,6 +15,7 @@ import Bob from '../bob/bob';
 
 // third party imports
 import Cookies from 'js-cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 // matomo tracker
 const instance = createInstance({
@@ -45,7 +46,9 @@ export default class App extends Component {
         colorMode: 0
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        
+    }
 
     updateUser =  (info) => {
         this.setState({user: info});
