@@ -88,27 +88,17 @@ const NewChat = (props) => {
     }
 
     const applyHint = (h) => {
-        const nc = {
-            time: getCurrentTime(true),
-            user: user,
-            type: 'chat',
-            text: h
-        }
-        props.socket.emit('ask-bob', {
-            chat: nc,
-            conversationID: user.userid
-        })
-        setNewchat('')
-        input.current.value = ''
+        send(h)
     }
 
-    const send = () => {
-        if (newchat == '') return
+    const send = (msg) => {
+        if (msg == undefined) msg = newchat
+        if (msg == '') return
         const nc = {
             time: getCurrentTime(true),
             user: user,
             type: 'chat',
-            text: newchat
+            text: msg
         }
         props.socket.emit('ask-bob', {
             chat: nc,
@@ -117,8 +107,8 @@ const NewChat = (props) => {
         setNewchat('')
         input.current.value = ''
 
-        trackEvent({ category: 'send-question', action: 'click-event'})
-        trackSiteSearch({ category: 'question', keyword: newchat })
+        trackEvent({ category: 'send-question', action: 'click-event', uid: user.userid })
+        trackSiteSearch({ category: 'question', keyword: newchat, uid: user.userid })
     }
 
     const handleKeyDown = (e) => {
@@ -159,7 +149,7 @@ const NewChat = (props) => {
             onFocus={_ => setFocus(true)}
             onBlur={_ => setFocus(false)}
         />
-        <Button onClick={send} ref={sending}>
+        <Button onClick={_ => send()} ref={sending}>
             <SendIcon />
         </Button>
     </div>
