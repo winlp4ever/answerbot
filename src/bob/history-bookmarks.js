@@ -18,8 +18,6 @@ const QuestionReq = ({q}) => {
     const [answer, setAnswer] = useState('')
 
     const retrieveAnswer = async () => {
-        console.log('yay this is qid')
-        console.log(q.id)
         let data = await postForData('/post-req-answer', {
             qid: q.id
         })
