@@ -9,7 +9,6 @@ import {useInterval, getCurrentTime, postForData} from '../utils'
 
 import SendIcon from '../../imgs/bob/send.svg'
 import io from 'socket.io-client'
-var cnt = 0
 
 import './_new-chat.scss'
 
@@ -88,10 +87,20 @@ const NewChat = (props) => {
     }
 
     const applyHint = (h) => {
+        /**
+         * Apply hint and send
+         * Params:
+         *      h: str - hint
+         */
         send(h)
     }
 
     const send = (msg) => {
+        /**
+         * Send user's message to Bob
+         * params:
+         *     msg: string - user's message 
+         */
         if (msg == undefined) msg = newchat
         if (msg == '') return
         const nc = {
@@ -107,8 +116,15 @@ const NewChat = (props) => {
         setNewchat('')
         input.current.value = ''
 
-        trackEvent({ category: 'send-question', action: 'click-event', uid: user.userid })
-        trackSiteSearch({ category: 'question', keyword: newchat, uid: user.userid })
+        // retrieve user id, if anonymous, then retrieve the hex userid from cookies
+        let id_ = user.userid.toString(16)
+        if (user.userid == -1) {
+            if (Cookies.get('hex-anonymous-user-id') == undefined) 
+                Cookies.set('hex-anonymous-user-id', uuidv4(), { expires: 3 }) 
+            id_ = Cookies.get('hex-anonymous-user-id')
+        }
+        trackEvent({ category: 'send-question', action: 'click-event', _id: id_ })
+        trackSiteSearch({ category: 'question', keyword: newchat, _id: id_ })
     }
 
     const handleKeyDown = (e) => {
