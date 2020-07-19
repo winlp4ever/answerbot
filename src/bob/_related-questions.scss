@@ -34,9 +34,16 @@
     }
     .see-more {
         //font-weight: 600;
+        margin: 0;
+        min-width: 0;
+        padding: 0.2em 0.5em;
+        line-height: 1.25;
         letter-spacing: unset;
         text-transform: unset;
         color: #0d47a1 !important;
         font-size: 1em;
+        span {
+            padding: 0 !important;
+        }
     }
 }

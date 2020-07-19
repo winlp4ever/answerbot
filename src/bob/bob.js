@@ -25,28 +25,23 @@ import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
-import CloseIcon from '../../imgs/bob/close.svg'
+import ChatIcon from '../../imgs/bob/chat.svg'
+import BookmarkHistoryIcon from '../../imgs/bob/bookmark-history.svg'
 import { Minus } from 'react-feather';
 
 const Options = [
     {
-        icon: <QuestionAnswerRoundedIcon/>,
+        icon: <ChatIcon/>,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
-        icon: <HistoryRoundedIcon />,
+        icon: <BookmarkHistoryIcon />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
-    },
-    {
-        icon: <DashboardRoundedIcon />,
-        cl: 'view-explore',
-        view: (props) => <News {...props} />,
-        name: 'explorer'
-    },
+    }
 ]
 
 export default class Bob extends Component {
