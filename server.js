@@ -6,8 +6,9 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
-const http = require('http');
+//const http = require('http');
 const https = require('https')
+const {performance} = require('perf_hooks');
 
 const request = require('request')
 
@@ -31,8 +32,11 @@ var PORT = 5000;
 var mode = 'prod';
 if (process.argv.length < 3) mode = 'prod';
 if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
-    console.error('Wrong mode - only dev or prod is accepted!');
-    return;
+    console.error(JSON.stringify({
+        event: 'launching-script',
+        error: 'Wrong mode - only dev or prod is accepted!'
+    }))
+    process.exit(1)
 };
 mode = process.argv[2];
 if (mode == 'prod') {
@@ -89,6 +93,9 @@ io.on('connection', function(socket){
     // chatbot
     socket.on('ask-bob', msg => {
         io.emit('new-chat', msg);
+
+        let st = performance.now()
+
         request.post('http://localhost:6800/ask-bob', 
         {
             json: msg
@@ -102,6 +109,14 @@ io.on('connection', function(socket){
                 }))
                 return
             }
+
+            console.info(JSON.stringify({
+                event: 'ask-bob',
+                time: utils.getDate(),
+                responseRetrievalTimeMilliseconds: performance.now() - st,
+                userid: msg.conversationID
+            }))
+
             io.emit('bob-msg', body);
             if (body.chat.type == 'answer') if (body.chat.answer) {
                 const query = `
