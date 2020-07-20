@@ -5,7 +5,6 @@ import './_menu.scss';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import Auth from '../user-auth/user-auth';
 import { userContext } from '../user-context/user-context';
 
 const HelpBox = ({msg}) => {
