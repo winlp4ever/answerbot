@@ -31,8 +31,11 @@ var PORT = 5000;
 var mode = 'prod';
 if (process.argv.length < 3) mode = 'prod';
 if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
-    console.error('Wrong mode - only dev or prod is accepted!');
-    return;
+    console.error({
+        event: 'launching-script',
+        error: 'Wrong mode - only dev or prod is accepted!'
+    });
+    process.exit(1);
 };
 mode = process.argv[2];
 if (mode == 'prod') {
