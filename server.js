@@ -62,14 +62,9 @@ app.use(require('webpack-hot-middleware')(compiler));
 /** 
 * setup postgres for backend data services
 */
-const dbConfig = require('./db-credentials/config.js');
-const {Pool, Client} = require('pg');
-const pool = new Pool(dbConfig);
-const client = new Client(dbConfig);
-client.connect();
-
-// setup backend data for servicese
-var count = 0;
+const Handlers = new require('./eventHandlers').Handlers
+const EH =  new Handlers()
+var count = 0
 
 // websocket communication handlers
 io.on('connection', function(socket){
@@ -97,52 +92,30 @@ io.on('connection', function(socket){
         let st = performance.now()
 
         request.post('http://localhost:6800/ask-bob', 
-        {
-            json: msg
-        }, 
-        (error, response, body) => {
-            if (error) {
-                console.error(JSON.stringify({
+            {
+                json: msg
+            }, 
+            (error, response, body) => {
+                if (error) {
+                    console.error(JSON.stringify({
+                        event: 'ask-bob',
+                        error: error.stack,
+                        time: utils.getDate()
+                    }))
+                    return
+                }
+
+                console.info(JSON.stringify({
                     event: 'ask-bob',
-                    error: error.stack,
-                    time: utils.getDate()
+                    time: utils.getDate(),
+                    responseRetrievalTimeMilliseconds: performance.now() - st,
+                    userid: msg.conversationID
                 }))
-                return
-            }
 
-            console.info(JSON.stringify({
-                event: 'ask-bob',
-                time: utils.getDate(),
-                responseRetrievalTimeMilliseconds: performance.now() - st,
-                userid: msg.conversationID
-            }))
-
-            io.emit('bob-msg', body);
-            if (body.chat.type == 'answer') if (body.chat.answer) {
-                const query = `
-                    select * from bob_history_add_question ($1, $2, $3, $4);
-                `
-                const values = [body.conversationID, body.chat.answer.qid, body.chat, body.chat.original_question]
-                client.query(query, values, (err, res) => {
-                    if (err) {
-                        console.error(JSON.stringify({
-                            event: 'register-to-history', 
-                            error: err.stack,
-                            userid: body.conversationID,
-                            time: utils.getDate()
-                        }))
-                    } else {
-                        console.log(JSON.stringify({
-                            event: 'register-to-history', 
-                            status: 'ok', 
-                            question: body.chat.original_question,
-                            userid: body.conversationID,
-                            time: utils.getDate()
-                        }))
-                    }
-                })
+                io.emit('bob-msg', body);
+                (req, res) => EH.registerQuestionToHistory(body)
             }
-        })
+        )
     })
 });
 
@@ -160,166 +133,17 @@ app.get('*', (req, res, next) => {
     });
 });
 
-app.post('/submit-answer-rating', (req, res) => {
-    const query = 'update answer_temp set answer_rating=$1 where id=$2';
-    const values = [req.body.rating, req.body.answer_id]
-    client.query(query, values, (err, response) => {
-        if (err) {
-            console.error(JSON.stringify({
-                event: 'submit-answer-rating',
-                answer_id: req.body.answer_id,
-                error: err.stack,
-                time: utils.getDate()
-            }))
-            res.json({status: err.stack});
-        } else {
-            res.json({status: 'ok'});
-        }
-    })
-})
+app.post('/submit-answer-rating', (req, res) => EH.submitAnswerRating(req, res))
 
-app.post('/post-bob-msg', (req, res) => {
-    const query = `
-    select * 
-    from 
-        bob_message
-    inner join 
-        action_message
-    on bob_message.id = action_message.message_id
-    where action_message.action_id = $1
-    `
-    const values = [req.body.actionID]
-    client.query(query, values, (err, response) => {
-        if (err) {
-            res.json({status: err.stack});
-        } else {
-            res.json({status: 'ok', msg: response.rows[Math.floor(Math.random() * response.rows.length)].message_text});
-        }
-    })
-})
+app.post('/post-bob-msg', (req, res) => EH.postBobMsg(req, res))
 
-app.post('/post-asked-requests', (req, res) => {
-    request.post('http://localhost:6700/post-user-questions', {
-        json: {
-            userid: req.body.userid,
-        }
-        }, (error, response, body) => {
-        if (error) {
-            console.error(JSON.stringify({
-                url: 'http://localhost:6700/post-user-questions',
-                error: error.stack,
-                userid: req.body.userid,
-                time: utils.getDate()
-            }))
-            res.json({status: 1, err: error.stack})
-            return
-        }
-        console.log(JSON.stringify({
-            url: 'http://localhost:6700/post-user-questions',
-            userid: req.body.userid,
-            status: 'ok',
-            time: utils.getDate()
-        }))
-        res.json({status: 0, questions: body.questions})
-    })
-})
+app.post('/post-asked-requests', (req, res) => EH.postAskRequests(req, res))
 
-app.post('/post-req-answer', (req, res) => {
-    request.post('http://localhost:6700/post-answers', {
-        json: {
-            qid: req.body.qid
-        }
-        }, (error, response, body) => {
-        if (error) {
-            console.error(JSON.stringify({
-                url: 'http://localhost:6700/post-answers',
-                error: error.stack,
-                qid: req.body.qid,
-                time: utils.getDate()
-            }))
-            res.json({status: 1, err: error.stack})
-            return
-        }
-        request.post('http://localhost:6700/post-answer', {
-            json: {
-                aid: body.answers[0].id
-            }
-            }, (error_, response_, body_) => {
-            if (error_) {
-                console.error(JSON.stringify({
-                    url: 'http://localhost:6700/post-answers',
-                    error: error_.stack,
-                    aid: body.answers[0].id,
-                    time: utils.getDate()
-                }))
-                res.json({status: 1, err: error_.stack})
-                return
-            }
-            
-            res.json({status: 0, answer: body_.answer})
-        })
-    })
-})
+app.post('/post-req-answer', (req, res) => EH.postReqAnswer(req, res))
 
-app.post('/post-asked-questions', (req, res) => {
-    // if userid == -1, which means it's an anonymous user, then return
-    if (req.body.userid == -1) return
-    const query = `
-        select * 
-        from bob_history
-        where userid = $1 
-        order by date desc, id desc;
-    `
-    const values = [req.body.userid]
-    client.query(query, values, (err, response) => {
-        if (err) {
-            console.error(JSON.stringify({
-                event: 'post-asked-question',
-                error: err.stack,
-                userid: req.body.userid,
-                time: utils.getDate()
-            }))
-            res.json({status: err.stack});
-        } else {
-            console.log(JSON.stringify({
-                event: 'post-asked-question',
-                status: 'ok',
-                userid: req.body.userid,
-                time: utils.getDate()
-            }))
-            res.json({status: 'ok', questions: response.rows});
-        }
-    })
-})
+app.post('/post-asked-questions', (req, res) => EH.postAskedQuestions(req, res))
 
-app.post('/ask-teachers', (req, res) => {
-    request.post('http://localhost:6700/new-question', {
-            json: {
-                userid: req.body.userid,
-                question: req.body.q
-            }
-        }, (error, response, body) => {
-        if (error) {
-            console.error(JSON.stringify({
-                url: 'http://localhost:6700/new-question',
-                error: error,
-                userid: req.body.userid,
-                question: req.body.q,
-                time: utils.getDate()
-            }))
-            res.json({status: 1, err: error.stack})
-            return
-        }
-        console.log(JSON.stringify({
-            url: 'http://localhost:6700/new-question',
-            status: 'ok',
-            userid: req.body.userid,
-            question: req.body.q,
-            time: utils.getDate()
-        }))
-        res.json({status: 0})
-    })
-})
+app.post('/ask-teachers', (req, res) => EH.askTeachers(req, res))
 
 // on terminating the process
 process.on('SIGINT', _ => {
