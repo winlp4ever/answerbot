@@ -45,7 +45,10 @@ const server = new https.createServer({key: privateKey, cert: certificate}, app)
 const io = require('socket.io')(server, { wsEngine: 'ws',pingTimeout: 0, pingInterval: 500, origins: '*:*' });
 
 server.listen(PORT, () => {
-    console.log(`listening to port ${PORT}`)
+    console.log(JSON.stringify({
+        event: 'starting-server',
+        port: PORT
+    }))
 });
 app.use(
     middleware(compiler, options)
@@ -67,27 +70,21 @@ var count = 0;
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
-    console.log({
+    console.log(JSON.stringify({
         connection_id: socket.id,
-        type: 'new-connection',
-        time: utils.getDate()
-    })
-    console.log({
+        type: 'socketio-new-connection',
+        time: utils.getDate(),
         total_users: count,
-        time: utils.getDate()
-    })
+    }))
     socket.on('disconnect', function(){
         count --;
-        console.log({
+        console.log(JSON.stringify({
             connection_id: socket.id, 
-            type: 'disconnect',
-            time: utils.getDate()
-        });
-        console.log({
+            type: 'socketio-disconnect',
+            time: utils.getDate(),
             total_users: count,
-            time: utils.getDate()
-        })
-    });
+        }))
+    })
 
     // chatbot
     socket.on('ask-bob', msg => {
@@ -98,10 +95,11 @@ io.on('connection', function(socket){
         }, 
         (error, response, body) => {
             if (error) {
-                console.error({
+                console.error(JSON.stringify({
                     event: 'ask-bob',
-                    error: error.stack
-                })
+                    error: error.stack,
+                    time: utils.getDate()
+                }))
                 return
             }
             io.emit('bob-msg', body);
@@ -112,39 +110,23 @@ io.on('connection', function(socket){
                 const values = [body.conversationID, body.chat.answer.qid, body.chat, body.chat.original_question]
                 client.query(query, values, (err, res) => {
                     if (err) {
-                        console.error({
+                        console.error(JSON.stringify({
                             event: 'register-to-history', 
                             error: err.stack,
-                            userid: body.conversationID
-                        })
+                            userid: body.conversationID,
+                            time: utils.getDate()
+                        }))
                     } else {
-                        console.log({
+                        console.log(JSON.stringify({
                             event: 'register-to-history', 
                             status: 'ok', 
                             question: body.chat.original_question,
-                            userid: body.conversationID
-                        })
+                            userid: body.conversationID,
+                            time: utils.getDate()
+                        }))
                     }
                 })
             }
-        })
-    })
-    
-    socket.on('ask-for-hints-bob', msg => {
-        msg.socketid = socket.id;
-        io.emit('ask-for-hints-bob', msg);
-        let now = new Date().getTime()
-        console.info({
-            event: 'front->node', 
-            time_lapse: now - msg.timestamp
-        })
-    })
-    socket.on('bob-hints', msg => {
-        io.to(msg.socketid).emit('bob-hints', msg);
-        let now = new Date().getTime()
-        console.info({
-            event: 'py->node', 
-            time_lapse: now - msg.timestamp
         })
     })
 });
@@ -168,11 +150,12 @@ app.post('/submit-answer-rating', (req, res) => {
     const values = [req.body.rating, req.body.answer_id]
     client.query(query, values, (err, response) => {
         if (err) {
-            console.error ({
+            console.error(JSON.stringify({
                 event: 'submit-answer-rating',
                 answer_id: req.body.answer_id,
-                error: err.stack
-            })
+                error: err.stack,
+                time: utils.getDate()
+            }))
             res.json({status: err.stack});
         } else {
             res.json({status: 'ok'});
@@ -207,19 +190,21 @@ app.post('/post-asked-requests', (req, res) => {
         }
         }, (error, response, body) => {
         if (error) {
-            console.error({
+            console.error(JSON.stringify({
                 url: 'http://localhost:6700/post-user-questions',
                 error: error.stack,
-                userid: req.body.userid
-            })
+                userid: req.body.userid,
+                time: utils.getDate()
+            }))
             res.json({status: 1, err: error.stack})
             return
         }
-        console.log({
+        console.log(JSON.stringify({
             url: 'http://localhost:6700/post-user-questions',
             userid: req.body.userid,
-            status: 'ok'
-        })
+            status: 'ok',
+            time: utils.getDate()
+        }))
         res.json({status: 0, questions: body.questions})
     })
 })
@@ -231,11 +216,12 @@ app.post('/post-req-answer', (req, res) => {
         }
         }, (error, response, body) => {
         if (error) {
-            console.error({
+            console.error(JSON.stringify({
                 url: 'http://localhost:6700/post-answers',
                 error: error.stack,
-                qid: req.body.qid
-            })
+                qid: req.body.qid,
+                time: utils.getDate()
+            }))
             res.json({status: 1, err: error.stack})
             return
         }
@@ -245,11 +231,12 @@ app.post('/post-req-answer', (req, res) => {
             }
             }, (error_, response_, body_) => {
             if (error_) {
-                console.error({
+                console.error(JSON.stringify({
                     url: 'http://localhost:6700/post-answers',
                     error: error_.stack,
-                    aid: body.answers[0].id
-                })
+                    aid: body.answers[0].id,
+                    time: utils.getDate()
+                }))
                 res.json({status: 1, err: error_.stack})
                 return
             }
@@ -271,18 +258,20 @@ app.post('/post-asked-questions', (req, res) => {
     const values = [req.body.userid]
     client.query(query, values, (err, response) => {
         if (err) {
-            console.error({
+            console.error(JSON.stringify({
                 event: 'post-asked-question',
                 error: err.stack,
-                userid: req.body.userid
-            })
+                userid: req.body.userid,
+                time: utils.getDate()
+            }))
             res.json({status: err.stack});
         } else {
-            console.log({
+            console.log(JSON.stringify({
                 event: 'post-asked-question',
                 status: 'ok',
-                userid: req.body.userid
-            })
+                userid: req.body.userid,
+                time: utils.getDate()
+            }))
             res.json({status: 'ok', questions: response.rows});
         }
     })
@@ -296,32 +285,32 @@ app.post('/ask-teachers', (req, res) => {
             }
         }, (error, response, body) => {
         if (error) {
-            console.error({
+            console.error(JSON.stringify({
                 url: 'http://localhost:6700/new-question',
                 error: error,
                 userid: req.body.userid,
                 question: req.body.q,
                 time: utils.getDate()
-            })
+            }))
             res.json({status: 1, err: error.stack})
             return
         }
-        console.log({
+        console.log(JSON.stringify({
             url: 'http://localhost:6700/new-question',
             status: 'ok',
             userid: req.body.userid,
             question: req.body.q,
             time: utils.getDate()
-        })
+        }))
         res.json({status: 0})
     })
 })
 
 // on terminating the process
 process.on('SIGINT', _ => {
-    console.log({
+    console.log(JSON.stringify({
         event: 'close-server',
         time: utils.getDate()
-    });
+    }))
     process.exit();
 })
