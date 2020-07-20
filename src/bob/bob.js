@@ -9,9 +9,6 @@ import {CSSTransition} from 'react-transition-group';
 import $ from 'jquery';
 import Sound from 'react-sound';
 import Button from '@material-ui/core/Button'
-import HistoryRoundedIcon from '@material-ui/icons/HistoryRounded';
-import QuestionAnswerRoundedIcon from '@material-ui/icons/QuestionAnswerRounded';
-import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 // import style file
 import './_bob.scss';
 
@@ -20,7 +17,6 @@ import BobMenu from './menu';
 import Ask from './ask';
 import NewChat from './new-chat'
 import HistoryBookmarks from './history-bookmarks';
-import News from './news';
 import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
@@ -88,7 +84,7 @@ export default class Bob extends Component {
     _scrollToBottom = () => {
         if ($(".old-chats").length > 0) {
             $(".old-chats").animate({
-                scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 150
+                scrollTop: 1e10
             }, 500);
         }
     }

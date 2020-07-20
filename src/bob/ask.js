@@ -95,6 +95,16 @@ const ChatSegment = (props) => {
 }
 
 const Ask = (props) => {
+    let chatsRef = useRef(null)
+
+    useEffect(() => {
+        let $chats = $(findDOMNode(chatsRef.current))
+        $($chats).animate({
+            scrollTop: 1e10
+        }, 500);
+    }, [])
+
+
     let chatSegments = []
     let segment = []
     let currentUser = ''
@@ -109,9 +119,8 @@ const Ask = (props) => {
         segment.push(c)
     })
     if (segment) chatSegments.push(segment)
-
     return <div className='ask'>
-        <div className='old-chats'>
+        <div className='old-chats' ref={chatsRef}>
             {props.chats.length == 0? <Welcome />: null}
             {chatSegments.map((p, id) => <ChatSegment 
                 key={id} 

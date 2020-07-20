@@ -62,33 +62,30 @@ const client = new Client(dbConfig);
 client.connect();
 
 // setup backend data for servicese
-
-var usersPath = './users'
-
 var count = 0;
-var users = JSON.parse(fs.readFileSync(path.join(usersPath, 'users.json'))).users;
-var chats = {};
-
-
 
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
     console.log({
         connection_id: socket.id,
-        type: 'new-connection'
+        type: 'new-connection',
+        time: utils.getDate()
     })
     console.log({
-        total: count
+        total_users: count,
+        time: utils.getDate()
     })
     socket.on('disconnect', function(){
         count --;
         console.log({
             connection_id: socket.id, 
-            type: 'disconnect'
+            type: 'disconnect',
+            time: utils.getDate()
         });
         console.log({
-            total: count
+            total_users: count,
+            time: utils.getDate()
         })
     });
 
@@ -101,8 +98,10 @@ io.on('connection', function(socket){
         }, 
         (error, response, body) => {
             if (error) {
-                console.error(error)
-                res.json({status: 1, err: error.stack})
+                console.error({
+                    event: 'ask-bob',
+                    error: error.stack
+                })
                 return
             }
             io.emit('bob-msg', body);
@@ -113,9 +112,18 @@ io.on('connection', function(socket){
                 const values = [body.conversationID, body.chat.answer.qid, body.chat, body.chat.original_question]
                 client.query(query, values, (err, res) => {
                     if (err) {
-                        console.log(err.stack)
+                        console.error({
+                            event: 'register-to-history', 
+                            error: err.stack,
+                            userid: body.conversationID
+                        })
                     } else {
-                        console.log('ok')
+                        console.log({
+                            event: 'register-to-history', 
+                            status: 'ok', 
+                            question: body.chat.original_question,
+                            userid: body.conversationID
+                        })
                     }
                 })
             }
@@ -126,12 +134,18 @@ io.on('connection', function(socket){
         msg.socketid = socket.id;
         io.emit('ask-for-hints-bob', msg);
         let now = new Date().getTime()
-        console.log('front->node', now - msg.timestamp)
+        console.info({
+            event: 'front->node', 
+            time_lapse: now - msg.timestamp
+        })
     })
     socket.on('bob-hints', msg => {
         io.to(msg.socketid).emit('bob-hints', msg);
         let now = new Date().getTime()
-        console.log('py->node', now - msg.timestamp)
+        console.info({
+            event: 'py->node', 
+            time_lapse: now - msg.timestamp
+        })
     })
 });
 
@@ -149,38 +163,16 @@ app.get('*', (req, res, next) => {
     });
 });
 
-app.post('/login', (req, res) => {
-    console.log(req.body.username in users);
-    if (req.body.username in users) if (req.body.pass == users[req.body.username].password) {
-        let profile = JSON.parse(JSON.stringify(users[req.body.username]));
-        delete profile.password;
-        console.log({...profile, username: req.body.username});
-        res.json({...profile, username: req.body.username});
-        return;
-    }
-    res.json({err: 'wrong username or password'});
-})
-
-app.post('/get-user-data', (req, res) => {
-    res.json({username: req.body.username, color: users[req.body.username].color});                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-})
-
-app.post('/admin-verify', (req, res) => {
-    if (req.body.pass != '2311') res.json({answer: 'n'});
-    res.json({
-        answer: 'y'
-    })
-})
-
-app.post('/post-img', (req, res) => {
-    utils.uploadToS3(req.body.file, req.body.fn, msg => {res.json(msg)});
-})
-
 app.post('/submit-answer-rating', (req, res) => {
     const query = 'update answer_temp set answer_rating=$1 where id=$2';
     const values = [req.body.rating, req.body.answer_id]
     client.query(query, values, (err, response) => {
         if (err) {
+            console.error ({
+                event: 'submit-answer-rating',
+                answer_id: req.body.answer_id,
+                error: err.stack
+            })
             res.json({status: err.stack});
         } else {
             res.json({status: 'ok'});
@@ -208,14 +200,6 @@ app.post('/post-bob-msg', (req, res) => {
     })
 })
 
-app.post('/post-news', (req, res) => {
-    const query = 'web development';
-    utils.getNews(query, (ans)=> {
-        console.log(ans);
-        res.json(ans);
-    })
-})
-
 app.post('/post-asked-requests', (req, res) => {
     request.post('http://localhost:6700/post-user-questions', {
         json: {
@@ -223,12 +207,19 @@ app.post('/post-asked-requests', (req, res) => {
         }
         }, (error, response, body) => {
         if (error) {
-            console.error(error)
+            console.error({
+                url: 'http://localhost:6700/post-user-questions',
+                error: error.stack,
+                userid: req.body.userid
+            })
             res.json({status: 1, err: error.stack})
             return
         }
-        console.log(`statusCode: ${response.statusCode}`)
-        console.log(body)
+        console.log({
+            url: 'http://localhost:6700/post-user-questions',
+            userid: req.body.userid,
+            status: 'ok'
+        })
         res.json({status: 0, questions: body.questions})
     })
 })
@@ -240,7 +231,11 @@ app.post('/post-req-answer', (req, res) => {
         }
         }, (error, response, body) => {
         if (error) {
-            console.error(error)
+            console.error({
+                url: 'http://localhost:6700/post-answers',
+                error: error.stack,
+                qid: req.body.qid
+            })
             res.json({status: 1, err: error.stack})
             return
         }
@@ -250,7 +245,11 @@ app.post('/post-req-answer', (req, res) => {
             }
             }, (error_, response_, body_) => {
             if (error_) {
-                console.error(error_)
+                console.error({
+                    url: 'http://localhost:6700/post-answers',
+                    error: error_.stack,
+                    aid: body.answers[0].id
+                })
                 res.json({status: 1, err: error_.stack})
                 return
             }
@@ -272,8 +271,18 @@ app.post('/post-asked-questions', (req, res) => {
     const values = [req.body.userid]
     client.query(query, values, (err, response) => {
         if (err) {
+            console.error({
+                event: 'post-asked-question',
+                error: err.stack,
+                userid: req.body.userid
+            })
             res.json({status: err.stack});
         } else {
+            console.log({
+                event: 'post-asked-question',
+                status: 'ok',
+                userid: req.body.userid
+            })
             res.json({status: 'ok', questions: response.rows});
         }
     })
@@ -287,18 +296,32 @@ app.post('/ask-teachers', (req, res) => {
             }
         }, (error, response, body) => {
         if (error) {
-            console.error(error)
+            console.error({
+                url: 'http://localhost:6700/new-question',
+                error: error,
+                userid: req.body.userid,
+                question: req.body.q,
+                time: utils.getDate()
+            })
             res.json({status: 1, err: error.stack})
             return
         }
-        console.log(`statusCode: ${response.statusCode}`)
-        console.log(body)
+        console.log({
+            url: 'http://localhost:6700/new-question',
+            status: 'ok',
+            userid: req.body.userid,
+            question: req.body.q,
+            time: utils.getDate()
+        })
         res.json({status: 0})
     })
 })
 
 // on terminating the process
 process.on('SIGINT', _ => {
-    console.log('now you quit!');
+    console.log({
+        event: 'close-server',
+        time: utils.getDate()
+    });
     process.exit();
 })

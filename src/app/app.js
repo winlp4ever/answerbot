@@ -9,7 +9,6 @@ import {
 import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 
 // import other cpns
-import Auth from '../user-auth/user-auth';
 import { userContext } from '../user-context/user-context';
 import Bob from '../bob/bob';
 
