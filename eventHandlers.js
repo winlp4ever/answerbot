@@ -12,7 +12,11 @@ function Handlers () {
     this.utils = require('./utils')
 }
 
-
+Handlers.prototype.postAnswerRating = function (req, res) {
+    /**
+     * Post user answer rating
+     */
+}
 
 Handlers.prototype.submitAnswerRating = function (req, res) {
     /**

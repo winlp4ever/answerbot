@@ -67,6 +67,7 @@
                     .content {
                         max-width: calc(100% - 1em);
                     }
+                    
                     .chat, .rating, .related-questions {
                         position: relative;
                         box-sizing: border-box;
@@ -86,8 +87,8 @@
                         .text {
                             display: inline-block;
                             svg {
-                                height: 1em;
-                                width: 1em;
+                                height: 1.5em;
+                                width: 1.5em;
                                 vertical-align: middle;
                                 margin-right: 0.25em;
                                 margin-bottom: 0.25em;
@@ -150,6 +151,9 @@
                         .chat {
                             span {
                                 padding-right: 0;
+                            }
+                            .text {
+                                font-weight: 700;
                             }
                         }
                         .chat, .rating, .related-questions {

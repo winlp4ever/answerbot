@@ -145,7 +145,7 @@ class Responder:
         sol_id = -1
 
         if qs and qs[0]['score'] > 1.8:
-            ans = db.session.execute('select * from get_answer(%s)' % str(qs[0]['id'])).fetchone()
+            ans = db.session.execute('select * from _get_answer(%s)' % str(qs[0]['id'])).fetchone()
             if ans:
                 ans = dict(ans)
                 res = ans.copy()        
