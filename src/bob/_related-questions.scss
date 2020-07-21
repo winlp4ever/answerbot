@@ -6,11 +6,11 @@
         .text {
             margin: 0;
             min-width: 0;
-            padding: 0.2em 0.5em;
+            padding: 0em 0.5em;
             text-transform: none;
             letter-spacing: unset;
             line-height: 1.25;
-            font-size: 0.9em;
+            font-size: 1em;
             background: transparent;
             color: #3e2723;
             transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
@@ -30,6 +30,7 @@
             margin: 0 0.2em;
             width: 0.8em;
             height: 0.8em;
+            margin-top: 0.2em;
         }
     }
     .see-more {

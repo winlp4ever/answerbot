@@ -108,7 +108,7 @@ io.on('connection', function(socket){
                 console.info(JSON.stringify({
                     event: 'ask-bob',
                     time: utils.getDate(),
-                    responseRetrievalTimeMilliseconds: performance.now() - st,
+                    responseRetrievalTimeMilliseconds: parseInt(performance.now() - st),
                     userid: msg.conversationID
                 }))
 
