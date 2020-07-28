@@ -12,10 +12,7 @@ import './_ask-request.scss'
 const AskRequest = (props) => {
     const [wantToSend, setWantToSend] = useState(false)
     const [sent, setSent] = useState(false)
-    const [msg, setMsg] = useState(`Bonjour,
-Je voudrais savoir: 
-"${props.q}"
-Merci,`)
+    const [msg, setMsg] = useState(props.q)
     const [foc, setFoc] = useState(false)
     const user = useContext(userContext).user
 
@@ -42,7 +39,7 @@ Merci,`)
     </Button>
     return <div className={'ask-request' + (foc? ' focus': '')}>
         {!sent ? <div>
-            <h4>Mon message</h4>
+            <h4>Ma Question</h4>
             <TextareaAutosize 
                 onChange={handleChange}
                 defaultValue={msg}
