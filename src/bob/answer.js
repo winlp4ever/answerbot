@@ -9,6 +9,7 @@ import MdRender from '../markdown-render/markdown-render'
 import Actions, {postActionMsg} from './actions'
 import RelatedQuestions from './related-questions'
 import AskRequest from './ask-request'
+import {postForData} from '../utils'
 
 // import svgs
 import RatingIcon from '../../imgs/bob/rating.svg'
@@ -21,6 +22,12 @@ import {Maximize2, Bookmark, Star} from 'react-feather'
 const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
     const [evalMsg, setEvalMsg] = useState('')
+
+    const _retrieveRating = async () => {
+        let data = await postForData('/post-answer-rating', {
+
+        })
+    }
 
     const _retrieveMsg = async () => {
         setEvalMsg(await postActionMsg(Actions.EVALRESPONSE))
@@ -116,7 +123,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
         </div>}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
-        {showAnswer && <RateTheAnswer />}
+        {showAnswer && <RateTheAnswer uid={Us.user.userid} aid={content.answer.aid}/>}
         <AskRequest q={content.original_question}/>
     </div>
 }

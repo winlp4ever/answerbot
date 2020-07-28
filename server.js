@@ -46,7 +46,7 @@ if (mode == 'prod') {
 else compiler = webpack(devConfig);
 
 const server = new https.createServer({key: privateKey, cert: certificate}, app);
-const io = require('socket.io')(server, { wsEngine: 'ws',pingTimeout: 0, pingInterval: 500, origins: '*:*' });
+const io = require('socket.io')(server, { wsEngine: 'ws', pingTimeout: 0, pingInterval: 500, origins: '*:*' });
 
 server.listen(PORT, () => {
     console.log(JSON.stringify({
@@ -108,7 +108,7 @@ io.on('connection', function(socket){
                 console.info(JSON.stringify({
                     event: 'ask-bob',
                     time: utils.getDate(),
-                    responseRetrievalTimeMilliseconds: performance.now() - st,
+                    responseRetrievalTimeMilliseconds: parseInt(performance.now() - st),
                     userid: msg.conversationID
                 }))
 
