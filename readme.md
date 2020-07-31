@@ -32,7 +32,9 @@ sudo service elasticsearch status
 
 * On one terminal, type: `npm start`
 
-* Open another terminal, type `python nlp/qa-exchange.py`
+* Open another terminal, type `python nlp/qa-server.py`
+
+* Please launch the RASA server in parallel [](https://github.com/The-AI-Institute-Bob/bob-rasa-v2). You only need RASA NLU
 
 * Go to `https://localhost:5000/?exercice=1&user=3113` to see results (pay attention to the existence of query params)
 
