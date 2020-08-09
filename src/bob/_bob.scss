@@ -58,8 +58,8 @@
         box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
         box-sizing: border-box;
         padding: 0 0 0;
-        //border-radius: 0.8em;
-        background: #f8f8f8;
+        border-radius: 0.8em;
+        background: white;
         font-family: 'Nunito', sans-serif;
         font-size: 1.1em;
         display: flex;
@@ -83,31 +83,6 @@
             opacity: 0;
             transform: scale(0.75);
             transition: 250ms all cubic-bezier(0, 0, 0.2, 1);
-        }
-
-        .bob-taskbar {
-            display: flex;
-            width: 100%;
-            flex-direction: row;
-            justify-content: flex-end;
-            box-sizing: border-box;
-            padding: 0.5em 0.5em 0.5em;
-            button {
-                min-width: 0;
-                padding: 0.3em;
-                border-radius: 50%;
-                margin-left: 0.5em;
-                svg {
-                    width: 1.2em;
-                    height: 1.2em;
-                    path {
-                        fill: grey;
-                    }
-                }
-            }
-            .color-switch {
-                margin-right: auto;
-            }
         }
 
         .instant-answer {
@@ -141,25 +116,6 @@
                     border-left: 1.2em solid transparent;
                     border-top: 0.5em solid white;
                 }
-            }
-        }
-
-        .minimize-window {
-            min-width: 0;
-            position: absolute;
-            top: 0em;
-            right: 0.8em;
-            background: white;
-            opacity: 0.5;
-            transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
-            z-index: 10;
-            svg {
-                color: #424242;
-                font-size: 1em;
-            }
-            &:hover {
-                opacity: 1;
-                box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
             }
         }
         &:not(.minimal) {
