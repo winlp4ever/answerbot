@@ -31,10 +31,12 @@
                 stroke-width: 1px;
             }
             &.focus {                
-                opacity: 1;                
+                opacity: 1;   
+                background: rgb(241, 239, 248);          
                 svg {
                     //filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
-                    stroke: rgb(67, 44, 151);
+                    stroke: white;
+                    fill: rgb(67, 44, 151);
                 }
                 .help-box {
                     color: #808080;
