@@ -21,21 +21,19 @@ import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
-import ChatIcon from '../../imgs/bob/chat.svg'
-import BookmarkHistoryIcon from '../../imgs/bob/bookmark-history.svg'
-import { Minus } from 'react-feather';
+import { Clock, MessageCircle } from 'react-feather';
 
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const Options = [
     {
-        icon: <ChatIcon/>,
+        icon: <MessageCircle />,
         cl: 'view-ask',
         view: (props) => <Ask {...props} />,
         name: 'chat'
     },
     {
-        icon: <BookmarkHistoryIcon />,
+        icon: <Clock />,
         cl: 'view-bookmarks',
         view: (props) => <HistoryBookmarks {...props} />,
         name: 'history'
@@ -130,7 +128,6 @@ export default class Bob extends Component {
     }
 
     render() {
-        //if (!document.referrer.includes("3wa.fr")) return null
         let props = {
             socket: this.socket,
             chats: this.state.chats,
@@ -172,20 +169,23 @@ export default class Bob extends Component {
             >
                 <div className='bob maximal'>
                     <PageTrack />
-                    <div className='bob-taskbar'>
-                        
-                        <Button onClick={this.toggleMode}>
-                            <Minus />
-                        </Button>
-                    </div>
-                    {this.context.user.userid? <V.view {...props}/>: null}
                     <BobMenu 
                         options={Options} 
                         activeTab={this.state.tab}
                         changeTab={this.changeTab} 
                         toggleMode={this.toggleMode}
                     />
+                    {this.context.user.userid? <V.view {...props}/>: null}
                 </div>
+            </CSSTransition>
+
+            <CSSTransition 
+                in={this.state.minimal} 
+                unmountOnExit 
+                classNames='bob-onboard-msg' 
+                timeout={200}
+            >
+                <span className='bob-onboard-msg'>&#9996;Salut! Je suis ici pour vous aider</span>
             </CSSTransition>
         </div>
     }

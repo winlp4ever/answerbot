@@ -10,18 +10,10 @@
                 padding: 0.5em 1em;
                 background: transparent;
                 justify-content: space-between;
-                border-radius: 1.5em;
+                border-radius: 0;
                 transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
                 border: none;
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 0em;
-                    right: 5%;
-                    background: lightgrey;
-                    width: 90%;
-                    height: 1px;
-                }
+                border-top: 1px solid rgb(230, 230, 230);
                 textarea {
                     position: relative;
                     margin: 0 0.3em;
@@ -58,11 +50,10 @@
                         margin: auto;
                         height: 1.5em;
                         width: 1.5em;
-                        filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
+                        //filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 0,0.4));
                         animation: none;
-                        path {
-                            fill: #4f6cdf;
-                        }
+                        stroke: grey;
+                        stroke-width: 1px;
                     }
                     &.show-hints {
                         //background: #bbdefb;

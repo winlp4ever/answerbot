@@ -90,7 +90,7 @@
                                 height: 1.5em;
                                 width: 1.5em;
                                 vertical-align: middle;
-                                margin-right: 0.25em;
+                                margin-right: 0.5em;
                                 margin-bottom: 0.25em;
                             }
                             &:hover + .time {
@@ -150,7 +150,7 @@
                         }
                         .chat {
                             span {
-                                padding-right: 0;
+                                //padding-right: 0;
                             }
                             .text {
                                 font-weight: 700;
@@ -165,7 +165,7 @@
                                 margin: 0.15em 0;
                                 transform-origin: bottom right;
                                 padding-right: 0;
-
+                                //border: 1px solid lightgrey;
                             }
                             .time {
                                 right: 0;

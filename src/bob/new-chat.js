@@ -7,7 +7,7 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 import {useInterval, getCurrentTime, postForData} from '../utils'
 
-import SendIcon from '../../imgs/bob/send.svg'
+import {Send} from 'react-feather'
 import io from 'socket.io-client'
 
 import './_new-chat.scss'
@@ -166,7 +166,7 @@ const NewChat = (props) => {
             onBlur={_ => setFocus(false)}
         />
         <Button onClick={_ => send()} ref={sending}>
-            <SendIcon />
+            <Send className='send-icon'/>
         </Button>
     </div>
 }

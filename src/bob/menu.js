@@ -3,8 +3,7 @@ import React, { useState, useContext } from 'react'
 import './_menu.scss';
 
 import Button from '@material-ui/core/Button';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
+import { Minus } from 'react-feather'
 import { userContext } from '../user-context/user-context';
 
 const HelpBox = ({msg}) => {
@@ -31,6 +30,9 @@ const BobMenu = ({options, activeTab, changeTab, toggleMode}) => {
                 <HelpBox msg={o.name} />
                 {o.icon}
             </Button>)}
+            <Button className='minimize-window' onClick={toggleMode}>
+                <Minus />
+            </Button>
         </div>: null}
     </div>
 }

@@ -9,6 +9,9 @@ import ExpandIcon from '../../imgs/bob/expand.svg'
 import ClockIcon from '../../imgs/bob/clock.svg'
 import BmrkIcon from '../../imgs/bob/bmk.svg'
 
+import { HelpCircle, ArrowLeft, ArrowRight } from 'react-feather'
+import { Button } from '@material-ui/core'
+
 const StatusColors = {
     opened: '#ffeb3b',
     answered: '#82b1ff'
@@ -50,20 +53,12 @@ const QuestionReq = ({q}) => {
 const OldQ = (props) => {
     const [viewTime, setViewTime] = useState(false)
     const [focus, setFocus] = useState(false)
-    const [hover, setHover] = useState(false)
    
-    const handleFocus = () => {
+    const handleFocus = (e) => {
+        e.preventDefault()
         if (!focus) props.setInsight(props.q)
         else props.setInsight(null)
         setFocus(!focus)
-    }
-
-    const handleHover = () => {
-        if (!focus) {
-            if (hover) props.setInsight(null)
-            if (!hover) props.setInsight(props.q)
-        }
-        setHover(!hover)
     }
 
     const toggleViewTime = () => setViewTime(!viewTime)
@@ -73,10 +68,10 @@ const OldQ = (props) => {
         onMouseLeave={toggleViewTime}
     >
         {viewTime && <span className='time'>{props.q.datetime}</span>}
-        <span 
-            onClick={handleFocus}
-            onMouseEnter={handleHover} 
-            onMouseLeave={handleHover}
+        <span onClick={handleFocus} className={'view-resp' + (focus? ' foc': '')}>
+            {focus? <ArrowLeft/>:<HelpCircle/> }
+        </span>
+        <span             
             className='old-q'
         >
             {props.q.original_question}
