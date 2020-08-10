@@ -21,7 +21,7 @@ import AnswerInsights from './answer-insights';
 import IncomingMsg from '../../sounds/incoming-msg.mp3';
 // import svgs
 import BobAva from '../../imgs/bob/bob-transparent.svg'
-import { Clock, MessageCircle } from 'react-feather';
+import { Clock, MessageCircle, X } from 'react-feather';
 
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
@@ -49,6 +49,20 @@ const PageTrack = (props) => {
         return () => {}
     }, [])
     return null
+}
+
+const OnboardMsg = (props) => {
+    const [close, setClose] = useState(false)
+
+    const toggleClose = () => setClose(!close)
+
+    return <div className={'bob-onboard-msg' + (close? ' min': '')}>
+        {!close && <span className='close-onboard-msg' onClick={toggleClose}>
+            <X/>
+        </span>}
+        {!close? <span>&#9996;Salut! Je suis ici pour vous aider!!!</span>: 
+            <span onClick={toggleClose}>...</span>}
+    </div>
 }
 
 export default class Bob extends Component {
@@ -185,7 +199,7 @@ export default class Bob extends Component {
                 classNames='bob-onboard-msg' 
                 timeout={200}
             >
-                <span className='bob-onboard-msg'>&#9996;Salut! Je suis ici pour vous aider!!!</span>
+                <OnboardMsg/>
             </CSSTransition>
         </div>
     }
