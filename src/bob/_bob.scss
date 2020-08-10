@@ -168,5 +168,20 @@
         border-bottom-left-radius: 0.8em;
         border-bottom-right-radius: 0.2em;
         text-align: right;
+        //transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
+        overflow: hidden;
+        .close-onboard-msg {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            svg {
+                width: 0.8em;
+                height: 0.8em;
+                stroke: grey;
+            }
+        }
+        &.min {
+            width: 30px;
+        }
     }
 }
