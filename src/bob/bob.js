@@ -185,7 +185,7 @@ export default class Bob extends Component {
                 classNames='bob-onboard-msg' 
                 timeout={200}
             >
-                <span className='bob-onboard-msg'>&#9996;Salut! Je suis ici pour vous aider</span>
+                <span className='bob-onboard-msg'>&#9996;Salut! Je suis ici pour vous aider!!!</span>
             </CSSTransition>
         </div>
     }
