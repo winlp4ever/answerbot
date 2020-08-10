@@ -178,6 +178,15 @@ export default class Bob extends Component {
                     {this.context.user.userid? <V.view {...props}/>: null}
                 </div>
             </CSSTransition>
+
+            <CSSTransition 
+                in={this.state.minimal} 
+                unmountOnExit 
+                classNames='bob-onboard-msg' 
+                timeout={200}
+            >
+                <span className='bob-onboard-msg'>&#9996;Salut! Je suis ici pour vous aider</span>
+            </CSSTransition>
         </div>
     }
 }
