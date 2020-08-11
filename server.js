@@ -133,17 +133,18 @@ app.get('*', (req, res, next) => {
     });
 });
 
-app.post('/submit-answer-rating', (req, res) => EH.submitAnswerRating(req, res))
+/**
+ * Set up routers
+ */
+const routesPath = path.join(__dirname, 'routes')
 
-app.post('/post-bob-msg', (req, res) => EH.postBobMsg(req, res))
-
-app.post('/post-asked-requests', (req, res) => EH.postAskRequests(req, res))
-
-app.post('/post-req-answer', (req, res) => EH.postReqAnswer(req, res))
-
-app.post('/post-asked-questions', (req, res) => EH.postAskedQuestions(req, res))
-
-app.post('/ask-teachers', (req, res) => EH.askTeachers(req, res))
+fs.readdirSync(routesPath).forEach(filename => {
+    // get filepath from filename and routes path
+    let fp = path.join(routesPath, filename)
+    let R = require(fp)
+    let router = new R()
+    app.post(router.path, (req, res) => router.handler(req, res))
+})
 
 // on terminating the process
 process.on('SIGINT', _ => {

@@ -89,7 +89,7 @@ const History = (props) => {
         let bqs = await postForData('/post-asked-questions', {
             userid: user.userid
         })
-        if (bqs.status == 'ok') setAskedQuestions(bqs.questions)
+        if (bqs.status == 0) setAskedQuestions(bqs.questions)
         let tqs = await postForData('/post-asked-requests', {
             userid: user.userid
         })
