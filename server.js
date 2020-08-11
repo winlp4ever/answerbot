@@ -59,13 +59,7 @@ app.use(
 );
 app.use(require('webpack-hot-middleware')(compiler));
 
-/** 
-* setup postgres for backend data services
-*/
-const Handlers = new require('./eventHandlers').Handlers
-const EH =  new Handlers()
 var count = 0
-
 // websocket communication handlers
 io.on('connection', function(socket){
     count ++;
