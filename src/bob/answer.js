@@ -58,8 +58,7 @@ const RateTheAnswer = () => {
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
 
-    let u = content.datetime in Us.user.bookmarks
-    const [pin, setPin] = useState(u)
+    const [pin, setPin] = useState(false)
     const [foc, setFoc] = useState(false)
     const [msg, setMsg] = useState('')
     const [showAnswer, setShowAnswer] = useState(false)
@@ -103,9 +102,9 @@ const Answer = ({content, socket, setIns}) => {
         >
             
             <div className='taskbar'>
-                
                 <Button className={pin? 'pinned' : 'pin'} 
-                    onClick={togglePin}>
+                    onClick={togglePin}
+                >
                     <Bookmark/>
                 </Button>
                 <Button className={'open-next-to' + (foc ? ' clicked': '')} 

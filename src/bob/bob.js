@@ -70,7 +70,6 @@ export default class Bob extends Component {
     state = {
         hints: [],
         chats: [],
-        pins: [],
         tab: 0, 
         minimal: true,
         newResponseComing: false,

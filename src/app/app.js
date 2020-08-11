@@ -37,8 +37,6 @@ export default class App extends Component {
             userid: parseInt(PARAMS.get('user')) || -1,
             exerciseid: parseInt(PARAMS.get('exercice')) || 0,
             level: 'Master2',
-            history: [],
-            bookmarks: {},
             colorMode: 0
         },
         activeTab: 0,
