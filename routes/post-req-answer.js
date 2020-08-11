@@ -25,7 +25,7 @@ module.exports.prototype.handler = async function(req, res) {
             res.json({status: 1, err: error.stack})
             return
         }
-        this.request.post('http://localhost:6700/post-answer', {
+        request.post('http://localhost:6700/post-answer', {
             json: {
                 aid: msg.answers[0].id
             }

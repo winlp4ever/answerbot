@@ -72,7 +72,7 @@
                         position: relative;
                         box-sizing: border-box;
                         margin: 0em 0;
-                        span {
+                        .text {
                             border: 1px solid transparent;
                             padding: 0.35em 1em;
                             border-radius: 0.25em;
@@ -83,8 +83,6 @@
                             line-height: 1.25;
                             animation: chat-appear 0.25s cubic-bezier(0, 0, 0.2, 1);
                             transform-origin: bottom left;
-                        }
-                        .text {
                             display: inline-block;
                             svg {
                                 height: 1.5em;

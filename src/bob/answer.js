@@ -19,39 +19,62 @@ import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import {Maximize2, Bookmark, Star} from 'react-feather'
 
-const RateTheAnswer = () => {
+const RateTheAnswer = ({aid, uid}) => {
+    const user = useContext(userContext).user
     const [score, setScore] = useState(0)
+    const [submitted, setSubmitted] = useState(false)
     const [evalMsg, setEvalMsg] = useState('')
 
     const _retrieveRating = async () => {
         let data = await postForData('/post-answer-rating', {
-
+            uid: uid,
+            aid: aid
         })
+        if (data.status = 'ok') {
+            setScore(data.rating)
+        }
     }
 
     const _retrieveMsg = async () => {
         setEvalMsg(await postActionMsg(Actions.EVALRESPONSE))
     }
+
+    const submitRating = async (rating) => {
+        let data = await postForData('/submit-answer-rating', {
+            uid: uid,
+            aid: aid,
+            rating: rating
+        })
+        if (data.status == 0) {
+            setScore(rating)
+            setSubmitted(true)
+        }
+    }
     
     useEffect(() => {
+        _retrieveRating()
         _retrieveMsg()
     }, [])
 
     return <div className='rating'>
-        <span className='text'>
+        {!submitted? <span className='text'>
             <RatingIcon />
             <b>{evalMsg}</b>&nbsp;
-            <span className='rating-stars'>
-                {[1, 2, 3, 4, 5].map(i => <i 
-                    key={i}
-                    onClick={_ => setScore(i)}
-                    className={i <= score ? 'on': 'off'}
-                >
-                   {i <= score? <Star className='filled'/>:<Star />}
-                </i>)}
-            </span>
-            
-        </span>
+        </span>: <span
+            className='text'
+        >
+            <b>Merci pour votre evaluation!!! &#128170;</b>
+        </span>}
+        {!submitted && <span className='rating-stars'>
+            {(score > 0) && <span className='already-rate-msg'>Vous avez déjà noté cette réponse.</span>}
+            {[1, 2, 3, 4, 5].map(i => <i 
+                key={i}
+                onClick={_ => submitRating(i)}
+                className={i <= score ? 'on': 'off'}
+            >
+                {i <= score? <Star className='filled'/>:<Star />}
+            </i>)}
+        </span>}
     </div>
 }
 
