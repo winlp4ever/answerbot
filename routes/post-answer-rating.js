@@ -21,5 +21,7 @@ module.exports.prototype.handler = async function(req, res) {
             err: err.stack
         }))
         res.json({status: 1, err: err.stack})
+    } finally {
+        client.release()
     }
 }

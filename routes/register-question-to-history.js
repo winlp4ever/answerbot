@@ -35,6 +35,8 @@ module.exports.prototype.handler = async function(req, res) {
             res.json({status: 1, err: err.stack})
         } finally {
             client.release()
+            return
         }
     }
+    res.json({status: 1, err: 'Not a question!'})
 }
