@@ -1,0 +1,29 @@
+.answer-video {
+    position: relative;
+    margin-right: 0.5em;
+    border: 1px solid lightgrey;
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 0.5em;
+    .video-wrapper {
+        position: relative;
+    }
+    .react-player {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .controls {
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        opacity: 0;
+        transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
+    }
+    &:hover {
+        .controls {
+            opacity: 1;
+        }
+    }
+}
