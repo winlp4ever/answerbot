@@ -1,4 +1,6 @@
 .related-questions {
+    display: flex;
+    flex-direction: column;
     .rel {
         //background: rgb(250, 250, 250);
     }
@@ -6,21 +8,23 @@
         .text {
             margin: 0;
             min-width: 0;
-            padding: 0em 0.5em;
+            padding: 0.5em;
             text-transform: lowercase;
             letter-spacing: unset;
             line-height: 1.25;
-            font-size: 1em;
-            background: transparent;
+            font-size: 0.8em;
+            background: rgb(252, 252, 252);
+            float: right;
             color: #3e2723;
             transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
+            border: 1px solid lightgrey;
+            border-radius: 1.5em;
+            margin: 0.25em 0 auto 0.25em;
             span {
                 padding: 0 !important;
             }
             &:hover {
-                a {
-                    color: #1976d2;
-                }
+                background: whitesmoke;
             }
             a {
                 color: inherit;
@@ -35,14 +39,17 @@
     }
     .see-more {
         //font-weight: 600;
-        margin: 0;
+        margin: 0.25em 0;
         min-width: 0;
         padding: 0.2em 0.5em;
         line-height: 1.25;
         letter-spacing: unset;
         text-transform: unset;
         color: #0d47a1 !important;
-        font-size: 1em;
+        font-size: 0.8em;
+        float: right;
+        display: block;
+        margin-left: 50%;
         span {
             padding: 0 !important;
         }

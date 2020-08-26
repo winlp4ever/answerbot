@@ -18,6 +18,7 @@ import NewChat from './new-chat'
 import _StarIcon from '../../imgs/bob/_star.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import BobOutlined from '../../imgs/bob/bob-outlined.svg'
+import RelatedQuestions from './related-questions';
 
 class Typing extends Component {
     state = {
@@ -89,6 +90,8 @@ const ChatSegment = (props) => {
                     return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>
                 if (c.type == 'rating')
                    return <RateTheAnswer key={id} content={c} uid={user.userid} />
+                if (c.type == 'related-questions')
+                    return <RelatedQuestions key={id} content={c} socket={props.socket} />
                 {/**
                     if (c.type == 'exercise-err-message' || 'exercise-common-errs')
                     return <ExTrouble key={id} content={c} />

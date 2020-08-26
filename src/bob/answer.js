@@ -128,8 +128,7 @@ const Answer = ({content, socket, setIns}) => {
                 <Button className='see-more' onClick={handleClick}>...voir plus</Button>
             </span>
         </div>}
-        {/**<RelatedQuestions qs={content.related_questions} socket={socket}/>*/}
-        <AskRequest q={content.original_question}/>
+        {/**<AskRequest q={content.original_question}/>*/}
     </div>
 }
 

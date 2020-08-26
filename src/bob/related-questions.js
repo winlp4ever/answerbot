@@ -12,18 +12,8 @@ import RelatedIcon from '../../imgs/bob/related.svg'
 
 import './_related-questions.scss'
 
-const RelatedQuestions = ({qs, socket}) => {
+const RelatedQuestions = ({content, socket}) => {
     const [viewRel, setViewRel] = useState(false)
-    const [msg, setMsg] = useState('')
-    
-
-    const _retrieveMsg = async () => {
-        setMsg(await postActionMsg(Actions.RELATEDQUESTIONS))
-    }
-
-    useEffect(() => {
-        _retrieveMsg()
-    }, [])
 
     const user = useContext(userContext).user
     
@@ -41,37 +31,29 @@ const RelatedQuestions = ({qs, socket}) => {
             conversationID: user.userid
         })
     }
-    if (qs.length == 0) return null
+
     return <div className='related-questions'>
-        <span className={'text' + (viewRel? ' rel': '')}
-            onClick={toggleRel}
-        >
-            <RelatedIcon />
-            <b>{msg}</b>
-        </span>
         {viewRel? <div>
-            {qs.map((q, id) => <div className='rel-q' key={id}>
+            {content.related_questions.map((q, id) => <div className='rel-q' key={id}>
                 <Button 
                     className='text' 
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
-                    <GotoIcon />
                 </Button>
             </div>)}
         </div>: <div>
-            {qs.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
+            {content.related_questions.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
                 <Button 
                     className='text' 
                     onClick={_ => ask(q.question_text)}   
                 >
                     <a dangerouslySetInnerHTML={{__html: q.question_text}} />
-                    <GotoIcon />
                 </Button>
             </div>)}
             <Button className='text see-more'
                 onClick={toggleRel} >
-                Voir plus ...
+                View more ...
             </Button>
         </div>}
     </div>
