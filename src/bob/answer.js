@@ -19,8 +19,7 @@ import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import {Maximize2, Bookmark, Star} from 'react-feather'
 
-const RateTheAnswer = ({aid, uid}) => {
-    const user = useContext(userContext).user
+export const RateTheAnswer = ({content, uid}) => {
     const [score, setScore] = useState(0)
     const [submitted, setSubmitted] = useState(false)
     const [evalMsg, setEvalMsg] = useState('')
@@ -28,21 +27,17 @@ const RateTheAnswer = ({aid, uid}) => {
     const _retrieveRating = async () => {
         let data = await postForData('/post-answer-rating', {
             uid: uid,
-            aid: aid
+            aid: content.answer_object.answer.aid
         })
         if (data.status = 'ok') {
             setScore(data.rating)
         }
     }
 
-    const _retrieveMsg = async () => {
-        setEvalMsg(await postActionMsg(Actions.EVALRESPONSE))
-    }
-
     const submitRating = async (rating) => {
         let data = await postForData('/submit-answer-rating', {
             uid: uid,
-            aid: aid,
+            aid: content.answer_object.answer.aid,
             rating: rating
         })
         if (data.status == 0) {
@@ -53,20 +48,16 @@ const RateTheAnswer = ({aid, uid}) => {
     
     useEffect(() => {
         _retrieveRating()
-        _retrieveMsg()
     }, [])
 
     return <div className='rating'>
-        {!submitted? <span className='text'>
-            <RatingIcon />
-            <b>{evalMsg}</b>&nbsp;
-        </span>: <span
+        {!submitted? null: <span
             className='text'
         >
-            <b>Merci pour votre evaluation!!! &#128170;</b>
+            <b>Thank you for your feedback!!! &#128170;</b>
         </span>}
         {!submitted && <span className='rating-stars'>
-            {(score > 0) && <span className='already-rate-msg'>Vous avez déjà noté cette réponse.</span>}
+            {(score > 0) && <span className='already-rate-msg'>You have noted this response</span>}
             {[1, 2, 3, 4, 5].map(i => <i 
                 key={i}
                 onClick={_ => submitRating(i)}
@@ -83,21 +74,17 @@ const Answer = ({content, socket, setIns}) => {
 
     const [pin, setPin] = useState(false)
     const [foc, setFoc] = useState(false)
-    const [msg, setMsg] = useState('')
     const [showAnswer, setShowAnswer] = useState(false)
 
     const _retrieveMsg = async () => {
         if (content.text != '') {
             if (content.answer.fuzzy) {
-                setMsg(await postActionMsg(Actions.UNABLETOANSWER))
                 setShowAnswer(false)
             }
             else {
-                setMsg(await postActionMsg(Actions.ANSWER))
                 setShowAnswer(true)
             }
         } else {
-            setMsg(await postActionMsg(Actions.UNABLETOANSWER))
             setShowAnswer(false)
         }
     }
@@ -117,9 +104,6 @@ const Answer = ({content, socket, setIns}) => {
     }
 
     return <div>
-        <div className='chat'>
-            <span className='text'>{msg}</span>
-        </div>
         {showAnswer && <div 
             className={'answer' + (foc? ' foc': '')} 
         >
@@ -140,12 +124,11 @@ const Answer = ({content, socket, setIns}) => {
             <span 
                 className='answer-text' 
             > 
-                <MdRender source={content.text} />
+                <MdRender source={content.answer.answer_text.substr(0, 150)} />
                 <Button className='see-more' onClick={handleClick}>...voir plus</Button>
             </span>
         </div>}
-        <RelatedQuestions qs={content.related_questions} socket={socket}/>
-        {showAnswer && <RateTheAnswer uid={Us.user.userid} aid={content.answer.aid}/>}
+        {/**<RelatedQuestions qs={content.related_questions} socket={socket}/>*/}
         <AskRequest q={content.original_question}/>
     </div>
 }

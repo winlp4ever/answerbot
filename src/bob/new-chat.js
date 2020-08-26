@@ -35,8 +35,6 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     </div>
 }
 
-const socket = io()
-
 const NewChat = (props) => {
     const [newchat, setNewchat] = useState('')
     const [viewHints, setViewHints] = useState(true)

@@ -80,36 +80,49 @@ io.on('connection', function(socket){
     })
 
     // chatbot
-    socket.on('ask-bob', msg => {
+    socket.on('ask-bob', async msg => {
         io.emit('new-chat', msg);
 
         let st = performance.now()
+        try {
+            let data = await utils.postData('http://localhost:5005/webhooks/rest/webhook', {
+                message: msg.chat.text,
+                sender: msg.conversationID
+            })
 
-        request.post('http://localhost:6800/ask-bob', 
-            {
-                json: msg
-            }, 
-            (error, response, body) => {
-                if (error) {
-                    console.error(JSON.stringify({
-                        event: 'ask-bob',
-                        error: error.stack,
-                        time: utils.getDate()
-                    }))
-                    return
+            data.forEach(m => {
+                /**
+                 * transform rasa bob msg -> chat format
+                 */
+                let bobmsg = {
+                    conversationID: m.recipient_id,
+                    chat: {
+                        ...m.custom,
+                        user: {
+                            username: 'bob',
+                            userid: -1
+                        }
+                    }
                 }
 
-                console.info(JSON.stringify({
-                    event: 'ask-bob',
-                    time: utils.getDate(),
-                    responseRetrievalTimeMilliseconds: parseInt(performance.now() - st),
-                    userid: msg.conversationID
-                }))
+                if (m.text) {
+                    bobmsg.chat.text = m.text
+                }
+                if (m.custom == undefined) {
+                    bobmsg.chat.type = 'chat'
+                }
+                console.log(bobmsg)
+                io.emit('bob-msg', bobmsg)
+            })
 
-                io.emit('bob-msg', body);
-                (req, res) => EH.registerQuestionToHistory(body)
-            }
-        )
+        } catch (err) {
+            console.error(JSON.stringify({
+                event: 'ask-bob',
+                error: err.stack,
+                time: utils.getDate()
+            }))
+        }
+        //(req, res) => EH.registerQuestionToHistory(body)
     })
 });
 

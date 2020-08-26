@@ -5,6 +5,7 @@ const request = require('request');
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath(path.join(__dirname, 'aws-credentials', 'accessKeys.json'));
 const azure = require('./azure-credentials/config');
+const fetch = require('node-fetch')
 
 var uploadToS3 = function(file, fn, callback) {
     s3 = new AWS.S3({apiVersion: '2006-03-01'});
@@ -71,8 +72,21 @@ var getDate = function() {
     return today
 }
 
+var postData = async function (endpoint, dict={}) {
+    let response = await fetch(endpoint, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dict)
+    });
+    let data = await response.json();
+    return data;
+}
+
 module.exports = {
     uploadToS3: uploadToS3,
     getNews: getNews,
-    getDate: getDate
+    getDate: getDate,
+    postData: postData
 }

@@ -11,7 +11,7 @@ import Lottie from 'react-lottie'
 import TypingIcon from '../../imgs/typing.json'
 import Welcome from './welcome'
 import ExTrouble from './ex-trouble'
-import Answer from './answer'
+import Answer, {RateTheAnswer} from './answer'
 import NewChat from './new-chat'
 
 // import svgs
@@ -54,8 +54,8 @@ class Typing extends Component {
   
 const Chat = ({content}) => {
     return <div className='chat'>
-        <span className='text'>{content.text}</span>
-        <span className='time'>{content.time}</span>
+        <span className='text' dangerouslySetInnerHTML={{__html: content.text}}/>
+        {content.time ? <span className='time'>{content.time}</span>: null}
     </div>
 }
 
@@ -87,8 +87,12 @@ const ChatSegment = (props) => {
                 if (c.type == 'chat') return <Chat key={id} content={c}/>
                 if (c.type == 'answer') 
                     return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>
-                if (c.type == 'exercise-err-message' || 'exercise-common-errs')
+                if (c.type == 'rating')
+                   return <RateTheAnswer key={id} content={c} uid={user.userid} />
+                {/**
+                    if (c.type == 'exercise-err-message' || 'exercise-common-errs')
                     return <ExTrouble key={id} content={c} />
+                */}
             })}
         </div>
     </div>
