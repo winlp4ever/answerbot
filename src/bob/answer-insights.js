@@ -30,7 +30,7 @@ const AnswerInsights = ({content}) => {
     return <div className='answer-insights-container'>
         {content != null && 
             <div className='answer-insights'>
-            <FullAnswer src={content.answer.answer_paragraph} />
+            <FullAnswer src={content.answer.answer_paragraph ? content.answer.answer_paragraph: content.answer.answer_text} />
             {content.answer.orientation ? <div className='orientation'>
                 <h4><ExploreIcon />Explorer</h4>
                 <span>{content.answer.orientation}</span>
