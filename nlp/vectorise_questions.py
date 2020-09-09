@@ -8,9 +8,9 @@ mod = SentenceTransformer('distiluse-base-multilingual-cased')
 
 
 # read db-config file
-f = open('db-credentials/config.json')
-
+f = open('db-credentials/config.json', 'r')
 dbconfig = json.load(f)
+f.close()
 # connect to the server
 conn = psycopg2.connect("dbname=%s user=%s host=%s port=%d password=%s"
     % (dbconfig['database'], dbconfig['user'], dbconfig['host'], dbconfig['port'], dbconfig['password']))
