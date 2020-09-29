@@ -61,8 +61,6 @@ let certdir = 'ssl-certs';
 if (argv.certdir) {
   certdir = argv.certdir;
 }
-const privateKey = fs.readFileSync(path.join(certdir, 'privkey.pem'), 'utf8');
-const certificate = fs.readFileSync(path.join(certdir, 'cert.pem'), 'utf8');
 
 const app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
@@ -74,6 +72,8 @@ let server;
 if (argv.http) {
   server = http.createServer(app);
 } else {
+  const privateKey = fs.readFileSync(path.join(certdir, 'privkey.pem'), 'utf8');
+  const certificate = fs.readFileSync(path.join(certdir, 'cert.pem'), 'utf8');
   server = https.createServer({ key: privateKey, cert: certificate }, app);
 }
 const io = require('socket.io')(server, {
