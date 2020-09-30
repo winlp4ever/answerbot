@@ -4,8 +4,8 @@ module.exports = {
         "es2020": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "airbnb"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,5 +18,6 @@ module.exports = {
         "react"
     ],
     "rules": {
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     }
 };
