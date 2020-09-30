@@ -84,26 +84,13 @@ const utils = require('./utils');
 const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
 
-const { Handlers } = new require('./eventHandlers');
-
 if (mode === 'dev') {
   compiler = webpack(devConfig);
 } else {
   compiler = webpack(prodConfig);
 }
-server.listen(PORT, () => {
-  process.stdout.write(JSON.stringify({
-    event: 'starting-server',
-    port: PORT,
-  }));
-});
 
 const options = {};
-app.use(
-  middleware(compiler, options),
-);
-
-app.use(require('webpack-hot-middleware')(compiler));
 
 // set up server
 server.listen(PORT, () => {
