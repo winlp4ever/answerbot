@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node server.js prod",
-    "start": "nodemon server.js dev --ignore 'node_modules/*' --ignore 'public/*' --ignore 'src/*' --watch server.js --ignore 'src/*'",
+    "start": "nodemon server.js --dev --ignore 'node_modules/*' --ignore 'public/*' --ignore 'src/*' --watch server.js --ignore 'src/*'",
     "test": "jest --config ./jest.config.json --no-cache"
   },
   "keywords": [],
