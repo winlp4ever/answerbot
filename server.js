@@ -12,8 +12,8 @@ const {performance} = require('perf_hooks');
 
 const request = require('request')
 
-var privateKey  = fs.readFileSync(path.join('ssl-certs', 'key.key'), 'utf8');
-var certificate = fs.readFileSync(path.join('ssl-certs', 'cer.cer'), 'utf8');
+var privateKey  = fs.readFileSync(path.join('ssl-certs', 'privkey.pem'), 'utf8');
+var certificate = fs.readFileSync(path.join('ssl-certs', 'cert.pem'), 'utf8');
 
 const utils = require('./utils');
 
