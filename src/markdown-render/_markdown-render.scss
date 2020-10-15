@@ -20,4 +20,8 @@
         overflow-wrap: break-word;
         white-space: pre-line;
     }
+    p {
+        overflow-wrap: break-word;
+        white-space: unset;
+    }
 }
