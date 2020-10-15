@@ -19,7 +19,7 @@ class CodeBlock extends PureComponent {
         const value = (this.props.value) ? this.props.value: '';
         return (
             <SyntaxHighlighter language={language} style={tomorrowNightBlue}>
-                {value}
+                {value.replace(/\\/g, '')}
             </SyntaxHighlighter>
         );
     }

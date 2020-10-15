@@ -11,7 +11,7 @@ const FullAnswer = ({src}) => {
     return <div className='full-answer'>
         <h4>
             <A/> 
-            Réponse complète
+            Answer
         </h4>
         <MdRender source={src} />
     </div>
@@ -35,7 +35,7 @@ const AnswerInsights = ({content}) => {
             <div className='answer-insights'>
             <FullAnswer src={content.answer.text} />
             {content.answer.uri? <div className='source'>
-                <h4><ExploreIcon />Explorer</h4>
+                <h4>Explore Answer Link</h4>
                 <a href={content.answer.uri} target='_blank'>{content.answer.uri}</a>
             </div>: null}
         </div>}

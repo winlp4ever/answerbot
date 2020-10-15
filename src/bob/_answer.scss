@@ -11,7 +11,7 @@
             border-radius: 0.5em;
             box-sizing: border-box;
             box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-            padding: 0.5em;
+            padding: 0.5em 0.5em 2.5em;
             margin: 0.2em 0;
             display: flex;
             flex-direction: row;
@@ -24,32 +24,42 @@
             }
             .answer-text {
                 display: block;
-                box-sizing: border-box;
+                //box-sizing: border-box;
                 padding: 0.25em 0.5em;
-                line-height: 1.5;
-                white-space: pre-wrap;
-                overflow-wrap: break-word;
-                word-break: break-all;
-                max-width: 100%;
+                //line-height: 1.5;
+                /* hide text if it more than N lines  */
+                overflow: hidden;
+                /* for set '...' in absolute position */
+                position: relative; 
+                /* use this value to count block height */
+                line-height: 1.2em;
+                /* max-height = line-height (1.2) * lines max number (3) */
+                max-height: 6em; 
+                /* fix problem when last visible word doesn't adjoin right side  */
+                text-align: justify;  
+                
                 font-family: 'Nunito', sans-serif;
                 p {
                     word-break: break-word !important;
                     display: inline-block;
                 }
-                button {
-                    min-width: 0;
-                    padding: 0;
-                    display: inline;
-                    border: none;
-                    font-family: inherit;
-                    font-size: inherit;
-                    background: transparent;
-                    font-weight: inherit;
-                    text-transform: none;
-                    letter-spacing: unset;
-                    color: #dddfe0;
-                    margin: 0;
-                }
+            }
+            .see-more {
+                position: absolute;
+                bottom: 0.5em;
+                left: 0.9em;
+                min-width: 0;
+                padding: 0;
+                display: inline;
+                border: none;
+                font-family: inherit;
+                font-size: inherit;
+                background: transparent;
+                font-weight: inherit;
+                text-transform: none;
+                letter-spacing: unset;
+                color: white;
+                margin: 0;
             }
             .click-url {
                 position: absolute;

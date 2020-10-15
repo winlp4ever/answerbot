@@ -98,12 +98,18 @@
                         }
                         .time {
                             position: absolute;
-                            top: -2.8em;
+                            top: -0.2em;
                             display: none;
                             border-radius: 0.25em;
                             border-color: lightgrey;
                             color: whitesmoke;
                             background: #424242;
+                            padding: 0.2em 0.5em;
+                            transform: translateY(-100%);
+                            font: {
+                                family: 'Nunito', sans-serif;
+                                size: 0.6em;
+                            }
                         }
                     }
                     

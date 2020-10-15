@@ -2,6 +2,7 @@
     position: relative;
     word-wrap: break-word;
     transition: all 0.2s;
+    overflow-x: hidden;
     img {
         margin: auto;
         max-width: 100%;
@@ -12,11 +13,15 @@
     }
     h2 {
         font-size: 1em;
-        margin: 0.5em auto;
+        margin: auto;
     }
     pre {
         padding: 0.5em !important;
         border-radius: 0.5em;
+        overflow-wrap: break-word;
+        white-space: pre-line;
+    }
+    p {
         overflow-wrap: break-word;
         white-space: pre-line;
     }
