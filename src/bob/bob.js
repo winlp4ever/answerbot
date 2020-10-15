@@ -60,7 +60,7 @@ const OnboardMsg = (props) => {
         {!close && <span className='close-onboard-msg' onClick={toggleClose}>
             <X/>
         </span>}
-        {!close? <span>&#9996;Salut! Je suis ici pour vous aider!!!</span>: 
+        {!close? <span>&#9996;Hi! I'm here to help you!!!</span>: 
             <span onClick={toggleClose}>...</span>}
     </div>
 }

@@ -102,6 +102,7 @@ const Answer = ({content, socket, setIns}) => {
     const togglePin = () => {
         setPin(!pin)
     }
+    console.log(content)
 
     return <div>
         {showAnswer && <div 
@@ -124,7 +125,7 @@ const Answer = ({content, socket, setIns}) => {
             <span 
                 className='answer-text' 
             > 
-                <MdRender source={content.answer.answer_text.substr(0, 150)} />
+                <MdRender source={content.answer.text.substr(0, 150)} />
                 <Button className='see-more' onClick={handleClick}>...voir plus</Button>
             </span>
         </div>}

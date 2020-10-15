@@ -85,7 +85,7 @@ io.on('connection', function(socket){
 
         let st = performance.now()
         try {
-            let data = await utils.postData('http://localhost:5005/webhooks/rest/webhook', {
+            let data = await utils.postData('http://vscode.theaiinstitute.ai:5005/webhooks/rest/webhook', {
                 message: msg.chat.text,
                 sender: msg.conversationID
             })

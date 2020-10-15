@@ -65,7 +65,7 @@ const NewChat = (props) => {
         if (viewHints) {
             clearTimeout(askForHints.current)
             askForHints.current = setTimeout(async () => {
-                let data = await postForData('https://localhost:5600/post-hints', {
+                let data = await postForData('https://vscode.theaiinstitute.ai:5600/post-hints', {
                     conversationID: user.userid,
                     typing: nc,
                     timestamp: new Date().getTime()
@@ -156,7 +156,7 @@ const NewChat = (props) => {
         } 
         <TextareaAutosize
             ref={input}
-            placeholder='entrez une question'
+            placeholder='ask a question'
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             className={'enter-question' + (newchat.length > 0? ' textin': '')}

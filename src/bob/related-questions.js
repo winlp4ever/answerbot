@@ -37,18 +37,18 @@ const RelatedQuestions = ({content, socket}) => {
             {content.related_questions.map((q, id) => <div className='rel-q' key={id}>
                 <Button 
                     className='text' 
-                    onClick={_ => ask(q.question_text)}   
+                    onClick={_ => ask(q.text)}   
                 >
-                    <a dangerouslySetInnerHTML={{__html: q.question_text}} />
+                    <a dangerouslySetInnerHTML={{__html: q.text}} />
                 </Button>
             </div>)}
         </div>: <div>
             {content.related_questions.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
                 <Button 
                     className='text' 
-                    onClick={_ => ask(q.question_text)}   
+                    onClick={_ => ask(q.text)}   
                 >
-                    <a dangerouslySetInnerHTML={{__html: q.question_text}} />
+                    <a dangerouslySetInnerHTML={{__html: q.text}} />
                 </Button>
             </div>)}
             <Button className='text see-more'

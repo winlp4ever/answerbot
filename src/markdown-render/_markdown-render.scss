@@ -7,9 +7,12 @@
         max-width: 100%;
     }
     
+    hr {
+        display: none;
+    }
     h2 {
-        display: inline-block;
-        border-bottom: 1px solid lightgrey;
+        font-size: 1em;
+        margin: 0.5em auto;
     }
     pre {
         padding: 0.5em !important;

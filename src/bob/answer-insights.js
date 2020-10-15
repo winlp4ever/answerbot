@@ -33,14 +33,10 @@ const AnswerInsights = ({content}) => {
     return <div className='answer-insights-container'>
         {content != null && 
             <div className='answer-insights'>
-            <FullAnswer src={content.answer.answer_paragraph ? content.answer.answer_paragraph: content.answer.answer_text} />
-            {content.answer.orientation ? <div className='orientation'>
+            <FullAnswer src={content.answer.text} />
+            {content.answer.uri? <div className='source'>
                 <h4><ExploreIcon />Explorer</h4>
-                <span>{content.answer.orientation}</span>
-            </div>: null}
-            {content.answer.source? <div className='source'>
-                <h4><ExploreIcon />Explorer</h4>
-                <a href={content.answer.source} target='_blank'>{content.answer.source}</a>
+                <a href={content.answer.uri} target='_blank'>{content.answer.uri}</a>
             </div>: null}
         </div>}
     </div>
