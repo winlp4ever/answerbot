@@ -8,3 +8,4 @@ nlp/**/*.ipynb
 azure-credentials/*
 .vscode/*
 ssl-certs
+*.log

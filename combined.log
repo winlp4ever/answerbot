@@ -3,3 +3,5 @@
 {"message":"{\"event\":\"close-server\",\"time\":\"10-05-2020 9:47:48\"}","level":"info","service":"user-service"}
 {"message":"{\"connection_id\":\"17pSjjhyQgAFc0JdAAAA\",\"type\":\"socketio-new-connection\",\"time\":\"10-05-2020 10:1:6\",\"total_users\":1}","level":"info","service":"user-service"}
 {"message":"{\"event\":\"close-server\",\"time\":\"10-05-2020 10:1:50\"}","level":"info","service":"user-service"}
+{"message":"{\"event\":\"close-server\",\"time\":\"10-15-2020 11:36:19\"}","level":"info","service":"user-service"}
+{"message":"{\"event\":\"close-server\",\"time\":\"10-15-2020 11:40:8\"}","level":"info","service":"user-service"}
