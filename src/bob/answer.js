@@ -125,9 +125,10 @@ const Answer = ({content, socket, setIns}) => {
             <span 
                 className='answer-text' 
             > 
-                <MdRender source={content.answer.text.substr(0, 150)} />
-                <Button className='see-more' onClick={handleClick}>...voir plus</Button>
+                <MdRender source={content.answer.text} />
+                
             </span>
+            <Button className='see-more' onClick={handleClick}>(see more)...</Button>
         </div>}
         {/**<AskRequest q={content.original_question}/>*/}
     </div>

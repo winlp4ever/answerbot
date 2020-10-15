@@ -48,7 +48,8 @@ class MdRender extends Component {
 	render() {
 		let src = this.props.source
 			.replace(/\.\.\.\n\[highlight\]/g, '...\n\n---')
-			.replace(/\[\\highlight\]/g, '---');
+			.replace(/\[\\highlight\]/g, '\n---')
+			.replace(/\\+/g, '\\');
 			//.replace(/(?<=_(.|\s)+)_(?=[a-z|0-9])/g, '_ ')
 		return (
 			<div className="markdown-render">

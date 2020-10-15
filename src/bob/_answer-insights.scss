@@ -36,7 +36,7 @@
         padding-left: 1.5em;
     }
     a {
-        color: #0d47a1;
+        color:#424242;
         text-decoration: underline;
     }
     &:before {
@@ -115,6 +115,8 @@
                 background: grey;
             }
         }
-        
+        .source {
+            border-top: 1px solid lightgrey;
+        }
     }
 }
