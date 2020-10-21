@@ -2,7 +2,7 @@ import React, {Component, useState, useContext, useRef, useEffect} from 'react'
 import { userContext } from '../user-context/user-context'
 import './_history-bookmarks.scss'
 
-import {postForData} from '../utils'
+import { request } from '../utils'
 
 // import svgs
 import ExpandIcon from '../../imgs/bob/expand.svg'
@@ -17,11 +17,11 @@ const StatusColors = {
     answered: '#82b1ff'
 }
 
-const QuestionReq = ({q}) => {
+const DiscussCard = ({q}) => {
     const [answer, setAnswer] = useState('')
 
     const retrieveAnswer = async () => {
-        let data = await postForData('/post-req-answer', {
+        let data = await request(`http://localhost:6710/message/user/${user_id}`, {
             qid: q.id
         })
         if (data.status == 0) {
@@ -50,85 +50,6 @@ const QuestionReq = ({q}) => {
     </div>
 }
 
-const OldQ = (props) => {
-    const [viewTime, setViewTime] = useState(false)
-    const [focus, setFocus] = useState(false)
-   
-    const handleFocus = (e) => {
-        e.preventDefault()
-        if (!focus) props.setInsight(props.q)
-        else props.setInsight(null)
-        setFocus(!focus)
-    }
-
-    const toggleViewTime = () => setViewTime(!viewTime)
-    return <div 
-        className='old-question' 
-        onMouseEnter={toggleViewTime} 
-        onMouseLeave={toggleViewTime}
-    >
-        {viewTime && <span className='time'>{props.q.datetime}</span>}
-        <span onClick={handleFocus} className={'view-resp' + (focus? ' foc': '')}>
-            {focus? <ArrowLeft/>:<HelpCircle/> }
-        </span>
-        <span             
-            className='old-q'
-        >
-            {props.q.original_question}
-        </span>
-    </div>
-}
-
-const History = (props) => {
-    const [span, setSpan] = useState(false)
-    const [askedRequests, setAskedRequests] = useState([])
-    const [askedQuestions, setAskedQuestions] = useState([])
-    const user = useContext(userContext).user
-
-    const _retrieveQuestions = async () => {
-        let bqs = await postForData('/post-asked-questions', {
-            userid: user.userid
-        })
-        if (bqs.status == 0) setAskedQuestions(bqs.questions)
-        let tqs = await postForData('/post-asked-requests', {
-            userid: user.userid
-        })
-        if (tqs.status == 0) setAskedRequests(tqs.questions)
-    }
-
-    useEffect(() => {
-        _retrieveQuestions()
-    }, [])
-
-    const toggleSpan = () => {
-        setSpan(!span)
-    }
-    
-    return <div className='bob-history'>
-        <h4>
-            <ExpandIcon
-                onClick={toggleSpan} 
-                className={span? 'expand on': 'expand'} 
-            />
-            History
-            <ClockIcon/> 
-        </h4>
-        {span && <div>
-            <div>
-                {askedRequests.map((q, id) => <QuestionReq 
-                    key={id}
-                    q={q}
-                />)}
-                {askedQuestions.map((q, id) => <OldQ 
-                    key={id} 
-                    insight={props.insight} 
-                    setInsight={props.setInsight} 
-                    q={q.content}/>)}
-            </div>
-        </div>}
-    </div>
-}
-
 const Bookmarks = (props) => {
     const [span, setSpan] = useState(false)
     const user = useContext(userContext).user
@@ -146,15 +67,15 @@ const Bookmarks = (props) => {
                 onClick={toggleSpan} 
                 className={span? 'expand on': 'expand'} 
             />
-            Bookmarks
+            Discuss With Teachers
             <BmrkIcon/> 
         </h4>
         {span && <div>
             {bms.map((b, id) => <div 
                     key={id} 
                     className='old-bookmark'
-                    onMouseEnter={_ => props.setInsight(b)} 
-                    onMouseLeave={_ => props.setInsight(null)}
+                    onMouseEnter={_ => {}} 
+                    onMouseLeave={_ => {}}
                 >
                     <span className='q_'>
                         {b.original_question}
@@ -170,12 +91,6 @@ const HistoryBookmarks = (props) => {
     return <div className='history-bookmarks'>
         <Bookmarks 
             bookmarks={props.bookmarks}
-            setInsight={props.setInsight}
-            insight={props.insight}
-        />
-        <History history={props.history}
-            setInsight={props.setInsight}
-            insight={props.insight}
         />
     </div>
 }

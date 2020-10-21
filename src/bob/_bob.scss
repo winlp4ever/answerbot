@@ -59,7 +59,7 @@
         box-sizing: border-box;
         padding: 0 0 0;
         border-radius: 0.8em;
-        background: white;
+        background: #f6f8fa;
         font-family: 'Nunito', sans-serif;
         font-size: 1.1em;
         display: flex;
@@ -167,7 +167,7 @@
         border-top-right-radius: 0.8em;
         border-bottom-left-radius: 0.8em;
         border-bottom-right-radius: 0.2em;
-        text-align: right;
+        text-align: center;
         //transition: all 0.2s cubic-bezier(0, 0, 0.4, 1);
         overflow: hidden;
         .close-onboard-msg {

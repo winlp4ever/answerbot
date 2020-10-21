@@ -50,3 +50,17 @@ export async function postForData(endpoint, dict={}) {
     let data = await response.json();
     return data;
 }
+
+export async function request(endpoint, method, json={}) {
+    let body = JSON.stringify(json)
+    let req = {
+        method: method,
+        headers: {'Content-Type': 'application/json'}
+    }
+    if (!['get', 'GET'].includes(method)) {
+        req.body = body
+    } 
+    let response = await fetch(endpoint, req);
+    let data = await response.json();
+    return data;
+}
