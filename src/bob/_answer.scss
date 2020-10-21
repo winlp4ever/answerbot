@@ -11,7 +11,7 @@
             border-radius: 0.5em;
             box-sizing: border-box;
             box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
-            padding: 0.5em 0.5em 2.5em;
+            padding: 0.5em 0.5em 2.25em;
             margin: 0.2em 0;
             display: flex;
             flex-direction: row;
@@ -25,23 +25,47 @@
             .answer-text {
                 display: block;
                 //box-sizing: border-box;
-                padding: 0.25em 0.5em;
+                padding: 0em 0.5em;
                 //line-height: 1.5;
                 /* hide text if it more than N lines  */
                 overflow: hidden;
                 /* for set '...' in absolute position */
                 position: relative; 
                 /* use this value to count block height */
-                line-height: 1.2em;
-                /* max-height = line-height (1.2) * lines max number (3) */
-                max-height: 6em; 
+                line-height: 1.5em;
+                max-height: 7.5em; 
                 /* fix problem when last visible word doesn't adjoin right side  */
-                text-align: justify;  
-                
+                text-align: left;  
                 font-family: 'Nunito', sans-serif;
-                p {
-                    word-break: break-word !important;
-                    display: inline-block;
+                
+                .markdown-render {
+                    p {
+                        word-break: break-word !important;
+                        display: inline-block;
+                        margin: 0;
+                    }
+                    overflow-y: hidden;
+                    pre {
+                        padding: 0;
+                        margin: 0;
+                        line-height: 1.5em;
+                        background: transparent !important;
+                        code {
+                            color: whitesmoke !important;
+                        }
+                    }
+                    .katex {
+                        margin-top: 1.5em;
+                        display: inline-block;
+                    }
+                    a {
+                        color: lightgrey;
+                        font-weight: 700;;
+                    }
+                    ul {
+                        margin-top: 0;
+                        margin-bottom: 0;
+                    }
                 }
             }
             .see-more {
@@ -125,7 +149,7 @@
             .taskbar {
                 //width: 100%;
                 position: absolute;
-                bottom: 0.5em;
+                bottom: 0.35em;
                 right: 0.5em;
                 text-align: center;
                 box-sizing: border-box;
