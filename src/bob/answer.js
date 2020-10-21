@@ -35,15 +35,8 @@ export const RateTheAnswer = ({content, uid}) => {
     }
 
     const submitRating = async (rating) => {
-        let data = await postForData('/submit-answer-rating', {
-            uid: uid,
-            aid: content.answer_object.answer.aid,
-            rating: rating
-        })
-        if (data.status == 0) {
-            setScore(rating)
-            setSubmitted(true)
-        }
+        setScore(rating)
+        setSubmitted(true)
     }
     
     useEffect(() => {

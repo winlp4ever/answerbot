@@ -43,7 +43,7 @@ const RelatedQuestions = ({content, socket}) => {
                 </Button>
             </div>)}
         </div>: <div>
-            {content.related_questions.slice(0, 2).map((q, id) => <div className='rel-q' key={id}>
+            {content.related_questions.slice(0, 1).map((q, id) => <div className='rel-q' key={id}>
                 <Button 
                     className='text' 
                     onClick={_ => ask(q.text)}   

@@ -10,7 +10,7 @@ import AnswerVideo from './answer-video';
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
         <h4>
-            <A/> 
+            &#128214;
             Answer
         </h4>
         <MdRender source={src} />
