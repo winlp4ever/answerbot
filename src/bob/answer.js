@@ -43,6 +43,8 @@ export const RateTheAnswer = ({content, uid}) => {
         _retrieveRating()
     }, [])
 
+    console.log(content)
+
     return <div className='rating'>
         {!submitted? null: <span
             className='text'
@@ -59,6 +61,7 @@ export const RateTheAnswer = ({content, uid}) => {
                 {i <= score? <Star className='filled'/>:<Star />}
             </i>)}
         </span>}
+        <AskRequest q={content.answer_object.original_question}/>
     </div>
 }
 
@@ -95,7 +98,6 @@ const Answer = ({content, socket, setIns}) => {
     const togglePin = () => {
         setPin(!pin)
     }
-    console.log(content)
 
     return <div>
         {showAnswer && <div 
@@ -123,7 +125,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
             <Button className='see-more' onClick={handleClick}>(see more)...</Button>
         </div>}
-        {/**<AskRequest q={content.original_question}/>*/}
+        
     </div>
 }
 

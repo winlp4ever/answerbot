@@ -34,7 +34,23 @@ const postData = async function (endpoint, dict = {}) {
   return data;
 };
 
+const request = async (endpoint, method, json={}) => {
+  let body = JSON.stringify(json)
+  let req = {
+      method: method,
+      headers: {'Content-Type': 'application/json'}
+  }
+  if (!['get', 'GET'].includes(method)) {
+      req.body = body
+  } 
+  let response = await fetch(endpoint, req);
+  let data = await response.json();
+  return data;
+}
+
+
 module.exports = {
-    getDate: getDate,
-    postData: postData
+  getDate: getDate,
+  postData: postData,
+  request: request
 }
