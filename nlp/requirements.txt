@@ -1,4 +1,0 @@
-sentence-transformers
-psycopg2
-python-socketio[asyncio_client]
-elasticsearch

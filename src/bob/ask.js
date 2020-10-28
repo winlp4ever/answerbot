@@ -10,7 +10,6 @@ import IsTyping from '../../sounds/is-typing.mp3'
 import Lottie from 'react-lottie'
 import TypingIcon from '../../imgs/typing.json'
 import Welcome from './welcome'
-import ExTrouble from './ex-trouble'
 import Answer, {RateTheAnswer} from './answer'
 import NewChat from './new-chat'
 
@@ -94,10 +93,6 @@ const ChatSegment = (props) => {
                    return <RateTheAnswer key={id} content={c} uid={user.userid} />
                 if (c.type == 'related-questions')
                     return <RelatedQuestions key={id} content={c} socket={props.socket} />
-                {/**
-                    if (c.type == 'exercise-err-message' || 'exercise-common-errs')
-                    return <ExTrouble key={id} content={c} />
-                */}
             })}
         </div>
     </div>

@@ -6,8 +6,6 @@ import {CSSTransition} from 'react-transition-group';
 
 import './_answer.scss'
 import MdRender from '../markdown-render/markdown-render'
-import Actions, {postActionMsg} from './actions'
-import RelatedQuestions from './related-questions'
 import AskRequest from './ask-request'
 import {postForData} from '../utils'
 

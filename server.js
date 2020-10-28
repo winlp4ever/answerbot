@@ -1,4 +1,3 @@
-// const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
 const fs = require('fs');
@@ -8,26 +7,8 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
 const https = require('https');
-const { performance } = require('perf_hooks');
-
-const request = require('request');
-const winston = require('winston');
-
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    //
-    // - Write all logs with level `error` and below to `error.log`
-    // - Write all logs with level `info` and below to `combined.log`
-    //
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
-  ],
-});
-
 const yargs = require('yargs');
+const logger = require('./logger');
 
 const { argv } = yargs
   .option('dev', {
@@ -76,9 +57,7 @@ if (argv.http) {
   const certificate = fs.readFileSync(path.join(certdir, 'cert.pem'), 'utf8');
   server = https.createServer({ key: privateKey, cert: certificate }, app);
 }
-const io = require('socket.io')(server, {
-  wsEngine: 'ws', pingTimeout: 0, pingInterval: 500, origins: '*:*',
-});
+const io = require('./lib/socket')(server);
 
 const utils = require('./utils');
 const prodConfig = require('./webpack.prod.js');
@@ -104,72 +83,6 @@ app.use(
 );
 app.use(require('webpack-hot-middleware')(compiler));
 
-let count = 0;
-// websocket communication handlers
-io.on('connection', function(socket){
-    count ++;
-    console.log(JSON.stringify({
-        connection_id: socket.id,
-        type: 'socketio-new-connection',
-        time: utils.getDate(),
-        total_users: count,
-    }))
-    socket.on('disconnect', function(){
-        count --;
-        console.log(JSON.stringify({
-            connection_id: socket.id, 
-            type: 'socketio-disconnect',
-            time: utils.getDate(),
-            total_users: count,
-        }))
-    })
-
-    // chatbot
-    socket.on('ask-bob', async msg => {
-        io.emit('new-chat', msg);
-
-        let st = performance.now()
-        try {
-            let data = await utils.postData('http://vscode.theaiinstitute.ai:5005/webhooks/rest/webhook', {
-                message: msg.chat.text,
-                sender: msg.conversationID
-            })
-
-            data.forEach(m => {
-                /**
-                 * transform rasa bob msg -> chat format
-                 */
-        const bobmsg = {
-          conversationID: m.recipient_id,
-          chat: {
-            ...m.custom,
-            user: {
-              username: 'bob',
-              userid: -1,
-            },
-          },
-        };
-
-        if (m.text) {
-          bobmsg.chat.text = m.text;
-        }
-        if (m.custom === undefined) {
-          bobmsg.chat.type = 'chat';
-        }
-        logger.info(bobmsg);
-        io.emit('bob-msg', bobmsg);
-      });
-    } catch (err) {
-      logger.error(JSON.stringify({
-        event: 'ask-bob',
-        error: err.stack,
-        time: utils.getDate(),
-      }));
-    }
-    // (req, res) => EH.registerQuestionToHistory(body)
-  });
-});
-
 // normal routes with POST/GET
 app.get('*', (req, res, next) => {
   const filename = path.join(compiler.outputPath, 'index');
@@ -183,19 +96,6 @@ app.get('*', (req, res, next) => {
     res.end();
     return undefined;
   });
-});
-
-/**
- * Set up routers
- */
-const routesPath = path.join(__dirname, 'routes');
-
-fs.readdirSync(routesPath).forEach((filename) => {
-  // get filepath from filename and routes path
-  const fp = path.join(routesPath, filename);
-  const R = require(fp);
-  const router = new R();
-  app.post(router.path, (req, res) => router.handler(req, res));
 });
 
 // on terminating the process

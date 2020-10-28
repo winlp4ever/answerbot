@@ -2,7 +2,7 @@ import React, {Component, useState, useContext, useRef, useEffect} from 'react'
 import { userContext } from '../user-context/user-context'
 import './_history-bookmarks.scss'
 
-import { postForData } from '../utils'
+import { postForData, request } from '../utils'
 
 // import svgs
 import ExpandIcon from '../../imgs/bob/expand.svg'
@@ -17,14 +17,16 @@ const StatusColors = {
     answered: '#82b1ff'
 }
 
+const BOENDPOINT='https://localhost:6710';
+
 const DiscussCard = (props) => {
     const [span, setSpan] = useState(false);
     const [messages, setMessages] = useState([]);
 
     const retrieveConversation = async () => {
-        let data = await postForData(`/post-conversation/${props.message.id}`)
+        let data = await request(`${BOENDPOINT}/conversation/${props.message.id}`, 'get')
         console.log('conver', data);
-        setMessages(data.messages)
+        setMessages(data.conversation);
     }
 
     useEffect(() => {
@@ -59,7 +61,8 @@ const Bookmarks = (props) => {
 
     const fetchData = async () => {
         console.log(user.userid)
-        let data = await postForData(`/post-requests/${user.userid}`);
+        let data = await request(`${BOENDPOINT}/user/${user.userid}/message?msg_type=question`, 'get');
+        console.log(data)
         console.log('all user msgs', data.messages);
         setBookmarks(data.messages)
     }

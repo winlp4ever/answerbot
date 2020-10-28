@@ -22,10 +22,11 @@ const AskRequest = (props) => {
         setMsg(e.target.value)
     }
     const sendReq = async () => {
-        let data = await request(`/put-request`, 'post', {
+        let data = await request(`https://localhost:6710/message`, 'post', {
             from_user_id: user.userid,
             msg_type: 'question',
-            content: msg
+            content: msg,
+            sent_at: new Date()
         })
         console.log(data)
         setSent(true)
