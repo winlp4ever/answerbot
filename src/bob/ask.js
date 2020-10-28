@@ -19,6 +19,7 @@ import _StarIcon from '../../imgs/bob/_star.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import BobOutlined from '../../imgs/bob/bob-outlined.svg'
 import RelatedQuestions from './related-questions';
+import AskRequest from './ask-request';
 
 class Typing extends Component {
     state = {
@@ -57,6 +58,7 @@ const Chat = ({content}) => {
     return <div className='chat'>
         <span className='text' dangerouslySetInnerHTML={{__html: content.text}}/>
         {content.time ? <span className='time'>{content.time}</span>: null}
+        {(content.original_question != undefined) && <AskRequest q={content.original_question} />}
     </div>
 }
 

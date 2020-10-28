@@ -35,20 +35,15 @@ export const RateTheAnswer = ({content, uid}) => {
     }
 
     const submitRating = async (rating) => {
-        let data = await postForData('/submit-answer-rating', {
-            uid: uid,
-            aid: content.answer_object.answer.aid,
-            rating: rating
-        })
-        if (data.status == 0) {
-            setScore(rating)
-            setSubmitted(true)
-        }
+        setScore(rating)
+        setSubmitted(true)
     }
     
     useEffect(() => {
         _retrieveRating()
     }, [])
+
+    console.log(content)
 
     return <div className='rating'>
         {!submitted? null: <span
@@ -66,6 +61,7 @@ export const RateTheAnswer = ({content, uid}) => {
                 {i <= score? <Star className='filled'/>:<Star />}
             </i>)}
         </span>}
+        <AskRequest q={content.answer_object.original_question}/>
     </div>
 }
 
@@ -102,7 +98,6 @@ const Answer = ({content, socket, setIns}) => {
     const togglePin = () => {
         setPin(!pin)
     }
-    console.log(content)
 
     return <div>
         {showAnswer && <div 
@@ -130,7 +125,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
             <Button className='see-more' onClick={handleClick}>(see more)...</Button>
         </div>}
-        {/**<AskRequest q={content.original_question}/>*/}
+        
     </div>
 }
 

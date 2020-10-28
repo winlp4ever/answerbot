@@ -2,7 +2,7 @@ import React, {Component, useState, useContext, useRef, useEffect} from 'react'
 import { userContext } from '../user-context/user-context'
 import './_history-bookmarks.scss'
 
-import { request } from '../utils'
+import { postForData } from '../utils'
 
 // import svgs
 import ExpandIcon from '../../imgs/bob/expand.svg'
@@ -17,51 +17,57 @@ const StatusColors = {
     answered: '#82b1ff'
 }
 
-const DiscussCard = ({q}) => {
-    const [answer, setAnswer] = useState('')
+const DiscussCard = (props) => {
+    const [span, setSpan] = useState(false);
+    const [messages, setMessages] = useState([]);
 
-    const retrieveAnswer = async () => {
-        let data = await request(`http://localhost:6710/message/user/${user_id}`, {
-            qid: q.id
-        })
-        if (data.status == 0) {
-            setAnswer(data.answer.text)
-        }
+    const retrieveConversation = async () => {
+        let data = await postForData(`/post-conversation/${props.message.id}`)
+        console.log('conver', data);
+        setMessages(data.messages)
     }
 
     useEffect(() => {
-        if (q.status == 'answered') {
-            retrieveAnswer()
-        }
+        retrieveConversation()
     }, [])
 
-    return <div className='question-request' >
-        <span className='timestamp'>{q.date.substr(0, 10)}</span>
-        <span className='status' style={{
-            background: StatusColors[q.status]
-        }}>{q.status}</span>
-        <div className='question'><b>You: </b>
-            {q.text}
-        </div>
-        {(q.status == 'answered') && 
-        <div className='prof-answer'><b>Prof: </b>
-            {answer}
-        </div>}
+    return <div 
+        className='question-request' 
+        onClick={() => setSpan(!span)}
+    >
+        {
+            span ? <div>
+                {
+                    messages.map(m => {
+                        return <div key={m.id} className='discuss'> 
+                            <span>-</span>
+                            <span>{props.userid == m.from_user_id? <b>{m.content}</b>: m.content}</span>
+                        </div>
+                    })
+                }
+            </div>: <span><b>{props.message.content}</b></span>
+        }   
     </div>
 }
 
 const Bookmarks = (props) => {
     const [span, setSpan] = useState(false)
+    const [bookmarks, setBookmarks] = useState([])
     const user = useContext(userContext).user
 
     const toggleSpan = () => setSpan(!span)
 
-    let bms = []
-    for (let b in user.bookmarks) {
-        bms.push(user.bookmarks[b])
+    const fetchData = async () => {
+        console.log(user.userid)
+        let data = await postForData(`/post-requests/${user.userid}`);
+        console.log('all user msgs', data.messages);
+        setBookmarks(data.messages)
     }
-    
-    return <div className='bob-bookmarks'>
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    return <div className='discussions'>
         <h4>
             <ExpandIcon 
                 onClick={toggleSpan} 
@@ -71,17 +77,11 @@ const Bookmarks = (props) => {
             <BmrkIcon/> 
         </h4>
         {span && <div>
-            {bms.map((b, id) => <div 
-                    key={id} 
-                    className='old-bookmark'
-                    onMouseEnter={_ => {}} 
-                    onMouseLeave={_ => {}}
-                >
-                    <span className='q_'>
-                        {b.original_question}
-                    </span>
-                </div>
-            )}
+            { 
+                bookmarks.map((b, id) => {
+                    return <DiscussCard key={id} userid={user.userid} message={b} />
+                }) 
+            }
         </div>}
         
     </div>

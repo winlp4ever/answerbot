@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 
-import { postForData } from '../utils'
+import { request } from '../utils'
 import {userContext} from '../user-context/user-context'
 
 import { v4 as uuidv4 } from 'uuid'
@@ -22,10 +22,10 @@ const AskRequest = (props) => {
         setMsg(e.target.value)
     }
     const sendReq = async () => {
-        let data = await postForData('/ask-teachers', {
-            userid: user.userid,
-            uuid: uuidv4(),
-            q: msg
+        let data = await request(`/put-request`, 'post', {
+            from_user_id: user.userid,
+            msg_type: 'question',
+            content: msg
         })
         console.log(data)
         setSent(true)
@@ -35,11 +35,11 @@ const AskRequest = (props) => {
         onClick={toggleMode}
         startIcon={<Inbox />}
     >
-        Demandez aux profs
+        <span>Ask Teachers</span>
     </Button>
     return <div className={'ask-request' + (foc? ' focus': '')}>
         {!sent ? <div>
-            <h4>Ma Question</h4>
+            <h4>My Question</h4>
             <TextareaAutosize 
                 onChange={handleChange}
                 defaultValue={msg}
@@ -53,7 +53,7 @@ const AskRequest = (props) => {
                     className='send'
                 >
                     <span>
-                        Envoyer
+                        Send
                     </span>
                 </Button>
                 <Button 
@@ -62,13 +62,13 @@ const AskRequest = (props) => {
                     className='cancel'
                 >
                     <span>
-                        Annuler
+                        Cancel
                     </span>
                 </Button>
             </div>
         </div>: <div>
             <span className='text'>
-                La question a été envoyée. Vous serez notifié quand la réponse vienne
+                The Question has been sent.
             </span>
         </div>}
         
