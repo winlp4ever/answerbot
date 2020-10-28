@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import { Check, X, Inbox } from 'react-feather'
 import './_ask-request.scss'
 
+import { BOB_API_ENDPOINT } from '../variables'
+
 const AskRequest = (props) => {
     const [wantToSend, setWantToSend] = useState(false)
     const [sent, setSent] = useState(false)
@@ -22,7 +24,7 @@ const AskRequest = (props) => {
         setMsg(e.target.value)
     }
     const sendReq = async () => {
-        let data = await request(`https://localhost:6710/message`, 'post', {
+        let data = await request(`${BOB_API_ENDPOINT}/message`, 'post', {
             from_user_id: user.userid,
             msg_type: 'question',
             content: msg,

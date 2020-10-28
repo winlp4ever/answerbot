@@ -8,7 +8,6 @@ import { useMatomo } from '@datapunt/matomo-tracker-react'
 import {useInterval, getCurrentTime, postForData} from '../utils'
 
 import {Send} from 'react-feather'
-import io from 'socket.io-client'
 
 import './_new-chat.scss'
 
@@ -110,6 +109,7 @@ const NewChat = (props) => {
         props.socket.emit('ask-bob', {
             chat: nc,
             conversationID: user.userid,
+            courseID: user.courseID
         })
         setNewchat('')
         input.current.value = ''

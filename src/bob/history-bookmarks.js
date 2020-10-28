@@ -9,22 +9,14 @@ import ExpandIcon from '../../imgs/bob/expand.svg'
 import ClockIcon from '../../imgs/bob/clock.svg'
 import BmrkIcon from '../../imgs/bob/bmk.svg'
 
-import { HelpCircle, ArrowLeft, ArrowRight } from 'react-feather'
-import { Button } from '@material-ui/core'
-
-const StatusColors = {
-    opened: '#ffeb3b',
-    answered: '#82b1ff'
-}
-
-const BOENDPOINT='https://localhost:6710';
+import { BOB_API_ENDPOINT } from '../variables'
 
 const DiscussCard = (props) => {
     const [span, setSpan] = useState(false);
     const [messages, setMessages] = useState([]);
 
     const retrieveConversation = async () => {
-        let data = await request(`${BOENDPOINT}/conversation/${props.message.id}`, 'get')
+        let data = await request(`${BOB_API_ENDPOINT}/conversation/${props.message.id}`, 'get')
         console.log('conver', data);
         setMessages(data.conversation);
     }
@@ -61,7 +53,7 @@ const Bookmarks = (props) => {
 
     const fetchData = async () => {
         console.log(user.userid)
-        let data = await request(`${BOENDPOINT}/user/${user.userid}/message?msg_type=question`, 'get');
+        let data = await request(`${BOB_API_ENDPOINT}/user/${user.userid}/message?msg_type=question`, 'get');
         console.log(data)
         console.log('all user msgs', data.messages);
         setBookmarks(data.messages)

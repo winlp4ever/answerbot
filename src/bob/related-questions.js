@@ -26,7 +26,8 @@ const RelatedQuestions = ({content, socket}) => {
         }
         socket.emit('ask-bob', {
             chat: nc,
-            conversationID: user.userid
+            conversationID: user.userid,
+            courseID: user.courseid  
         })
     }
 

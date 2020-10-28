@@ -35,7 +35,8 @@ export default class App extends Component {
             username: '',
             email: '',
             userid: parseInt(PARAMS.get('user')) || -1,
-            exerciseid: parseInt(PARAMS.get('exercice')) || 0,
+            exerciseid: parseInt(PARAMS.get('exercise')) || 0,
+            courseid: parseInt(PARAMS.get('course')) || 1,
             level: 'Master2',
             colorMode: 0
         },

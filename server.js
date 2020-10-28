@@ -9,6 +9,7 @@ const http = require('http');
 const https = require('https');
 const yargs = require('yargs');
 const logger = require('./logger');
+var cors = require('cors');
 
 const { argv } = yargs
   .option('dev', {
@@ -48,6 +49,7 @@ app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
 app.use(express.static(`${__dirname}./public`));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 let server;
 if (argv.http) {

@@ -23,7 +23,9 @@ import IncomingMsg from '../../sounds/incoming-msg.mp3';
 import BobAva from '../../imgs/bob/bob-transparent.svg'
 import { Clock, MessageCircle, X } from 'react-feather';
 
-import { useMatomo } from '@datapunt/matomo-tracker-react'
+import { useMatomo } from '@datapunt/matomo-tracker-react';
+
+import { BOB_WEBSOCKET_ENDPOINT } from '../variables';
 
 const Options = [
     {
@@ -76,7 +78,7 @@ export default class Bob extends Component {
         insight: null,
         isTyping: false
     }
-    socket = io({
+    socket = io(BOB_WEBSOCKET_ENDPOINT,{
         transports: ['websocket']
     })
 
