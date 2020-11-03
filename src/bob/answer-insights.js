@@ -17,19 +17,9 @@ const FullAnswer = ({src}) => {
     </div>
 }
 
-const Orientation = ({src}) => {
-    return <div className='orientation'>
-        <h4>
-            <ExploreIcon /> 
-            Explorer
-        </h4>
-        {content.answer.orientation? <span>{content.answer.orientation}</span>: null}
-    </div>
-}
-
 const AnswerInsights = ({content}) => {
     if (content != null) if (content.answer.source_type == 'video') 
-        return <AnswerVideo url={content.answer.source} start_time={170} /> 
+        return <AnswerVideo url={content.answer.uri} start_time={1000 * content.answer.start_time_in_milliseconds} /> 
     return <div className='answer-insights-container'>
         {content != null && 
             <div className='answer-insights'>

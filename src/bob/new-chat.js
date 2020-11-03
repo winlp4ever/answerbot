@@ -64,10 +64,12 @@ const NewChat = (props) => {
         if (viewHints) {
             clearTimeout(askForHints.current)
             askForHints.current = setTimeout(async () => {
+                console.log(user.courseid);
                 let data = await postForData('https://vscode.theaiinstitute.ai:5600/post-hints', {
                     conversationID: user.userid,
                     typing: nc,
-                    timestamp: new Date().getTime()
+                    timestamp: new Date().getTime(),
+                    course_id: String(user.courseid)
                 }, 100)
                 setHints(data.hints)
             })
@@ -109,7 +111,7 @@ const NewChat = (props) => {
         props.socket.emit('ask-bob', {
             chat: nc,
             conversationID: user.userid,
-            courseID: user.courseID
+            courseID: user.courseid
         })
         setNewchat('')
         input.current.value = ''

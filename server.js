@@ -59,7 +59,6 @@ if (argv.http) {
   const certificate = fs.readFileSync(path.join(certdir, 'cert.pem'), 'utf8');
   server = https.createServer({ key: privateKey, cert: certificate }, app);
 }
-const io = require('./lib/socket')(server);
 
 const utils = require('./utils');
 const prodConfig = require('./webpack.prod.js');
