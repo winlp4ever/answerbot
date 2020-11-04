@@ -23,9 +23,8 @@ const instance = createInstance({
 })
 
 let PARAMS = new URLSearchParams(window.location.search)
+console.log('parent', window.parent.location.hostname);
 
-const DARKTHEME = 1
-const LIGHTTHEME = 0
 
 export default class App extends Component {
     state = {
