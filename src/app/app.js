@@ -22,8 +22,8 @@ const instance = createInstance({
     siteId: 8
 })
 
-let PARAMS = new URLSearchParams(window.location.search)
-console.log('parent', document.referrer);
+let PARAMS = new URLSearchParams(window.location.search);
+let referrer = (document.referrer != undefined)? (new URL(document.referrer)).hostname : '';
 
 
 export default class App extends Component {
@@ -35,6 +35,7 @@ export default class App extends Component {
             exerciseid: parseInt(PARAMS.get('exercise')) || 0,
             courseid: parseInt(PARAMS.get('course')) || 1,
             chapterid: parseInt(PARAMS.get('chapter')) || 0,
+            referrer: referrer,
             level: 'Master2',
             colorMode: 0
         },

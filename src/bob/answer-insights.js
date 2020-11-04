@@ -6,6 +6,7 @@ import A from '../../imgs/bob/A.svg'
 import ExploreIcon from '../../imgs/bob/explore.svg'
 import {CSSTransition} from 'react-transition-group'
 import AnswerVideo from './answer-video';
+import { userContext } from '../user-context/user-context';
 
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
@@ -18,6 +19,8 @@ const FullAnswer = ({src}) => {
 }
 
 const AnswerInsights = ({content}) => {
+    const user = useContext(userContext).user
+
     return <div className='answer-insights-container'>
         {
             content != null && 
@@ -29,7 +32,7 @@ const AnswerInsights = ({content}) => {
                         <span>Explore the full answer </span>
                         <a 
                             href={ content.answer.uri } 
-                            { ...((new URL(content.answer.uri)).hostname == window.location.hostname ? {}: { target: '_blank' }) }
+                            { ...((new URL(content.answer.uri)).hostname == user.referrer ? {}: { target: '_blank' }) }
                         >
                             here
                         </a>
