@@ -23,7 +23,7 @@ const instance = createInstance({
 })
 
 let PARAMS = new URLSearchParams(window.location.search)
-console.log('parent', document.referrer.hostname);
+console.log('parent', document.referrer);
 
 
 export default class App extends Component {
