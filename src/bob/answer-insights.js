@@ -18,17 +18,25 @@ const FullAnswer = ({src}) => {
 }
 
 const AnswerInsights = ({content}) => {
-    if (content != null) if (content.answer.source_type == 'video') 
-        return <AnswerVideo url={content.answer.uri} start_time={1000 * content.answer.start_time_in_milliseconds} /> 
     return <div className='answer-insights-container'>
-        {content != null && 
+        {
+            content != null && 
             <div className='answer-insights'>
-            <FullAnswer src={content.answer.text} />
-            {content.answer.uri? <div className='source'>
-                <h4>Explore Answer Link</h4>
-                <a href={content.answer.uri} target='_blank'>{content.answer.uri}</a>
-            </div>: null}
-        </div>}
+                <FullAnswer src={content.answer.text} />
+                {
+                    (content.answer.uri != '' && content.answer.uri != null) && 
+                    <div className='source'>
+                        <span>Explore the full answer </span>
+                        <a 
+                            href={ content.answer.uri } 
+                            { ...((new URL(content.answer.uri)).hostname == window.location.hostname ? {}: { target: '_blank' }) }
+                        >
+                            here
+                        </a>
+                    </div>
+                }
+            </div>
+        }
     </div>
 }
 

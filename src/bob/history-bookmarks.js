@@ -17,7 +17,6 @@ const DiscussCard = (props) => {
 
     const retrieveConversation = async () => {
         let data = await request(`${BOB_API_ENDPOINT}/conversation/${props.message.id}`, 'get')
-        console.log('conver', data);
         setMessages(data.conversation);
     }
 
@@ -52,10 +51,7 @@ const Bookmarks = (props) => {
     const toggleSpan = () => setSpan(!span)
 
     const fetchData = async () => {
-        console.log(user.userid)
         let data = await request(`${BOB_API_ENDPOINT}/user/${user.userid}/message?msg_type=question`, 'get');
-        console.log(data)
-        console.log('all user msgs', data.messages);
         setBookmarks(data.messages)
     }
     useEffect(() => {

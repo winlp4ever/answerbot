@@ -24,8 +24,6 @@ const instance = createInstance({
 
 let PARAMS = new URLSearchParams(window.location.search)
 
-console.log(PARAMS)
-
 const DARKTHEME = 1
 const LIGHTTHEME = 0
 
@@ -37,15 +35,12 @@ export default class App extends Component {
             userid: parseInt(PARAMS.get('user')) || -1,
             exerciseid: parseInt(PARAMS.get('exercise')) || 0,
             courseid: parseInt(PARAMS.get('course')) || 1,
+            chapterid: parseInt(PARAMS.get('chapter')) || 0,
             level: 'Master2',
             colorMode: 0
         },
         activeTab: 0,
         colorMode: 0
-    }
-
-    componentDidMount() {
-        
     }
 
     updateUser =  (info) => {

@@ -30,7 +30,6 @@ const AskRequest = (props) => {
             content: msg,
             sent_at: new Date()
         })
-        console.log(data)
         setSent(true)
     }
     if (!wantToSend) return <Button 

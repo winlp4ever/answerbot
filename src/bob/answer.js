@@ -41,8 +41,6 @@ export const RateTheAnswer = ({content, uid}) => {
         _retrieveRating()
     }, [])
 
-    console.log(content)
-
     return <div className='rating'>
         {!submitted? null: <span
             className='text'

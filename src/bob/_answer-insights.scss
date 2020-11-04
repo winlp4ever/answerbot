@@ -114,6 +114,12 @@
                 right: 0;
                 background: grey;
             }
+            .markdown-render {
+                ol, ul {
+                    margin: 0;
+                    padding-left: 1.5em;
+                }
+            }
         }
         .source {
             border-top: 1px solid lightgrey;
