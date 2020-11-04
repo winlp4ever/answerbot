@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
-import A from '../../imgs/bob/A.svg'
-import ExploreIcon from '../../imgs/bob/explore.svg'
-import {CSSTransition} from 'react-transition-group'
-import AnswerVideo from './answer-video';
 import { userContext } from '../user-context/user-context';
 
 const FullAnswer = ({src}) => {
