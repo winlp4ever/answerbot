@@ -23,7 +23,12 @@ const instance = createInstance({
 })
 
 let PARAMS = new URLSearchParams(window.location.search);
-let referrer = (document.referrer != undefined)? (new URL(document.referrer)).hostname : '';
+let referrer;
+try {
+    referrer = (document.referrer != undefined)? (new URL(document.referrer)).hostname : '';
+} catch (err) {
+    referrer = '';
+}
 
 
 export default class App extends Component {
