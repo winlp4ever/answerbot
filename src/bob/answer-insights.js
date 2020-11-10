@@ -17,6 +17,13 @@ const FullAnswer = ({src}) => {
 const AnswerInsights = ({content}) => {
     const user = useContext(userContext).user
 
+    let url;
+    try {
+        url = (new URL(content.answer.uri)).hostname;
+    } catch (err) {
+        url = '';
+    }
+
     return <div className='answer-insights-container'>
         {
             content != null && 
@@ -28,7 +35,7 @@ const AnswerInsights = ({content}) => {
                         <span>Explore the full answer </span>
                         <a 
                             href={ content.answer.uri } 
-                            { ...((new URL(content.answer.uri)).hostname == user.referrer ? {}: { target: '_blank' }) }
+                            { ...( url == user.referrer ? {}: { target: '_blank' }) }
                         >
                             here
                         </a>
