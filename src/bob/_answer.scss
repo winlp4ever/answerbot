@@ -48,7 +48,7 @@
                     }
                     overflow-y: hidden;
                     pre {
-                        padding: 0;
+                        padding: 0 0.2em !important;
                         margin: 0;
                         line-height: 1.5em;
                         background: transparent !important;
@@ -56,6 +56,13 @@
                             color: whitesmoke !important;
                         }
                     }
+                    :not(pre) code {
+                        display: inline-block;
+                        padding: 0.05em;
+                        border-radius: 0.2em;
+                        font-size: 0.9em;
+                        background:rgba(128, 128, 128, 0.315);
+                    } 
                     .katex {
                         margin-top: 1.5em;
                         display: inline-block;
