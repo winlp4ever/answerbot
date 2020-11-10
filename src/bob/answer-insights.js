@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
@@ -15,14 +15,16 @@ const FullAnswer = ({src}) => {
 }
 
 const AnswerInsights = ({content}) => {
-    const user = useContext(userContext).user
+    const user = useContext(userContext).user;
 
-    let url;
-    try {
-        url = (new URL(content.answer.uri)).hostname;
-    } catch (err) {
-        url = '';
-    }
+    const [ url, setURL] = useState('');
+    
+    useEffect(() => {
+        try {
+            let _url = (new URL(content.answer.uri)).hostname;
+            setURL(_url);
+        } catch (err) {}
+    }, [])
 
     return <div className='answer-insights-container'>
         {

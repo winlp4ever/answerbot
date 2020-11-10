@@ -68,7 +68,7 @@ const NewChat = (props) => {
                     conversationID: user.userid,
                     typing: nc,
                     timestamp: new Date().getTime(),
-                    course_id: String(user.courseid)
+                    courseID: String(user.courseid)
                 }, 100)
                 setHints(data.hints)
             })
