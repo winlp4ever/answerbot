@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 // matomo tracker
 const instance = createInstance({
     urlBase: 'https://a.theaiinstitute.ai/',
-    siteId: 8
+    siteId: 9
 })
 
 let PARAMS = new URLSearchParams(window.location.search);
