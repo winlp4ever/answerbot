@@ -25,7 +25,7 @@ const instance = createInstance({
 let PARAMS = new URLSearchParams(window.location.search);
 let referrer;
 try {
-    referrer = (document.referrer != undefined)? (new URL(document.referrer)).hostname : '';
+    referrer = 'https://' + (document.referrer !== undefined? (new URL(document.referrer)).hostname : '');
 } catch (err) {
     referrer = '';
 }

@@ -21,10 +21,13 @@ const AnswerInsights = ({content}) => {
     
     useEffect(() => {
         try {
-            let _url = (new URL(content.answer.uri)).hostname;
-            setURL(_url);
+            if (content.answer.uri.startsWith('/')) {
+                setURL(user.referrer + content.answer.uri);
+            } else {
+                setURL(content.answer.uri);   
+            }
         } catch (err) {}
-    }, [])
+    }, [content])
 
     return <div className='answer-insights-container'>
         {
@@ -36,8 +39,8 @@ const AnswerInsights = ({content}) => {
                     <div className='source'>
                         <span>Explore the full answer </span>
                         <a 
-                            href={ content.answer.uri } 
-                            { ...( url == user.referrer ? {}: { target: '_blank' }) }
+                            href={ url } 
+                            target='_blank'
                         >
                             here
                         </a>
