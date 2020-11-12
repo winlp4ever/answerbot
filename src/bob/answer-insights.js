@@ -3,13 +3,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
 import { userContext } from '../user-context/user-context';
+import { Feather, Link } from 'react-feather';
 
 import AnswerVideo from './answer-video';
 
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
         <h4>
-            &#128214;
+            <Feather />
             Answer
         </h4>
         <MdRender source={src} />
@@ -40,20 +41,15 @@ const AnswerInsights = ({content}) => {
                     <AnswerVideo 
                         url={content.answer.uri}
                         start_time={0}
-                    />}
-                { content.answer.text !== '' && <FullAnswer src={content.answer.text} /> }
+                    />
+                }
                 {
                     (content.answer.uri !== '' && content.answer.uri !== null) && 
-                    <div className='source'>
-                        <span>Explore the full answer </span>
-                        <a 
-                            href={ url } 
-                            target='_blank'
-                        >
-                            here
-                        </a>
+                    <div className='answer-link'>
+                        <Link /> <a href={url} target='_blank'>{url}</a>
                     </div>
                 }
+                { content.answer.text !== '' && <FullAnswer src={content.answer.text} /> }
             </div>
         }
     </div>
