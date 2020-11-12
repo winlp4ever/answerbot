@@ -172,8 +172,8 @@
                     svg {
                         width: 1.2em;
                         height: 1.2em;
-                        stroke-width: 1px;
-                        stroke: white;
+                        stroke-width: 2px !important;
+                        stroke: whitesmoke;
                     }
                 }
                 .pin, .pinned, .open-next-to {
@@ -183,14 +183,13 @@
                     border-radius: 50%;
                     //background: #fff8e1;
                     svg {
-                        stroke-width: 1px;
                         width: 1.1em;
                         height: 1.1em;
                         transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
                     }
                     &.pinned {
                         svg {
-                            fill: white;
+                            fill: whitesmoke;
                         }
                     }
                 }

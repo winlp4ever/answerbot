@@ -3,11 +3,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import './_answer-insights.scss';
 import MdRender from '../markdown-render/markdown-render';
 import { userContext } from '../user-context/user-context';
+import { Feather, Link } from 'react-feather';
+
+import AnswerVideo from './answer-video';
 
 const FullAnswer = ({src}) => {
     return <div className='full-answer'>
         <h4>
-            &#128214;
+            <Feather />
             Answer
         </h4>
         <MdRender source={src} />
@@ -21,28 +24,32 @@ const AnswerInsights = ({content}) => {
     
     useEffect(() => {
         try {
-            let _url = (new URL(content.answer.uri)).hostname;
-            setURL(_url);
+            if (content.answer.uri.startsWith('/')) {
+                setURL(user.referrer + content.answer.uri);
+            } else {
+                setURL(content.answer.uri);   
+            }
         } catch (err) {}
-    }, [])
+    }, [content])
 
     return <div className='answer-insights-container'>
         {
             content != null && 
             <div className='answer-insights'>
-                <FullAnswer src={content.answer.text} />
+                { 
+                    content.answer.source_type === 'video' && 
+                    <AnswerVideo 
+                        url={content.answer.uri}
+                        start_time={0}
+                    />
+                }
                 {
-                    (content.answer.uri != '' && content.answer.uri != null) && 
-                    <div className='source'>
-                        <span>Explore the full answer </span>
-                        <a 
-                            href={ content.answer.uri } 
-                            { ...( url == user.referrer ? {}: { target: '_blank' }) }
-                        >
-                            here
-                        </a>
+                    (content.answer.uri !== '' && content.answer.uri !== null) && 
+                    <div className='answer-link'>
+                        <Link /> <a href={url} target='_blank'>{url}</a>
                     </div>
                 }
+                { content.answer.text !== '' && <FullAnswer src={content.answer.text} /> }
             </div>
         }
     </div>

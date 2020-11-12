@@ -48,7 +48,7 @@
         bottom: 250px;
         border-top: solid 1em transparent;
         border-bottom: solid 0.6em transparent;
-        border-left: solid 0.6em #f2f2f2;
+        border-left: solid 0.6em #f6f8fa;
         //box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
     }
     .answer-insights {
@@ -66,31 +66,19 @@
         &::-webkit-scrollbar {
             display: none;
         }
+        svg {
+            width: 1.6em;
+            height: 1.6em;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5em;
+            stroke-width: 2.2px;
+        }
         .full-answer, .orientation, .source {
             position: relative;
             box-sizing: border-box;
             padding: 0.25em 0.4em;
             margin: 0 0.15em;
-            scrollbar-color: rgb(209, 209, 209) transparent;
-            scrollbar-width: thin;
-            font-family: 'Roboto', sans-serif;
-            &::-webkit-scrollbar {
-                width: 0.25em;
-            }
-            &::-webkit-scrollbar-track {
-                background: transparent;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: rgb(209, 209, 209);
-                border-radius: 10px;
-            }
-            &::-webkit-scrollbar-thumb:hover {
-                background: #6b6b6b;
-            }
-            max-height: 400px;
-            overflow-y: scroll;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
             h4 {
                 display: block;
                 line-height: 1.6;
@@ -98,12 +86,6 @@
                 padding: 0.2em 0em;
                 margin: 0;
                 font-family: 'Nunito', sans-serif;
-                svg {
-                    width: 1.6em;
-                    height: 1.6em;
-                    vertical-align: middle;
-                    margin-right: 0.5em;
-                }
             }
             &.orientation:before {
                 content: '';
@@ -115,14 +97,43 @@
                 background: grey;
             }
             .markdown-render {
+                max-height: 400px;
+                overflow-y: scroll;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+                scrollbar-color: rgb(209, 209, 209) transparent;
+                scrollbar-width: thin;
+                font-family: 'Roboto', sans-serif;
+                &::-webkit-scrollbar {
+                    width: 0.25em;
+                }
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: rgb(209, 209, 209);
+                    border-radius: 10px;
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                    background: #6b6b6b;
+                }
                 ol, ul {
                     margin: 0;
                     padding-left: 1.5em;
+                }
+                p:first-of-type {
+                    margin-top: 0;
+                }
+                p:last-of-type {
+                    margin-bottom: 0;
                 }
             }
         }
         .source {
             border-top: 1px solid lightgrey;
+        }
+        .answer-link, .video-deco {
+            padding: 0.2em 0.5em;
         }
     }
 }

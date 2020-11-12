@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import ReactPlayer from 'react-player'
 import { Button } from '@material-ui/core'
-import {Play, Pause} from 'react-feather'
+import { Play, Pause, Video } from 'react-feather'
 import './_answer-video.scss'
 
 const AnswerVideo = ({url, start_time}) => {
@@ -21,6 +21,10 @@ const AnswerVideo = ({url, start_time}) => {
         setIsPlaying(!isPlaying)
     }
     return <div className='answer-video'>
+        <div className='video-deco'>
+            <Video />
+            <b>Video</b>
+        </div>
         <div className='video-wrapper'>
             <ReactPlayer 
                 url={url} 
