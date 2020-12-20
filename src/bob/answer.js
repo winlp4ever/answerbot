@@ -10,18 +10,15 @@ import AskRequest from './ask-request'
 import {postForData} from '../utils'
 
 // import svgs
-import RatingIcon from '../../imgs/bob/rating.svg'
-import StarIcon from '../../imgs/bob/star.svg'
 import _StarIcon from '../../imgs/bob/_star.svg'
-import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
-import {Maximize2, Bookmark, Star} from 'react-feather'
+import { Maximize2, Bookmark, Star, ThumbsUp, ThumbsDown, Minimize2 } from 'react-feather'
 
 
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
 
-    const [pin, setPin] = useState(false)
+    const [liked, setLiked] = useState(0)
     const [foc, setFoc] = useState(false)
     const [showAnswer, setShowAnswer] = useState(false)
 
@@ -48,25 +45,32 @@ const Answer = ({content, socket, setIns}) => {
         setFoc(!foc)
     }
 
-    const togglePin = () => {
-        setPin(!pin)
+    const toggleLiked = (note) => {
+        if (liked !== note) setLiked(note);
+        else setLiked(0);
     }
 
+    console.log(content);
     return <div>
         {showAnswer && <div 
             className={'answer' + (foc? ' foc': '')} 
         >
             
             <div className='taskbar'>
-                <Button className={pin? 'pinned' : 'pin'} 
-                    onClick={togglePin}
+                <Button className={liked == -1? 'pinned' : 'pin'} 
+                    onClick={_ => toggleLiked(-1)}
                 >
-                    <Bookmark/>
+                    <ThumbsDown />
+                </Button>
+                <Button className={liked == 1? 'pinned' : 'pin'} 
+                    onClick={_ => toggleLiked(1)}
+                >
+                    <ThumbsUp />
                 </Button>
                 <Button className={'open-next-to' + (foc ? ' clicked': '')} 
                     onClick={handleClick}
                 >
-                    <Maximize2 />
+                    {foc ? <Minimize2 />: <Maximize2 />}
                 </Button>
             </div>
             
@@ -78,7 +82,7 @@ const Answer = ({content, socket, setIns}) => {
             </span>
             <Button className='see-more' onClick={handleClick}>(see more)...</Button>
         </div>}
-        
+        <AskRequest q={content.original_question}/>
     </div>
 }
 

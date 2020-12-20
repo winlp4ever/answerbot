@@ -2,7 +2,7 @@
     .bob {
         .ask-req {
             //float: left;
-            display: inline-block;
+            //display: inline-block;
             margin: auto;
             text-transform: none;
             letter-spacing: unset;
@@ -12,7 +12,7 @@
             font-weight: 700;
             border: 1px solid rgb(207, 207, 207) !important;
             //background: #5b77e7;
-            margin-top: 0.2em;
+            margin-top: 1em;
             //line-height: 1.5;
             border-radius: 2em !important;
             //border: 1px solid lightgrey;
@@ -25,6 +25,7 @@
                 height: 1.1em !important;
                 width: 1.1em !important;
                 margin: 0 0.25em !important;
+                vertical-align: middle;
             }
             &:hover {
                 background: whitesmoke;
@@ -45,8 +46,8 @@
             border-radius: 0.5em;
             background: white;
             transform: translateX(0.25em);
-            margin-top: 0.2em;
-            font-size: 0.9em;
+            margin-top: 1em;
+            font-size: 0.8em;
             text-align: right;
             color: #424242;
             transition: 0.25s all cubic-bezier(0, 0, 0.2, 1);
