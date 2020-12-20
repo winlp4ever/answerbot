@@ -10,7 +10,7 @@ import IsTyping from '../../sounds/is-typing.mp3'
 import Lottie from 'react-lottie'
 import TypingIcon from '../../imgs/typing.json'
 import Welcome from './welcome'
-import Answer, {RateTheAnswer} from './answer'
+import Answer from './answer'
 import NewChat from './new-chat'
 
 // import svgs
@@ -86,13 +86,12 @@ const ChatSegment = (props) => {
         </div>
         <div className='content'>
             {props.chats.map((c, id) => {
-                if (c.type == 'chat') return <Chat key={id} content={c}/>
+                if (c.type == 'chat') return <Chat key={id} content={c}/>;
                 if (c.type == 'answer') 
-                    return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>
-                if (c.type == 'rating')
-                   return <RateTheAnswer key={id} content={c} uid={user.userid} />
+                    return <Answer key={id} content={c} socket={props.socket} setIns={props.setIns}/>;
+                if (c.type == 'rating') return null;
                 if (c.type == 'related-questions')
-                    return <RelatedQuestions key={id} content={c} socket={props.socket} />
+                    return <RelatedQuestions key={id} content={c} socket={props.socket} />;
             })}
         </div>
     </div>
