@@ -116,7 +116,7 @@
                     &.me {
                         .chat {
                             .text {
-                                background: #4f6cdf;
+                                background: #1446a0;
                                 color: whitesmoke;
                                 border-bottom-right-radius: 1.5em;
                                 border-bottom-left-radius: 1.5em;
@@ -136,7 +136,7 @@
                             left: 0em;
                             color:#424242;
                             width: 100%;
-                            text-align: right;
+                            text-align: left;
                             
                             span {
                                 vertical-align: middle;
@@ -163,13 +163,16 @@
                         .chat, .rating{
                             text-align: left;
                             .text {
-                                background: transparent;
-                                color: #212121;
+                                background: #e4e4e4;
+                                columns: #212121;
                                 //font-weight: 600;
                                 margin: 0.15em 0;
                                 transform-origin: bottom right;
                                 //padding-left: 0;
                                 //border: 1px solid lightgrey;
+                                border-bottom-right-radius: 1.5em;
+                                border-bottom-left-radius: 1.5em;
+                                border-top-right-radius: 1.5em;  
                             }
                             .time {
                                 right: 0;

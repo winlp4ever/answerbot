@@ -50,7 +50,6 @@ const Answer = ({content, socket, setIns}) => {
         else setLiked(0);
     }
 
-    console.log(content);
     return <div>
         {showAnswer && <div 
             className={'answer' + (foc? ' foc': '')} 

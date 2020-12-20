@@ -70,7 +70,7 @@ const ChatSegment = (props) => {
     // check if these phrases are spoken by current user
     if (props.chats.length > 0) {
         if (user.userid == props.chats[0].user.userid) cl += ' me'
-        if (props.chats[0].user.userid == -1) {
+        if (props.chats[0].user.userid === 0 || props.chats[0].user.userid === -1) {
             cl += ' chatbot'
             isBob = true
         }
