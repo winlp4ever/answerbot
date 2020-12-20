@@ -49,6 +49,8 @@ class MdRender extends Component {
 		let src = this.props.source
 			.replace(/\.\.\.\n\[highlight\]/g, '...\n\n---')
 			.replace(/\[\\highlight\]/g, '\n---')
+			.replace(/^\.\.\.\n/, '')
+			.replace(/\n\.\.\.$/, '')
 			.replace(/\\+/g, '\\');
 			//.replace(/(?<=_(.|\s)+)_(?=[a-z|0-9])/g, '_ ')
 		return (

@@ -7,13 +7,19 @@ import { Feather, Link } from 'react-feather';
 
 import AnswerVideo from './answer-video';
 
-const FullAnswer = ({src}) => {
+const FullAnswer = ({src, url}) => {
     return <div className='full-answer'>
         <h4>
             <Feather />
             Answer
         </h4>
         <MdRender source={src} />
+        {
+            (url !== '' && url !== null) && 
+            <div className='answer-link'>
+                <a href={url} target='_blank'><b>Explore the source</b></a>
+            </div>
+        }
     </div>
 }
 
@@ -43,13 +49,7 @@ const AnswerInsights = ({content}) => {
                         start_time={0}
                     />
                 }
-                {
-                    (content.answer.uri !== '' && content.answer.uri !== null) && 
-                    <div className='answer-link'>
-                        <Link /> <a href={url} target='_blank'>{url}</a>
-                    </div>
-                }
-                { content.answer.text !== '' && <FullAnswer src={content.answer.text} /> }
+                { content.answer.text !== '' && <FullAnswer src={content.answer.text} url={url} /> }
             </div>
         }
     </div>

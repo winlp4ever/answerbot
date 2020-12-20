@@ -58,21 +58,31 @@
         padding: 0.25em 0em;
         height: 100%;
         overflow-y: scroll;
-        white-space: pre-line;
         overflow-wrap: break-word;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        transition: 0.25s all cubic-bezier(0, 0, 0.4, 1);
+        white-space: pre-wrap;
+        scrollbar-color: rgb(209, 209, 209) transparent;
+        scrollbar-width: thin;
+        font-family: 'Roboto', sans-serif;
         &::-webkit-scrollbar {
-            display: none;
+            width: 0.25em;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgb(209, 209, 209);
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #6b6b6b;
         }
         svg {
-            width: 1.6em;
-            height: 1.6em;
+            width: 1.25em;
+            height: 1.25em;
             display: inline-block;
             vertical-align: middle;
             margin-right: 0.5em;
-            stroke-width: 2.2px;
+            //stroke-width: 2px;
         }
         .full-answer, .orientation, .source {
             position: relative;
@@ -97,26 +107,8 @@
                 background: grey;
             }
             .markdown-render {
-                max-height: 400px;
-                overflow-y: scroll;
-                overflow-wrap: break-word;
-                white-space: pre-wrap;
-                scrollbar-color: rgb(209, 209, 209) transparent;
-                scrollbar-width: thin;
-                font-family: 'Roboto', sans-serif;
-                &::-webkit-scrollbar {
-                    width: 0.25em;
-                }
-                &::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-                &::-webkit-scrollbar-thumb {
-                    background: rgb(209, 209, 209);
-                    border-radius: 10px;
-                }
-                &::-webkit-scrollbar-thumb:hover {
-                    background: #6b6b6b;
-                }
+                //max-height: 400px;
+                
                 ol, ul {
                     margin: 0;
                     padding-left: 1.5em;
@@ -133,7 +125,7 @@
             border-top: 1px solid lightgrey;
         }
         .answer-link, .video-deco {
-            padding: 0.2em 0.5em;
+            padding: 0.2em 0em;
         }
     }
 }

@@ -1,10 +1,12 @@
 .bob-container {
     .bob {
         .ask-req {
-            float: right;
+            //float: left;
+            display: inline-block;
+            margin: auto;
             text-transform: none;
             letter-spacing: unset;
-            text-align: right;
+            text-align: left;
             font-family: 'Nunito', sans-serif;
             font-size: 0.8em !important;
             font-weight: 700;
@@ -42,7 +44,7 @@
             border: 1px solid rgb(223, 223, 223);
             border-radius: 0.5em;
             background: white;
-            transform: translateX(-0.8em);
+            transform: translateX(0.25em);
             margin-top: 0.2em;
             font-size: 0.9em;
             text-align: right;
@@ -51,8 +53,9 @@
             h4 {
                 display: block;
                 text-align: center;
-                font-size: 1em;
+                font-size: 0.9em;
                 margin: 0;
+                padding: 0.2em 0.5em;
                 border-bottom: 1px solid lightgrey;
             }
             textarea {

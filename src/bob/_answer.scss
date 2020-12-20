@@ -3,7 +3,7 @@
         .answer {
             width: 105%;
             position: relative;
-            transform: translateX(-0.9em);
+            transform: translateX(0.25em);
             background: linear-gradient(to right, #42b1ce 0%, #128db4 100%);
             font-size: 0.8em;
             color: whitesmoke;
@@ -200,10 +200,9 @@
             .rating-stars {
                 position: relative;
                 display: inline-block;
-                text-align: right;
-                padding: 0.5em 0 0 !important;
+                text-align: left;
+                padding: 0.1em 0.5em;
                 width: 100%;
-                margin-right: -3px;
                 .already-rate-msg {
                     //display: block;
                     opacity: 0;
