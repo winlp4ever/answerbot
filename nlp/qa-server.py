@@ -10,7 +10,7 @@ import requests
 import json
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://bob3wa:@theai_bob3wa_2020@test-db.czcdgzwouwz1.eu-west-3.rds.amazonaws.com:5433/dbbob3wa"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://bob3wa:@theai_bob3wa_2020@db-core.czcdgzwouwz1.eu-west-3.rds.amazonaws.com:5432/dbbob3wa"
 db = SQLAlchemy(app)
 res = Responder()
 

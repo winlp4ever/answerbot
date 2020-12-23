@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
 const options = {};
-var PORT = 5000;
+var PORT = 3001;
 
 var mode = 'prod';
 if (process.argv.length < 3) mode = 'prod';
