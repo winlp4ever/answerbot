@@ -18,8 +18,11 @@ import _StarIcon from '../../imgs/bob/_star.svg'
 import PinIcon from '../../imgs/bob/pin.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import {Maximize2, Bookmark, Star} from 'react-feather'
+import { useMatomo } from '@datapunt/matomo-tracker-react'
+
 
 const RateTheAnswer = () => {
+    const user = useContext(userContext).user
     const [score, setScore] = useState(0)
     const [evalMsg, setEvalMsg] = useState('')
 
@@ -117,7 +120,7 @@ const Answer = ({content, socket, setIns}) => {
                       value: '3WA',
                     }, {
                       id: 2,
-                      value: user.exerciseid,
+                      value: Us.user.exerciseid,
                     },
                 ],
             })
