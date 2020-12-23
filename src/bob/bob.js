@@ -46,7 +46,6 @@ const PageTrack = (props) => {
     const { trackEvent, trackPageView, pushInstruction } = useMatomo()
 
     useEffect(() => {
-        let st = performance.now();
         pushInstruction('setUserId', user.userid);
         trackEvent({ 
             category: 'bob|open-bob', 
@@ -141,11 +140,30 @@ export default class Bob extends Component {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 // update state
+                console.log(msg);
                 this.setState({
                     newResponseComing: true,
                     chats: chats_,
                     isTyping: false
                 });
+                this.context.user.matomoTracker.trackEvent({
+                    category: 'bob|bob-msg', 
+                    action: 'server-event', 
+                    customDimensions: [
+                        {
+                            id: 1,
+                            value: '3WA',
+                        }, {
+                            id: 2,
+                            value: this.context.user.exerciseid,
+                        }, {
+                            id: 3,
+                            value: msg.chat.type
+                        }
+                    ],
+                    exercise_id: this.context.user.exerciseid,
+                })
+                this.context.user.matomoTracker.trackSiteSearch({ category: 'bob|bob-msg', keyword: msg.chat.text })
                 this._scrollToBottom();
             }
         })

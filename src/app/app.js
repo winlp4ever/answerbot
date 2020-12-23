@@ -39,10 +39,11 @@ export default class App extends Component {
             level: 'Master2',
             history: [],
             bookmarks: {},
-            colorMode: 0
+            colorMode: 0,
+            matomoTracker: instance
         },
         activeTab: 0,
-        colorMode: 0
+        colorMode: 0,
     }
 
     componentDidMount() {
