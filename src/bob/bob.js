@@ -14,7 +14,7 @@ import './_bob.scss';
 
 // other cpns imports
 import BobMenu from './menu';
-import Ask from './ask';
+import Conversation from './conversation';
 import NewChat from './new-chat'
 import HistoryBookmarks from './history-bookmarks';
 import AnswerInsights from './answer-insights';
@@ -31,7 +31,7 @@ const Options = [
     {
         icon: <MessageCircle />,
         cl: 'view-ask',
-        view: (props) => <Ask {...props} />,
+        view: (props) => <Conversation {...props} />,
         name: 'chat'
     },
     {

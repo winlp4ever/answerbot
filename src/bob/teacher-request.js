@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from 'uuid'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Button from '@material-ui/core/Button'
 import { Check, X, Inbox } from 'react-feather'
-import './_ask-request.scss'
+import './_teacher-request.scss'
 
 import { BOB_API_ENDPOINT } from '../variables'
 
-const AskRequest = (props) => {
+const TeacherRequest = (props) => {
     const [wantToSend, setWantToSend] = useState(false)
     const [sent, setSent] = useState(false)
     const [msg, setMsg] = useState(props.q)
@@ -77,4 +77,4 @@ const AskRequest = (props) => {
     </div>
 }
 
-export default AskRequest
+export default TeacherRequest

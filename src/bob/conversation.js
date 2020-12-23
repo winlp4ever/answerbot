@@ -5,7 +5,7 @@ import {userContext} from '../user-context/user-context'
 import Sound from 'react-sound'
 import {CSSTransition} from 'react-transition-group';
 
-import './_ask.scss'
+import './_conversation.scss'
 import IsTyping from '../../sounds/is-typing.mp3'
 import Lottie from 'react-lottie'
 import TypingIcon from '../../imgs/typing.json'
@@ -18,7 +18,7 @@ import _StarIcon from '../../imgs/bob/_star.svg'
 import _PinIcon from '../../imgs/bob/_pin.svg'
 import BobOutlined from '../../imgs/bob/bob-outlined.svg'
 import RelatedQuestions from './related-questions';
-import AskRequest from './ask-request';
+import TeacherRequest from './teacher-request';
 
 class Typing extends Component {
     state = {
@@ -36,7 +36,7 @@ class Typing extends Component {
             autoplay: true,
             animationData: TypingIcon,
             rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
+                preserveAspectRatio: 'xMidYMid slice'
             }
         }
   
@@ -57,7 +57,7 @@ const Chat = ({content}) => {
     return <div className='chat'>
         <span className='text' dangerouslySetInnerHTML={{__html: content.text}}/>
         {content.time ? <span className='time'>{content.time}</span>: null}
-        {(content.original_question != undefined) && <AskRequest q={content.original_question} />}
+        {(content.original_question != undefined) && <TeacherRequest q={content.original_question} />}
     </div>
 }
 
@@ -97,7 +97,7 @@ const ChatSegment = (props) => {
     </div>
 }
 
-const Ask = (props) => {
+const Conversation = (props) => {
     let chatsRef = useRef(null)
 
     useEffect(() => {
@@ -137,4 +137,4 @@ const Ask = (props) => {
     </div>
 }
 
-export default Ask
+export default Conversation;

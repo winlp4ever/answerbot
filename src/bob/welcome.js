@@ -7,7 +7,7 @@ const Welcome = () => {
     const [msg, setMsg] = useState('')
 
     const _retrieveMsg = async () => {
-        setMsg('Hi, have a question? Just ask me!!!')
+        setMsg('Hi, any questions? Just ask me!!!')
     }
     useEffect(() => {
         _retrieveMsg();
