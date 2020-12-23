@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 import { postForData } from '../utils'
 import {userContext} from '../user-context/user-context'
@@ -8,6 +8,9 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import Button from '@material-ui/core/Button'
 import { Check, X, Inbox } from 'react-feather'
 import './_ask-request.scss'
+import { Category } from '@material-ui/icons'
+
+import { useMatomo } from '@datapunt/matomo-tracker-react'
 
 const AskRequest = (props) => {
     const [wantToSend, setWantToSend] = useState(false)
@@ -15,6 +18,9 @@ const AskRequest = (props) => {
     const [msg, setMsg] = useState(props.q)
     const [foc, setFoc] = useState(false)
     const user = useContext(userContext).user
+
+    // matomo tracker
+    const { trackEvent, trackSiteSearch } = useMatomo()
 
     const toggleFocus = () => setFoc(!foc)
     const toggleMode = () => setWantToSend(!wantToSend)
@@ -27,8 +33,24 @@ const AskRequest = (props) => {
             uuid: uuidv4(),
             q: msg
         })
-        console.log(data)
-        setSent(true)
+        console.log(data);
+        let id_ = user.userid;
+        trackEvent({ 
+            category: 'bob|ask-teacher', 
+            action: 'click-event', 
+            customDimensions: [
+                {
+                  id: 1,
+                  value: '3WA',
+                }, {
+                  id: 2,
+                  value: user.exerciseid,
+                },
+            ],
+            exercise_id: user.exerciseid,
+        })
+        trackSiteSearch({ category: 'bob|student-question-for-professor', keyword: msg })
+        setSent(true);
     }
     if (!wantToSend) return <Button 
         className='text ask-req' 

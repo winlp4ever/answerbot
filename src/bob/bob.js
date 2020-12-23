@@ -41,11 +41,41 @@ const Options = [
 ]
 
 const PageTrack = (props) => {
-    const { trackPageView } = useMatomo()
+    const user = useContext(userContext).user
+
+    const { trackEvent, trackPageView, pushInstruction } = useMatomo()
 
     useEffect(() => {
-        let st = performance.now()
-        trackPageView()
+        let st = performance.now();
+        pushInstruction('setUserId', user.userid);
+        trackEvent({ 
+            category: 'bob|open-bob', 
+            action: 'click-event', 
+            customDimensions: [
+                {
+                  id: 1,
+                  value: '3WA',
+                }, {
+                  id: 2,
+                  value: user.exerciseid,
+                },
+            ],
+            exercise_id: user.exerciseid,
+        })
+        trackPageView({
+            documentTitle: '3wa - web dev', // optional
+            customDimensions: [
+                {
+                    id: 1,
+                    value: '3WA',
+                },
+                {
+                    id: 2,
+                    value: user.exerciseid
+                }
+            ], // optional
+        })
+      
         return () => {}
     }, [])
     return null
@@ -67,6 +97,10 @@ const OnboardMsg = (props) => {
 
 export default class Bob extends Component {
     static contextType = userContext;
+
+    // matomo tracker
+    // static trackEvent = useMatomo().trackEvent
+
     state = {
         hints: [],
         chats: [],

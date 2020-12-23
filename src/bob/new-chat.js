@@ -45,7 +45,7 @@ const NewChat = (props) => {
     const [hints, setHints] = useState([])
 
     // matomo tracker
-    const { trackPageView, trackEvent, trackSiteSearch } = useMatomo()
+    const { trackEvent, trackSiteSearch, pushInstruction } = useMatomo()
 
     const askForHints = useRef(null)
     const input = useRef(null)
@@ -53,7 +53,7 @@ const NewChat = (props) => {
     const user = useContext(userContext).user
 
     useEffect(() => {
-        trackPageView()
+        //trackPageView()
     }, [])
 
     const viewHideHints = () => {
@@ -92,6 +92,21 @@ const NewChat = (props) => {
          * Params:
          *      h: str - hint
          */
+        trackEvent({ 
+            category: 'bob|apply-hint', 
+            action: 'click-event', 
+            customDimensions: [
+                {
+                  id: 1,
+                  value: '3WA',
+                }, {
+                  id: 2,
+                  value: user.exerciseid,
+                },
+            ],
+            exercise_id: user.exerciseid,
+        })
+        trackSiteSearch({ category: 'bob|student-applied-hint-for-bob', keyword: h })
         send(h)
     }
 
@@ -117,14 +132,22 @@ const NewChat = (props) => {
         input.current.value = ''
 
         // retrieve user id, if anonymous, then retrieve the hex userid from cookies
-        let id_ = user.userid.toString(16)
-        if (user.userid == -1) {
-            if (Cookies.get('hex-anonymous-user-id') == undefined) 
-                Cookies.set('hex-anonymous-user-id', uuidv4(), { expires: 3 }) 
-            id_ = Cookies.get('hex-anonymous-user-id')
-        }
-        trackEvent({ category: 'send-question', action: 'click-event', _id: id_ })
-        trackSiteSearch({ category: 'question', keyword: newchat, _id: id_ })
+        
+        trackEvent({ 
+            category: 'bob|ask-bob', 
+            action: 'click-event', 
+            customDimensions: [
+                {
+                  id: 1,
+                  value: '3WA',
+                }, {
+                  id: 2,
+                  value: user.exerciseid,
+                },
+            ],
+            exercise_id: user.exerciseid,
+        })
+        trackSiteSearch({ category: 'bob|student-question-for-bob', keyword: msg })
     }
 
     const handleKeyDown = (e) => {
