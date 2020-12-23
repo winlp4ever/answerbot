@@ -104,7 +104,6 @@ const NewChat = (props) => {
                   value: user.exerciseid,
                 },
             ],
-            exercise_id: user.exerciseid,
         })
         trackSiteSearch({ category: 'bob|student-applied-hint-for-bob', keyword: h })
         send(h)
@@ -145,7 +144,6 @@ const NewChat = (props) => {
                   value: user.exerciseid,
                 },
             ],
-            exercise_id: user.exerciseid,
         })
         trackSiteSearch({ category: 'bob|student-question-for-bob', keyword: msg })
     }

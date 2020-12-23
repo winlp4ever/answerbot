@@ -23,9 +23,27 @@ const RateTheAnswer = () => {
     const [score, setScore] = useState(0)
     const [evalMsg, setEvalMsg] = useState('')
 
-    const _retrieveRating = async () => {
-        let data = await postForData('/post-answer-rating', {
+    const { trackEvent } = useMatomo()
 
+    const _retrieveRating = async () => {
+        //
+    }
+
+    const noteAnswer = (i) => {
+        setScore(i);
+        trackEvent({ 
+            category: 'bob|note-answer', 
+            action: 'note-answer', 
+            value: i,
+            customDimensions: [
+                {
+                  id: 1,
+                  value: '3WA',
+                }, {
+                  id: 2,
+                  value: user.exerciseid,
+                }
+            ],
         })
     }
 
@@ -44,7 +62,7 @@ const RateTheAnswer = () => {
             <span className='rating-stars'>
                 {[1, 2, 3, 4, 5].map(i => <i 
                     key={i}
-                    onClick={_ => setScore(i)}
+                    onClick={_ => noteAnswer(i)}
                     className={i <= score ? 'on': 'off'}
                 >
                    {i <= score? <Star className='filled'/>:<Star />}
@@ -57,6 +75,8 @@ const RateTheAnswer = () => {
 
 const Answer = ({content, socket, setIns}) => {
     const Us = useContext(userContext)
+
+    const { trackEvent } = useMatomo()
 
     let u = content.datetime in Us.user.bookmarks
     const [pin, setPin] = useState(u)
@@ -86,7 +106,22 @@ const Answer = ({content, socket, setIns}) => {
 
     const handleClick = () => {
         if (foc) setIns(null)
-        else setIns(content)
+        else {
+            setIns(content);
+            trackEvent({ 
+                category: 'bob|explore-answer', 
+                action: 'explore-answer', 
+                customDimensions: [
+                    {
+                      id: 1,
+                      value: '3WA',
+                    }, {
+                      id: 2,
+                      value: user.exerciseid,
+                    },
+                ],
+            })
+        }
         setFoc(!foc)
     }
 

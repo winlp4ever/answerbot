@@ -148,7 +148,8 @@ export default class Bob extends Component {
                 });
                 this.context.user.matomoTracker.trackEvent({
                     category: 'bob|bob-msg', 
-                    action: 'server-event', 
+                    action: 'bob-response', 
+                    value: msg.chat.text.length,
                     customDimensions: [
                         {
                             id: 1,
@@ -161,9 +162,7 @@ export default class Bob extends Component {
                             value: msg.chat.type
                         }
                     ],
-                    exercise_id: this.context.user.exerciseid,
                 })
-                this.context.user.matomoTracker.trackSiteSearch({ category: 'bob|bob-msg', keyword: msg.chat.text })
                 this._scrollToBottom();
             }
         })

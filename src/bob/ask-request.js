@@ -40,14 +40,13 @@ const AskRequest = (props) => {
             action: 'click-event', 
             customDimensions: [
                 {
-                  id: 1,
-                  value: '3WA',
+                    id: 1,
+                    value: '3WA',
                 }, {
-                  id: 2,
-                  value: user.exerciseid,
+                    id: 2,
+                    value: user.exerciseid,
                 },
             ],
-            exercise_id: user.exerciseid,
         })
         trackSiteSearch({ category: 'bob|student-question-for-professor', keyword: msg })
         setSent(true);
