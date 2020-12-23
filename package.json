@@ -49,7 +49,7 @@
   "description": "",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@datapunt/matomo-tracker-react": "^0.1.5",
+    "@datapunt/matomo-tracker-react": "^0.3.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@microlink/react": "^4.5.1",
